@@ -1,0 +1,1 @@
+{"schemaVersion":"daily-game-content-manifest.v1","gameId":"second-minimal-game","defaultMaxGuesses":6,"inputModes":["text"],"share":{"emoji":"🎮","includeGuessCount":true,"includeDate":true},"puzzleSchema":{"type":"game-owned","path":"content/schemas/puzzle.schema.json"},"extension":{}}

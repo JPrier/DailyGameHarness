@@ -1,0 +1,24 @@
+name: deploy
+on:
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: cargo run -p daily_game_tools -- prepare-static-build
+      - run: cd web && npm ci && npm run build
+      - run: cargo run -p daily_game_tools -- check-static-output --dist web/dist
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - run: aws s3 sync web/dist s3://${{ secrets.S3_BUCKET }} --delete --cache-control max-age=31536000,public --exclude "*.html" --exclude "*.json"
+      - run: aws s3 sync web/dist s3://${{ secrets.S3_BUCKET }} --delete --cache-control max-age=60,no-cache --exclude "*" --include "*.html" --include "*.json"
+      - if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

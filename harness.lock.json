@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "daily-game-harness-lock.v1",
+  "games": [
+    {
+      "sourceType": "local",
+      "repo": null,
+      "requestedRef": null,
+      "resolvedSha": null,
+      "localPath": "/workspace/DailyGameHarness/fixtures/games/minimal-text-game"
+    }
+  ]
+}

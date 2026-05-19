@@ -1,0 +1,12 @@
+---
+import { generatedGameRegistry } from '../../../generated/game-registry';
+export function getStaticPaths() {
+  const paths = [];
+  for (const g of Object.values(generatedGameRegistry)) {
+    for (const date of g.dates) paths.push({ params: { gameSlug: g.slug, date }, props: { game: g, date } });
+  }
+  return paths;
+}
+const { game, date } = Astro.props;
+---
+<html><body><h1>{game.displayName} {date}</h1></body></html>

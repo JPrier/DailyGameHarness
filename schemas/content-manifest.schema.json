@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "gameId", "defaultMaxGuesses", "inputModes", "share", "puzzleSchema", "extension"],
+  "properties": {
+    "schemaVersion": {"const": "daily-game-content-manifest.v1"},
+    "gameId": {"type": "string", "minLength": 1},
+    "defaultMaxGuesses": {"type": "integer", "minimum": 1},
+    "inputModes": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "share": {"type": "object"},
+    "puzzleSchema": {"type": "object"},
+    "extension": {"type": "object", "additionalProperties": true}
+  }
+}
