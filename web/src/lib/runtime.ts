@@ -1,4 +1,7 @@
-export type ReturnTypeGame = { game: any; manifest: any; dateIndex: any };
-export async function createRuntimeFor(game: any) {
+import type { GameRuntime, RegisteredGame } from './types';
+
+export type LoadedGameBundle = { game: RegisteredGame; manifest: unknown; dateIndex: unknown };
+
+export async function createRuntimeFor(game: RegisteredGame): Promise<GameRuntime> {
   return game.createRuntime();
 }

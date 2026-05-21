@@ -1,20 +1,21 @@
 # Daily Game Harness Status
 
-## Implemented so far
+## Implemented
 - Rust workspace and CLI scaffold (`daily_game_tools`, `daily_game_core`, `daily_game_wasm_support`).
-- Harness config validation, package validation hardening, date-index validation hardening.
-- Static registry generation, public asset preparation, and static output checker baseline.
-- Basic web scaffold with generated registry usage and smoke E2E test.
-- CI and deploy workflow scaffolds.
+- Harness config validation, package validation, date-index discovery, content manifest validation, puzzle common-field validation, and runtime-driven `validateContent` / `validatePuzzle`.
+- Local and git source sync with lockfile coverage for resolved paths, requested refs, resolved SHAs, and changed refs.
+- Static registry generation, deterministic public asset preparation, symlink/dotfile hardening, static route generation, and static output checking.
+- Generic Astro/Svelte shell components for loading, validation, persistence, feedback, results, share behavior, and friendly errors.
+- Fixture and second fixture packages proving the config-only add-game flow.
+- CI, S3 deploy workflow, README contract documentation, Rust tests, Vitest unit/component tests, and Playwright E2E matrix.
 
-## What is still left (highest priority first)
-1. Implement full runtime-driven content validation flow (`validateContent`, `validatePuzzle`) in harness pipeline.
-2. Add comprehensive required tests from spec:
-   - runtime contract determinism/error-path matrix
-   - frontend shell and component tests
-   - full Playwright 10-case E2E matrix
-   - static output negative checks (`.git`/private cache exclusion, missing references, etc.)
-3. Expand the config-only add-game proof from tooling-level assertions to full pipeline/route checks in tests.
-4. Harden public asset copy against symlink escape deterministically in non-test runtime code.
-5. Expand lockfile and git-source behavior tests (requested ref vs resolved SHA updates).
-6. Complete README with full contract/pipeline/how-to documentation required by spec.
+## Verification
+- `cargo fmt --all -- --check`: pass.
+- `cargo clippy --workspace --all-targets -- -D warnings`: pass.
+- `cargo test --workspace`: pass, 31 Rust tests.
+- `cd web && npm run typecheck`: pass.
+- `cd web && npm run test`: pass, 28 Vitest tests.
+- `cargo run -p daily_game_tools -- prepare-static-build`: pass.
+- `cd web && npm run build`: pass.
+- `cargo run -p daily_game_tools -- check-static-output --dist web/dist`: pass.
+- `cd web && npm run test:e2e`: pass, 10 Playwright tests.

@@ -1,14 +1,32 @@
 use anyhow::{bail, Result};
 use regex::Regex;
 use std::path::Path;
+use walkdir::WalkDir;
 
 pub fn check_static_output(dist: &str) -> Result<()> {
     let root = Path::new(dist);
     if !root.join("index.html").exists() {
         bail!("missing dist/index.html")
     }
+    assert_no_private_files(root)?;
+    assert_has_generated_assets(root)?;
 
     let registry = std::fs::read_to_string("web/src/generated/game-registry.ts")?;
+    if registry.contains("/fixtures/") || registry.contains("\\fixtures\\") {
+        // Source import paths are allowed in the generated registry for bundling, but public URLs are not.
+        for url_key in [
+            "contentManifestUrl:",
+            "dateIndexUrl:",
+            "puzzleBaseUrl:",
+            "assetBaseUrl:",
+        ] {
+            for url in extract_all_urls_after(&registry, url_key)? {
+                if url.contains("fixtures") || url.contains(".harness") {
+                    bail!("generated public URL points to source package path: {url}");
+                }
+            }
+        }
+    }
 
     for key in [
         "contentManifestUrl:",
@@ -34,6 +52,39 @@ pub fn check_static_output(dist: &str) -> Result<()> {
         assert_rel_exists(root, &puzzle)?;
     }
 
+    Ok(())
+}
+
+fn assert_no_private_files(dist: &Path) -> Result<()> {
+    for entry in WalkDir::new(dist)
+        .into_iter()
+        .collect::<Result<Vec<_>, _>>()?
+    {
+        let path = entry.path().to_string_lossy();
+        if path.contains(".git") || path.contains(".harness") {
+            bail!("build output contains private file/cache path: {path}");
+        }
+    }
+    Ok(())
+}
+
+fn assert_has_generated_assets(dist: &Path) -> Result<()> {
+    let mut js = false;
+    let mut css = false;
+    for entry in WalkDir::new(dist)
+        .into_iter()
+        .collect::<Result<Vec<_>, _>>()?
+    {
+        if entry.path().extension().and_then(|ext| ext.to_str()) == Some("js") {
+            js = true;
+        }
+        if entry.path().extension().and_then(|ext| ext.to_str()) == Some("css") {
+            css = true;
+        }
+    }
+    if !js || !css {
+        bail!("missing generated JS/CSS assets");
+    }
     Ok(())
 }
 
@@ -104,6 +155,7 @@ mod tests {
         std::fs::create_dir_all("/tmp/dgh-dist/_games/minimal-text-game/content/puzzles")
             .expect("mkdir");
         std::fs::create_dir_all("/tmp/dgh-dist/_games/minimal-text-game/runtime").expect("mkdir");
+        std::fs::create_dir_all("/tmp/dgh-dist/assets").expect("assets");
         std::fs::write("/tmp/dgh-dist/index.html", "ok").expect("write");
         std::fs::write("/tmp/dgh-dist/games/minimal-text-game/index.html", "ok").expect("write");
         std::fs::write(
@@ -131,6 +183,8 @@ mod tests {
             "",
         )
         .expect("write");
+        std::fs::write("/tmp/dgh-dist/assets/app.js", "").expect("js");
+        std::fs::write("/tmp/dgh-dist/assets/app.css", "").expect("css");
 
         std::fs::create_dir_all("web/src/generated").expect("mkdir registry");
         std::fs::write(
@@ -139,5 +193,12 @@ mod tests {
         )
         .expect("write registry");
         assert!(check_static_output("/tmp/dgh-dist").is_ok());
+    }
+
+    #[test]
+    fn rejects_private_cache_in_output() {
+        std::fs::create_dir_all("/tmp/dgh-private/.harness").expect("mkdir");
+        std::fs::write("/tmp/dgh-private/index.html", "ok").expect("index");
+        assert!(check_static_output("/tmp/dgh-private").is_err());
     }
 }

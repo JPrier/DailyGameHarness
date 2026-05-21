@@ -1,8 +1,15 @@
 ---
 import { generatedGameRegistry } from '../../../generated/game-registry';
+import GameShell from '../../../components/GameShell.svelte';
+import { pickDate } from '../../../lib/dates';
 export function getStaticPaths() {
   return Object.values(generatedGameRegistry).map((g) => ({ params: { gameSlug: g.slug }, props: { game: g } }));
 }
 const { game } = Astro.props;
+const date = pickDate(game.dates, new Date().toISOString().slice(0, 10));
 ---
-<html><body><h1>{game.displayName}</h1></body></html>
+<html>
+  <body>
+    <GameShell game={game} date={date} client:load />
+  </body>
+</html>

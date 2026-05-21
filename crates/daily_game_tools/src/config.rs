@@ -64,6 +64,7 @@ mod tests {
     use std::fs;
 
     fn write_temp(content: &str) -> String {
+        fs::create_dir_all("/tmp").expect("tmp");
         let p = format!(
             "/tmp/harness-config-{}-{}.json",
             std::process::id(),

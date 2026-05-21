@@ -76,6 +76,7 @@ mod tests {
     }
 
     fn write_harness_for(path: &str) -> String {
+        std::fs::create_dir_all("/tmp").expect("tmp");
         let p = format!(
             "/tmp/harness-discover-{}-{}.json",
             std::process::id(),
@@ -86,7 +87,7 @@ mod tests {
         );
         let json = format!(
             "{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"routePrefix\":\"\"}},\"games\":[{{\"source\":{{\"type\":\"local\",\"path\":\"{}\"}}}}]}}",
-            path
+            path.replace('\\', "\\\\")
         );
         std::fs::write(&p, json).expect("write harness");
         p

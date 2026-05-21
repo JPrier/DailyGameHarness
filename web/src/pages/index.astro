@@ -2,9 +2,13 @@
 import { generatedGameRegistry } from '../generated/game-registry';
 const games = Object.values(generatedGameRegistry);
 ---
-<html><body>
-<h1>Daily Games</h1>
-<ul>
-  {games.map((g) => <li><a href={`/games/${g.slug}`}>{g.displayName}</a></li>)}
-</ul>
-</body></html>
+<html>
+  <body>
+    <main>
+      <h1>Daily Games</h1>
+      <ul data-testid="game-list">
+        {games.map((g) => <li><a href={`/games/${g.slug}`}>{g.displayName}</a></li>)}
+      </ul>
+    </main>
+  </body>
+</html>
