@@ -1,8 +1,10 @@
+mod archive;
 mod config;
 mod discover;
 mod fetch;
 mod generate;
 mod lockfile;
+mod resolver;
 mod static_check;
 mod validate;
 

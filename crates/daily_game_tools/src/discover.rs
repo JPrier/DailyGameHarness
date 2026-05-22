@@ -9,11 +9,18 @@ use std::path::Path;
 #[serde(rename_all = "camelCase")]
 struct PackageConfig {
     game: PackageGame,
+    content: Option<PackageContent>,
 }
 
 #[derive(Deserialize)]
 struct PackageGame {
     id: String,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct PackageContent {
+    date_index: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -37,7 +44,10 @@ pub fn discover_dates(harness: &str) -> Result<()> {
             let pkg: PackageConfig = serde_json::from_str(&std::fs::read_to_string(
                 root.join("daily-game.config.json"),
             )?)?;
-            let raw = std::fs::read_to_string(root.join("content/date-index.json"))?;
+            let Some(index_path) = pkg.content.and_then(|content| content.date_index) else {
+                continue;
+            };
+            let raw = std::fs::read_to_string(root.join(index_path))?;
             let idx: DateIndex = serde_json::from_str(&raw)?;
             if idx.game_id.is_empty() {
                 bail!("date-index game id missing");
@@ -97,7 +107,10 @@ mod tests {
         std::fs::create_dir_all(tmp.join("content")).expect("mkdir content");
         std::fs::write(
             tmp.join("daily-game.config.json"),
-            format!("{{\"game\":{{\"id\":\"{}\"}}}}", game_id),
+            format!(
+                "{{\"game\":{{\"id\":\"{}\"}},\"content\":{{\"dateIndex\":\"content/date-index.json\"}}}}",
+                game_id
+            ),
         )
         .expect("write package");
         std::fs::write(tmp.join("content/date-index.json"), date_index_json).expect("write index");

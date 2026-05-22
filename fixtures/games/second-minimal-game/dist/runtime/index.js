@@ -5,8 +5,8 @@ export async function createRuntime() {
       const errors = [];
       if (packageConfig?.game?.id && contentManifest?.gameId !== packageConfig.game.id) errors.push({ code: 'manifest_game_mismatch', message: 'Manifest gameId must match package config' });
       if (contentManifest?.schemaVersion !== 'daily-game-content-manifest.v1') errors.push({ code: 'bad_manifest_schema', message: 'Unsupported content manifest schema' });
-      if (dateIndex?.schemaVersion !== 'daily-game-date-index.v1') errors.push({ code: 'bad_date_index_schema', message: 'Unsupported date index schema' });
-      if (dateIndex?.gameId !== contentManifest?.gameId) errors.push({ code: 'date_index_game_mismatch', message: 'Date index gameId must match manifest' });
+      if (dateIndex && dateIndex.schemaVersion !== 'daily-game-date-index.v1') errors.push({ code: 'bad_date_index_schema', message: 'Unsupported date index schema' });
+      if (dateIndex && dateIndex.gameId !== contentManifest?.gameId) errors.push({ code: 'date_index_game_mismatch', message: 'Date index gameId must match manifest' });
       return errors.length ? { ok: false, errors, warnings: [] } : { ok: true, warnings: [] };
     },
     async validatePuzzle({ puzzle }) {

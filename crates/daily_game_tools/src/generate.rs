@@ -1,3 +1,4 @@
+use crate::config::validate_harness_config;
 use crate::validate::{package_roots, read_package_config, resolve_safe_file};
 use anyhow::{anyhow, bail, Result};
 use serde::Deserialize;
@@ -18,6 +19,7 @@ struct DateEntry {
 }
 
 pub fn generate_static_registry(harness: &str) -> Result<()> {
+    let cfg = validate_harness_config(harness)?;
     let workspace = workspace_root()?;
     std::fs::create_dir_all(workspace.join("web/src/generated"))?;
     let mut imports = String::new();
@@ -26,8 +28,17 @@ pub fn generate_static_registry(harness: &str) -> Result<()> {
     for (idx, root) in package_roots(harness)?.into_iter().enumerate() {
         let root = root.canonicalize()?;
         let pkg = read_package_config(&root)?;
-        let date_index_path = resolve_safe_file(&root, &pkg.content.date_index, "date index")?;
-        let di: DateIndex = serde_json::from_str(&std::fs::read_to_string(date_index_path)?)?;
+        let dates = if let Some(date_index) = &pkg.content.date_index {
+            let date_index_path = resolve_safe_file(&root, date_index, "date index")?;
+            let di: DateIndex = serde_json::from_str(&std::fs::read_to_string(date_index_path)?)?;
+            di.dates
+                .into_iter()
+                .map(|d| format!("\"{}\"", escape_ts(&d.date)))
+                .collect::<Vec<_>>()
+                .join(", ")
+        } else {
+            String::new()
+        };
         let import_root = relative_import_from_web_generated(&root)?;
         imports.push_str(&format!(
             "import GameView_{idx} from '{}';\n",
@@ -37,25 +48,36 @@ pub fn generate_static_registry(harness: &str) -> Result<()> {
             "import {{ createRuntime as createRuntime_{idx} }} from '{}';\n",
             js_join(&import_root, &pkg.runtime.entry)
         ));
-        let dates = di
-            .dates
-            .into_iter()
-            .map(|d| format!("\"{}\"", escape_ts(&d.date)))
-            .collect::<Vec<_>>()
-            .join(", ");
         let category = pkg.game.category.as_deref().unwrap_or("fixture");
+        let route_prefix = cfg.site.route_prefix.trim_end_matches('/');
+        let content_manifest_url = format!(
+            "{route_prefix}/_games/{slug}/content/manifest.json",
+            slug = pkg.game.slug
+        );
+        let date_index_url = if pkg.content.date_index.is_some() {
+            format!(
+                "\"{route_prefix}/_games/{slug}/content/date-index.json\"",
+                slug = escape_ts(&pkg.game.slug)
+            )
+        } else {
+            "null".into()
+        };
+        let puzzle_base_url = format!("{route_prefix}/_games/{}/content/puzzles", pkg.game.slug);
+        let asset_base_url = format!("{route_prefix}/_games/{}/content/assets", pkg.game.slug);
+        let runtime_asset_base_url = format!("{route_prefix}/_games/{}/runtime", pkg.game.slug);
         body.push_str(&format!(
-            "  \"{}\": {{ id: \"{}\", slug: \"{}\", displayName: \"{}\", category: \"{}\", contentManifestUrl: \"/_games/{}/content/manifest.json\", dateIndexUrl: \"/_games/{}/content/date-index.json\", puzzleBaseUrl: \"/_games/{}/content/puzzles\", assetBaseUrl: \"/_games/{}/content/assets\", runtimeAssetBaseUrl: \"/_games/{}/runtime\", GameView: GameView_{idx}, createRuntime: createRuntime_{idx}, dates: [{}] }},\n",
+            "  \"{}\": {{ id: \"{}\", slug: \"{}\", displayName: \"{}\", category: \"{}\", routePrefix: \"{}\", contentManifestUrl: \"{}\", dateIndexUrl: {}, puzzleBaseUrl: \"{}\", assetBaseUrl: \"{}\", runtimeAssetBaseUrl: \"{}\", GameView: GameView_{idx}, createRuntime: createRuntime_{idx}, dates: [{}] }},\n",
             escape_ts(&pkg.game.slug),
             escape_ts(&pkg.game.id),
             escape_ts(&pkg.game.slug),
             escape_ts(&pkg.game.display_name),
             escape_ts(category),
-            escape_ts(&pkg.game.slug),
-            escape_ts(&pkg.game.slug),
-            escape_ts(&pkg.game.slug),
-            escape_ts(&pkg.game.slug),
-            escape_ts(&pkg.game.slug),
+            escape_ts(&cfg.site.route_prefix),
+            escape_ts(&content_manifest_url),
+            date_index_url,
+            escape_ts(&puzzle_base_url),
+            escape_ts(&asset_base_url),
+            escape_ts(&runtime_asset_base_url),
             dates
         ));
     }
@@ -89,22 +111,28 @@ pub fn prepare_public_assets(harness: &str) -> Result<()> {
             &base.join("content/manifest.json"),
             "content manifest",
         )?;
-        copy_file_checked(
-            &root,
-            &pkg.content.date_index,
-            &base.join("content/date-index.json"),
-            "date index",
-        )?;
-
-        let idx: DateIndex = serde_json::from_str(&std::fs::read_to_string(
-            root.join(&pkg.content.date_index),
-        )?)?;
-        for entry in idx.dates {
-            let source = resolve_safe_file(&root, &entry.puzzle_path, "puzzle path")?;
-            let target = base
-                .join("content/puzzles")
-                .join(format!("{}.json", entry.date));
-            std::fs::copy(source, target)?;
+        if let Some(date_index) = &pkg.content.date_index {
+            copy_file_checked(
+                &root,
+                date_index,
+                &base.join("content/date-index.json"),
+                "date index",
+            )?;
+            let idx: DateIndex =
+                serde_json::from_str(&std::fs::read_to_string(root.join(date_index))?)?;
+            for entry in idx.dates {
+                let source = resolve_safe_file(&root, &entry.puzzle_path, "puzzle path")?;
+                let target = base
+                    .join("content/puzzles")
+                    .join(format!("{}.json", entry.date));
+                std::fs::copy(source, target)?;
+            }
+        } else {
+            copy_tree_checked(
+                &root,
+                &root.join(&pkg.content.puzzles_dir),
+                &base.join("content/puzzles"),
+            )?;
         }
 
         if let Some(assets_dir) = &pkg.content.assets_dir {
@@ -284,7 +312,8 @@ mod tests {
         assert!(
             reg.contains("contentManifestUrl: \"/_games/minimal-text-game/content/manifest.json\"")
         );
-        assert!(reg.contains("dates: [\"2026-01-01\"]"));
+        assert!(reg.contains("dateIndexUrl: null"));
+        assert!(reg.contains("dates: []"));
     }
 
     #[test]
@@ -298,10 +327,7 @@ mod tests {
             .join("web/public/_games/minimal-text-game/content/manifest.json")
             .exists());
         assert!(root
-            .join("web/public/_games/minimal-text-game/content/date-index.json")
-            .exists());
-        assert!(root
-            .join("web/public/_games/minimal-text-game/content/puzzles/2026-01-01.json")
+            .join("web/public/_games/minimal-text-game/content/puzzles/v1/puzzle-0000.json")
             .exists());
         assert!(root
             .join("web/public/_games/minimal-text-game/runtime/index.js")
@@ -316,12 +342,12 @@ mod tests {
         prepare_public_assets(&harness).expect("prepare 1");
         let root = repo_root();
         let first = std::fs::read_to_string(
-            root.join("web/public/_games/minimal-text-game/content/puzzles/2026-01-01.json"),
+            root.join("web/public/_games/minimal-text-game/content/puzzles/v1/puzzle-0000.json"),
         )
         .expect("read first");
         prepare_public_assets(&harness).expect("prepare 2");
         let second = std::fs::read_to_string(
-            root.join("web/public/_games/minimal-text-game/content/puzzles/2026-01-01.json"),
+            root.join("web/public/_games/minimal-text-game/content/puzzles/v1/puzzle-0000.json"),
         )
         .expect("read second");
         assert_eq!(first, second);

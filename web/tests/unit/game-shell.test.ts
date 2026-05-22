@@ -9,12 +9,23 @@ const manifest = {
   gameId: 'minimal-text-game',
   defaultMaxGuesses: 2,
   inputModes: ['text'],
+  puzzleResolver: {
+    mode: 'static-pool',
+    timezone: 'America/New_York',
+    startDate: '2026-01-01',
+    poolVersions: [
+      {
+        version: 'v1',
+        startDate: '2026-01-01',
+        poolSize: 3,
+        pathPattern: 'content/puzzles/v1/puzzle-{index:04}.json',
+        selector: { type: 'affine-permutation', a: 2, b: 1 },
+        cyclePolicy: 'repeat',
+      },
+    ],
+  },
+  archive: { mode: 'rolling-window', days: 30, includeToday: true, allowFutureDates: false, directAccess: 'any-resolvable-date' },
   extension: {},
-};
-const dateIndex = {
-  schemaVersion: 'daily-game-date-index.v1',
-  gameId: 'minimal-text-game',
-  dates: [{ date: '2026-01-01', puzzlePath: 'content/puzzles/2026-01-01.json' }],
 };
 const puzzle = {
   schemaVersion: 'daily-game-puzzle.v1',
@@ -36,8 +47,9 @@ function game(runtimeFactory: any = createRuntime): any {
     slug: 'minimal-text-game',
     displayName: 'Minimal Text Game',
     category: 'fixture',
+    routePrefix: '',
     contentManifestUrl: '/manifest.json',
-    dateIndexUrl: '/date-index.json',
+    dateIndexUrl: null,
     puzzleBaseUrl: '/puzzles',
     assetBaseUrl: '/assets',
     runtimeAssetBaseUrl: '/runtime',
@@ -57,7 +69,6 @@ describe('GameShell.svelte', () => {
       'fetch',
       vi.fn(async (url: string) => {
         if (url.includes('manifest')) return response(manifest);
-        if (url.includes('date-index')) return response(dateIndex);
         return response(puzzle);
       }),
     );
@@ -131,6 +142,12 @@ describe('GameShell.svelte', () => {
     await fireEvent.input(screen.getByTestId('guess'), { target: { value: 'alpha' } });
     await fireEvent.click(screen.getByTestId('submit'));
     await waitFor(() => expect(screen.getByTestId('feedback')).toHaveTextContent('incorrect'));
+  });
+
+  it('renders archive list according to game config', async () => {
+    render(GameShell, { props: { game: game(), date: '2026-01-01' } });
+    await screen.findByTestId('game-shell');
+    expect(screen.getAllByTestId('archive-date')).toHaveLength(30);
   });
 });
 

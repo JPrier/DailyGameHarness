@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://daily-game-harness.local/schemas/puzzle-resolver.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "timezone", "startDate", "poolVersions"],
+      "properties": {
+        "mode": { "const": "static-pool" },
+        "timezone": { "type": "string", "minLength": 1 },
+        "startDate": { "type": "string", "format": "date" },
+        "poolVersions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["version", "startDate", "poolSize", "pathPattern", "selector", "cyclePolicy"],
+            "properties": {
+              "version": { "type": "string", "minLength": 1 },
+              "startDate": { "type": "string", "format": "date" },
+              "poolSize": { "type": "integer", "minimum": 1 },
+              "pathPattern": { "type": "string", "minLength": 1 },
+              "assetPathPattern": { "type": "string", "minLength": 1 },
+              "selector": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["type", "a", "b"],
+                    "properties": {
+                      "type": { "const": "affine-permutation" },
+                      "a": { "type": "integer", "minimum": 1 },
+                      "b": { "type": "integer", "minimum": 0 }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["type", "seed"],
+                    "properties": {
+                      "type": { "const": "seeded-shuffle" },
+                      "seed": { "type": "string", "minLength": 1 }
+                    }
+                  }
+                ]
+              },
+              "cyclePolicy": { "enum": ["repeat", "error-after-exhaustion", "next-version-required"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "timezone", "pathPattern"],
+      "properties": {
+        "mode": { "const": "dated-files" },
+        "timezone": { "type": "string", "minLength": 1 },
+        "pathPattern": { "type": "string", "minLength": 1 },
+        "assetPathPattern": { "type": "string", "minLength": 1 }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "timezone", "indexPath"],
+      "properties": {
+        "mode": { "const": "date-index" },
+        "timezone": { "type": "string", "minLength": 1 },
+        "indexPath": { "type": "string", "minLength": 1 }
+      }
+    }
+  ]
+}

@@ -1,4 +1,6 @@
+use crate::archive::{validate_archive, ArchiveConfig};
 use crate::config::{validate_harness_config, Source};
+use crate::resolver::{format_pattern, validate_resolver, PuzzleResolverConfig};
 use anyhow::{anyhow, bail, Context, Result};
 use chrono::NaiveDate;
 use regex::Regex;
@@ -17,7 +19,7 @@ pub struct GamePackageConfig {
     pub runtime: Entry,
     pub ui: Entry,
     pub content: Content,
-    pub static_generation: StaticGeneration,
+    pub static_generation: Option<StaticGeneration>,
     pub build: Option<Build>,
     pub extension: Value,
 }
@@ -47,7 +49,7 @@ pub struct Content {
     pub manifest: String,
     pub puzzles_dir: String,
     pub assets_dir: Option<String>,
-    pub date_index: String,
+    pub date_index: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -76,9 +78,13 @@ pub struct Build {
 struct ContentManifest {
     schema_version: String,
     game_id: String,
+    display_name: Option<String>,
     default_max_guesses: Option<u32>,
     input_modes: Vec<String>,
     share: Option<Value>,
+    puzzle_resolver: PuzzleResolverConfig,
+    archive: ArchiveConfig,
+    asset_loading: Option<Value>,
     puzzle_schema: Option<Value>,
     extension: Value,
 }
@@ -100,7 +106,7 @@ struct DateEntry {
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
+#[serde(rename_all = "camelCase")]
 struct PuzzleCommon {
     schema_version: String,
     game_id: String,
@@ -197,46 +203,62 @@ pub fn validate_content(harness_path: &str) -> Result<()> {
         let package = read_package_config(&root)?;
         let manifest_path =
             assert_existing_file(&root, &package.content.manifest, "content manifest")?;
-        let date_index_path =
-            assert_existing_file(&root, &package.content.date_index, "date index")?;
+        let date_index_path = package
+            .content
+            .date_index
+            .as_deref()
+            .map(|path| assert_existing_file(&root, path, "date index"))
+            .transpose()?;
         let manifest_raw = std::fs::read_to_string(&manifest_path)?;
-        let date_index_raw = std::fs::read_to_string(&date_index_path)?;
         let manifest: ContentManifest = serde_json::from_str(&manifest_raw)?;
-        let date_index: DateIndex = serde_json::from_str(&date_index_raw)?;
         validate_manifest_common(&package, &manifest)?;
-        validate_date_index_common(&package, &date_index)?;
+        validate_resolver(&manifest.puzzle_resolver)?;
+        validate_archive(&manifest.archive)?;
+
+        let date_index = if let Some(date_index_path) = &date_index_path {
+            let date_index_raw = std::fs::read_to_string(date_index_path)?;
+            let date_index: DateIndex = serde_json::from_str(&date_index_raw)?;
+            validate_date_index_common(&package, &date_index)?;
+            Some(date_index)
+        } else {
+            None
+        };
         run_runtime_validation(
             &root,
             &package.runtime.entry,
             &root.join("daily-game.config.json"),
             &manifest_path,
-            &date_index_path,
+            date_index_path.as_deref(),
             None,
         )?;
 
-        for entry in &date_index.dates {
-            let puzzle_path = resolve_safe_file(&root, &entry.puzzle_path, "puzzle path")?;
-            let puzzle_raw = std::fs::read_to_string(&puzzle_path)?;
-            let puzzle: PuzzleCommon = serde_json::from_str(&puzzle_raw)?;
-            validate_puzzle_common(&package, entry, &puzzle)?;
-            run_runtime_validation(
-                &root,
-                &package.runtime.entry,
-                &root.join("daily-game.config.json"),
-                &manifest_path,
-                &date_index_path,
-                Some(&puzzle_path),
-            )?;
-            if let Some(prefix) = &entry.assets_prefix {
-                assert_path_within_root(&root, prefix, "assetsPrefix")?;
-                let assets = root.join(prefix);
-                if !assets.exists() {
-                    bail!(
-                        "referenced assetsPrefix does not exist: {}",
-                        assets.display()
-                    );
+        if let Some(date_index) = &date_index {
+            for entry in &date_index.dates {
+                let puzzle_path = resolve_safe_file(&root, &entry.puzzle_path, "puzzle path")?;
+                let puzzle_raw = std::fs::read_to_string(&puzzle_path)?;
+                let puzzle: PuzzleCommon = serde_json::from_str(&puzzle_raw)?;
+                validate_puzzle_common(&package, entry, &puzzle)?;
+                run_runtime_validation(
+                    &root,
+                    &package.runtime.entry,
+                    &root.join("daily-game.config.json"),
+                    &manifest_path,
+                    date_index_path.as_deref(),
+                    Some(&puzzle_path),
+                )?;
+                if let Some(prefix) = &entry.assets_prefix {
+                    assert_path_within_root(&root, prefix, "assetsPrefix")?;
+                    let assets = root.join(prefix);
+                    if !assets.exists() {
+                        bail!(
+                            "referenced assetsPrefix does not exist: {}",
+                            assets.display()
+                        );
+                    }
                 }
             }
+        } else {
+            validate_static_pool_puzzles(&root, &package, &manifest)?;
         }
     }
     Ok(())
@@ -265,23 +287,26 @@ fn validate_package_config(root: &Path, parsed: &GamePackageConfig) -> Result<()
     assert_path_within_root(root, &parsed.runtime.entry, "runtime entry")?;
     assert_path_within_root(root, &parsed.ui.entry, "ui entry")?;
     assert_path_within_root(root, &parsed.content.manifest, "content manifest")?;
-    assert_path_within_root(root, &parsed.content.date_index, "date index")?;
+    if let Some(date_index) = &parsed.content.date_index {
+        assert_path_within_root(root, date_index, "date index")?;
+    }
     assert_path_within_root(root, &parsed.content.puzzles_dir, "puzzles dir")?;
     if let Some(assets_dir) = &parsed.content.assets_dir {
         assert_path_within_root(root, assets_dir, "assets dir")?;
     }
-    if parsed.static_generation.date_discovery.mode != "date-index" {
-        bail!("unsupported date discovery mode")
-    }
-    let discovery_path = parsed
-        .static_generation
-        .date_discovery
-        .path
-        .as_deref()
-        .ok_or_else(|| anyhow!("missing date discovery path"))?;
-    assert_path_within_root(root, discovery_path, "date discovery path")?;
-    if discovery_path != parsed.content.date_index {
-        bail!("date discovery path must match content.dateIndex")
+    if let Some(static_generation) = &parsed.static_generation {
+        if static_generation.date_discovery.mode != "date-index" {
+            bail!("unsupported date discovery mode")
+        }
+        let discovery_path = static_generation
+            .date_discovery
+            .path
+            .as_deref()
+            .ok_or_else(|| anyhow!("missing date discovery path"))?;
+        assert_path_within_root(root, discovery_path, "date discovery path")?;
+        if Some(discovery_path) != parsed.content.date_index.as_deref() {
+            bail!("date discovery path must match content.dateIndex")
+        }
     }
     if !parsed.extension.is_object() {
         bail!("extension must be object")
@@ -304,6 +329,61 @@ fn validate_manifest_common(package: &GamePackageConfig, manifest: &ContentManif
     }
     if !manifest.extension.is_object() {
         bail!("content manifest extension must be object")
+    }
+    Ok(())
+}
+
+fn validate_static_pool_puzzles(
+    root: &Path,
+    package: &GamePackageConfig,
+    manifest: &ContentManifest,
+) -> Result<()> {
+    if let PuzzleResolverConfig::StaticPool { pool_versions, .. } = &manifest.puzzle_resolver {
+        for version in pool_versions {
+            for index in 0..version.pool_size {
+                let rel = format_pattern(
+                    &version.path_pattern,
+                    &version.version,
+                    index,
+                    &version.start_date,
+                );
+                let puzzle_path = resolve_safe_file(root, &rel, "static-pool puzzle")?;
+                let puzzle_raw = std::fs::read_to_string(&puzzle_path)?;
+                let puzzle: PuzzleCommon = serde_json::from_str(&puzzle_raw)?;
+                validate_puzzle_common_loose(package, &puzzle)?;
+                run_runtime_validation(
+                    root,
+                    &package.runtime.entry,
+                    &root.join("daily-game.config.json"),
+                    &root.join(&package.content.manifest),
+                    None,
+                    Some(&puzzle_path),
+                )?;
+            }
+        }
+    }
+    Ok(())
+}
+
+fn validate_puzzle_common_loose(package: &GamePackageConfig, puzzle: &PuzzleCommon) -> Result<()> {
+    if puzzle.schema_version != "daily-game-puzzle.v1" {
+        bail!("unsupported puzzle schemaVersion")
+    }
+    if puzzle.game_id != package.game.id {
+        bail!("puzzle game id mismatch")
+    }
+    if !puzzle.date.is_empty() {
+        NaiveDate::parse_from_str(&puzzle.date, "%Y-%m-%d")?;
+    }
+    if puzzle.puzzle_id.is_empty()
+        || puzzle.seed.is_empty()
+        || puzzle.display.title.is_empty()
+        || puzzle.display.initial_prompt.is_empty()
+    {
+        bail!("puzzle missing required common fields")
+    }
+    if !puzzle.extension.is_object() {
+        bail!("puzzle extension must be object")
     }
     Ok(())
 }
@@ -422,7 +502,7 @@ fn run_runtime_validation(
     runtime_entry: &str,
     package_config: &Path,
     manifest: &Path,
-    date_index: &Path,
+    date_index: Option<&Path>,
     puzzle: Option<&Path>,
 ) -> Result<()> {
     let runtime = root.join(runtime_entry).canonicalize()?;
@@ -434,7 +514,7 @@ const mod = await import(pathToFileURL(runtimePath).href);
 const runtime = await mod.createRuntime();
 const packageConfig = JSON.parse(readFileSync(packagePath, 'utf8'));
 const contentManifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-const dateIndex = JSON.parse(readFileSync(dateIndexPath, 'utf8'));
+const dateIndex = dateIndexPath ? JSON.parse(readFileSync(dateIndexPath, 'utf8')) : null;
 let result;
 if (puzzlePath) {
   const puzzle = JSON.parse(readFileSync(puzzlePath, 'utf8'));
@@ -454,8 +534,12 @@ if (!result || result.ok !== true) {
         .arg(script)
         .arg(runtime)
         .arg(package_config)
-        .arg(manifest)
-        .arg(date_index);
+        .arg(manifest);
+    if let Some(date_index) = date_index {
+        command.arg(date_index);
+    } else {
+        command.arg("");
+    }
     if let Some(puzzle) = puzzle {
         command.arg(puzzle);
     }

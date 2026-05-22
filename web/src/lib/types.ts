@@ -68,13 +68,79 @@ export type GameRuntime = {
   }): Promise<string | { unsupported: true; reason?: string }>;
 };
 
+export type AffineSelector = {
+  type: 'affine-permutation';
+  a: number;
+  b: number;
+};
+
+export type PuzzleResolverConfig =
+  | {
+      mode: 'static-pool';
+      timezone: string;
+      startDate: string;
+      poolVersions: Array<{
+        version: string;
+        startDate: string;
+        poolSize: number;
+        pathPattern: string;
+        assetPathPattern?: string;
+        selector: AffineSelector | { type: 'seeded-shuffle'; seed: string };
+        cyclePolicy: 'repeat' | 'error-after-exhaustion' | 'next-version-required';
+      }>;
+    }
+  | { mode: 'dated-files'; timezone: string; pathPattern: string; assetPathPattern?: string }
+  | { mode: 'date-index'; timezone: string; indexPath: string };
+
+export type ArchiveConfig =
+  | {
+      mode: 'rolling-window';
+      days: number;
+      includeToday: boolean;
+      allowFutureDates: boolean;
+      directAccess?: 'within-archive-window' | 'any-resolvable-date' | 'disabled';
+    }
+  | {
+      mode: 'fixed-list';
+      dates: string[];
+      allowFutureDates?: boolean;
+      directAccess?: 'within-archive-window' | 'any-resolvable-date' | 'disabled';
+    }
+  | { mode: 'all-published'; allowFutureDates?: boolean; directAccess?: 'within-archive-window' | 'any-resolvable-date' | 'disabled' }
+  | { mode: 'disabled'; directAccess?: 'disabled' };
+
+export type ContentManifest = {
+  schemaVersion: 'daily-game-content-manifest.v1';
+  gameId: string;
+  displayName?: string;
+  defaultMaxGuesses?: number;
+  inputModes: string[];
+  puzzleResolver: PuzzleResolverConfig;
+  archive: ArchiveConfig;
+  extension: Record<string, unknown>;
+};
+
+export type DateIndex = {
+  schemaVersion: 'daily-game-date-index.v1';
+  gameId: string;
+  dates: Array<{ date: string; puzzlePath: string; assetsPrefix?: string }>;
+};
+
+export type ResolvedPuzzleRef = {
+  date: string;
+  path: string;
+  assetPath?: string;
+  index?: number;
+};
+
 export type RegisteredGame = {
   id: string;
   slug: string;
   displayName: string;
   category: string;
+  routePrefix: string;
   contentManifestUrl: string;
-  dateIndexUrl: string;
+  dateIndexUrl: string | null;
   puzzleBaseUrl: string;
   assetBaseUrl: string;
   runtimeAssetBaseUrl: string;

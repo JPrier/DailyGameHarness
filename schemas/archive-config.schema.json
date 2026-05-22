@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://daily-game-harness.local/schemas/archive-config.schema.json",
+  "$defs": {
+    "directAccess": { "enum": ["within-archive-window", "any-resolvable-date", "disabled"] }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "days", "includeToday", "allowFutureDates"],
+      "properties": {
+        "mode": { "const": "rolling-window" },
+        "days": { "type": "integer", "minimum": 1 },
+        "includeToday": { "type": "boolean" },
+        "allowFutureDates": { "type": "boolean" },
+        "directAccess": { "$ref": "#/$defs/directAccess" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "dates"],
+      "properties": {
+        "mode": { "const": "fixed-list" },
+        "dates": { "type": "array", "items": { "type": "string", "format": "date" } },
+        "allowFutureDates": { "type": "boolean" },
+        "directAccess": { "$ref": "#/$defs/directAccess" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": { "const": "all-published" },
+        "allowFutureDates": { "type": "boolean" },
+        "directAccess": { "$ref": "#/$defs/directAccess" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": { "const": "disabled" },
+        "directAccess": { "const": "disabled" }
+      }
+    }
+  ]
+}

@@ -6,7 +6,14 @@
       "repo": null,
       "requestedRef": null,
       "resolvedSha": null,
-      "localPath": "/workspace/DailyGameHarness/fixtures/games/minimal-text-game"
+      "localPath": "\\\\?\\D:\\Development\\Websites\\dailygames\\DailyGameHarness\\fixtures\\games\\minimal-text-game"
+    },
+    {
+      "sourceType": "local",
+      "repo": null,
+      "requestedRef": null,
+      "resolvedSha": null,
+      "localPath": "\\\\?\\D:\\Development\\Websites\\dailygames\\DailyGameHarness\\fixtures\\games\\second-minimal-game"
     }
   ]
 }

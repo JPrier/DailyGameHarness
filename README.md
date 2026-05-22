@@ -33,9 +33,9 @@ Supported source types are local paths and git repositories pinned to a branch, 
 
 ## Game Package Contract
 
-Every game package must provide `daily-game.config.json` at its root. It declares the runtime adapter, Svelte component, content manifest, puzzle directory, date index, and static generation settings.
+Every game package must provide `daily-game.config.json` at its root. It declares the runtime adapter, Svelte component, content manifest, puzzle directory, optional assets directory, optional date index, and build mode.
 
-Required package fields include `schemaVersion`, `contractVersion`, `game.id`, `game.slug`, `game.displayName`, `runtime.entry`, `ui.entry`, `content.manifest`, `content.puzzlesDir`, `content.dateIndex`, `staticGeneration.dateDiscovery`, and `extension`.
+Required package fields include `schemaVersion`, `contractVersion`, `game.id`, `game.slug`, `game.displayName`, `runtime.entry`, `ui.entry`, `content.manifest`, `content.puzzlesDir`, and `extension`.
 
 Unknown top-level package fields are rejected. Unknown fields inside `extension` are allowed for game-owned metadata.
 
@@ -48,6 +48,34 @@ export type GameRuntimeFactory = () => Promise<GameRuntime>;
 ```
 
 The runtime must implement `validateContent`, `validatePuzzle`, `createInitialState`, `submitGuess`, and `buildShareText`. The harness never infers answer correctness; it submits player input to the runtime and renders the returned state and feedback.
+
+## Puzzle Resolution
+
+Each content manifest declares `puzzleResolver`. The default fixture uses `static-pool`, where the browser computes the selected puzzle from the requested game date, pool version, pool size, and affine selector:
+
+```json
+{
+  "mode": "static-pool",
+  "timezone": "America/New_York",
+  "startDate": "2026-01-01",
+  "poolVersions": [
+    {
+      "version": "v1",
+      "startDate": "2026-01-01",
+      "poolSize": 1000,
+      "pathPattern": "content/puzzles/v1/puzzle-{index:04}.json",
+      "selector": { "type": "affine-permutation", "a": 137, "b": 431 },
+      "cyclePolicy": "repeat"
+    }
+  ]
+}
+```
+
+The harness also validates `dated-files` and `date-index` resolver shapes. `static-pool` does not require daily rebuilds and does not download a date index or the whole puzzle pool; the client fetches the manifest and the single resolved puzzle JSON. Static puzzle pools are not spoiler-proof because published JSON files are public static assets. Use obfuscation, delayed publishing, or a backend only if spoiler resistance is a hard product requirement.
+
+## Archive Behavior
+
+Each manifest declares `archive`. Rolling windows are computed in the browser from the game timezone, so archive lists update without daily regeneration. Games can use different windows, `includeToday`, `allowFutureDates`, and direct-access policies. `disabled` hides the archive list.
 
 ## Static Generation
 
@@ -101,9 +129,9 @@ cd web && npm run test:e2e
 
 ## Deployment
 
-The S3 deployment workflow builds from source, runs validation, uploads only `web/dist`, uses GitHub OIDC through `aws-actions/configure-aws-credentials`, applies long cache headers to static assets, short cache headers to HTML/JSON, and optionally invalidates CloudFront.
+GitHub Pages is the default deployment target. `.github/workflows/deploy-pages.yml` builds from source, runs validation and tests, uploads `web/dist` as a Pages artifact, and deploys with `pages: write` and `id-token: write` permissions. Set `site.routePrefix` to `""` for owner pages or `"/repo-name"` for project pages so generated links and static content URLs work under both hosting modes.
 
-Required GitHub secrets are `AWS_ROLE_ARN`, `AWS_REGION`, and `S3_BUCKET`. `CLOUDFRONT_DISTRIBUTION_ID` is optional.
+S3-compatible deployment remains an optional secondary target through `scripts/deploy-s3.sh`; it does not change the game package contract.
 
 ## Creating A Conforming Game Package
 
@@ -112,7 +140,7 @@ A package should provide:
 - `daily-game.config.json` with runtime, UI, content, and date discovery metadata.
 - A runtime adapter that implements the daily-game runtime v1 methods.
 - A Svelte component that receives game, manifest, puzzle, state, latest evaluation, and `submitInput`.
-- `content/manifest.json`, `content/date-index.json`, puzzle JSON files, and any public assets.
+- `content/manifest.json`, puzzle JSON files, optional `content/date-index.json`, and any public assets.
 - Runtime assets under the configured runtime entry directory.
 
 The game package owns its own puzzle-specific `extension` schema and validation. The harness validates only shared fields and delegates game-specific checks to the runtime.
@@ -123,6 +151,6 @@ The test suite proves:
 
 - Rust config, package, date-index, lockfile, static generation, and output validation behavior.
 - Runtime contract behavior using the minimal fixture.
-- Frontend loader, date, localStorage, feedback, share, shell, and fixture view behavior.
-- Playwright E2E gameplay, refresh persistence, share output, missing-route UI, and static-server behavior.
+- Frontend loader, static-pool resolver, archive windows, localStorage, feedback, share, shell, and fixture view behavior.
+- Playwright E2E gameplay, date-query routes, one-puzzle static-pool fetch behavior, refresh persistence, share output, missing-route UI, and static-server behavior.
 - Adding a second fixture game through config generates registry entries and routes without manual imports.

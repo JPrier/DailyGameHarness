@@ -1,7 +1,7 @@
 import type { GameState } from './types';
 
-export const keyFor = (contractVersion: string, gameId: string, puzzleId: string) =>
-  `daily-game:${contractVersion}:${gameId}:${puzzleId}`;
+export const keyFor = (contractVersion: string, gameId: string, puzzleId: string, date: string) =>
+  `daily-game:${contractVersion}:${gameId}:${puzzleId}:${date}`;
 
 export function saveState(key: string, state: GameState): void {
   localStorage.setItem(key, JSON.stringify(state));
