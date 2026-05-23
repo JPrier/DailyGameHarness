@@ -2,11 +2,15 @@
 import { generatedGameRegistry } from '../generated/game-registry';
 import '../styles/global.css';
 const games = Object.values(generatedGameRegistry);
+const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
     <title>Daily Games</title>
   </head>
   <body>
@@ -22,7 +26,7 @@ const games = Object.values(generatedGameRegistry);
       <ul class="game-grid" data-testid="game-list">
         {games.map((g) => (
           <li class="game-card">
-            <a href={`/games/${g.slug}/`}>
+            <a href={`${baseUrl}games/${g.slug}/`}>
               <strong>{g.displayName}</strong>
               <span>{g.category}</span>
               <small>Play the daily shell</small>

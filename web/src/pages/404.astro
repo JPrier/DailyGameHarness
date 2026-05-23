@@ -1,10 +1,14 @@
 ---
 import '../styles/global.css';
+const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
     <title>Game unavailable</title>
   </head>
   <body>
@@ -13,7 +17,7 @@ import '../styles/global.css';
         <p class="eyebrow">Not found</p>
         <h1>Game unavailable</h1>
         <p data-testid="not-found">Puzzle unavailable</p>
-        <a href="/">Return to Daily Games</a>
+        <a href={baseUrl}>Return to Daily Games</a>
       </section>
     </main>
   </body>

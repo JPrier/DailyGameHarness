@@ -1,7 +1,7 @@
 import type { LoadedGameBundle } from './runtime';
 import type { ContentManifest, DateIndex, RegisteredGame, ResolvedPuzzleRef } from './types';
 import { getRegisteredGame } from './game-registry';
-import { stripContentPrefix } from './base-path';
+import { stripContentPrefix, withAppBase } from './base-path';
 
 export async function loadGameBundle(slug: string): Promise<LoadedGameBundle> {
   const game = getRegisteredGame(slug);
@@ -14,7 +14,7 @@ export async function loadGameBundle(slug: string): Promise<LoadedGameBundle> {
 }
 
 export function puzzleUrlFor(game: Pick<RegisteredGame, 'puzzleBaseUrl'>, resolved: ResolvedPuzzleRef): string {
-  return `${game.puzzleBaseUrl}/${stripContentPrefix(resolved.path, 'content/puzzles')}`;
+  return withAppBase(`${game.puzzleBaseUrl}/${stripContentPrefix(resolved.path, 'content/puzzles')}`);
 }
 
 export async function loadPuzzle(game: Pick<RegisteredGame, 'puzzleBaseUrl'>, resolved: ResolvedPuzzleRef): Promise<unknown> {
@@ -30,7 +30,7 @@ export async function loadDateIndex(game: Pick<RegisteredGame, 'dateIndexUrl'>):
 }
 
 async function fetchJson(url: string): Promise<unknown> {
-  const response = await fetch(url);
+  const response = await fetch(withAppBase(url));
   if (!response.ok) {
     throw new Error(`fetch_failed:${url}`);
   }

@@ -4,6 +4,14 @@ import path from 'node:path';
 
 const root = path.resolve('dist');
 const port = 4173;
+const basePath = normalizeBasePath(process.env.SERVE_BASE_PATH ?? '');
+
+function normalizeBasePath(value) {
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === '/') return '';
+  const prefixed = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+  return prefixed.replace(/\/+$/, '');
+}
 
 function contentType(file) {
   if (file.endsWith('.html')) return 'text/html';
@@ -15,7 +23,11 @@ function contentType(file) {
 
 http
   .createServer((req, res) => {
-    const rawUrl = decodeURIComponent(new URL(req.url ?? '/', 'http://127.0.0.1').pathname);
+    let rawUrl = decodeURIComponent(new URL(req.url ?? '/', 'http://127.0.0.1').pathname);
+    if (basePath) {
+      if (rawUrl === basePath) rawUrl = '/';
+      else if (rawUrl.startsWith(`${basePath}/`)) rawUrl = rawUrl.slice(basePath.length);
+    }
     let file = path.join(root, rawUrl);
     if (rawUrl.endsWith('/')) file = path.join(file, 'index.html');
     if (!path.extname(file)) file = path.join(file, 'index.html');

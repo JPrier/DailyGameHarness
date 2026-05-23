@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DAILY_GAME_BASE_PATH: /DailyGameHarness
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

@@ -1,15 +1,25 @@
 import { test, expect } from '@playwright/test';
 
+const basePath = process.env.E2E_BASE_PATH ?? '';
+const appUrl = (path: string) => `${basePath}${path}`;
+
 test('home page lists the fixture game', async ({ page }) => {
-  await page.goto('/');
+  const errors: string[] = [];
+  page.on('console', (message) => message.type() === 'error' && errors.push(message.text()));
+  await page.goto(appUrl('/'));
   await expect(page.getByRole('heading', { name: 'Daily Games' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Minimal Text Game' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Minimal Text Game/ })).toHaveAttribute(
+    'href',
+    `${basePath}/games/minimal-text-game/`,
+  );
+  expect(errors).toEqual([]);
 });
 
 test('fixture game route loads without console errors', async ({ page }) => {
   const errors: string[] = [];
   page.on('console', (message) => message.type() === 'error' && errors.push(message.text()));
-  await page.goto('/games/minimal-text-game/');
+  await page.goto(appUrl('/games/minimal-text-game/'));
   await expect(page.getByTestId('prompt')).toHaveText('Guess');
   expect(errors).toEqual([]);
 });
@@ -17,13 +27,13 @@ test('fixture game route loads without console errors', async ({ page }) => {
 test('fixture date query route loads without console errors', async ({ page }) => {
   const errors: string[] = [];
   page.on('console', (message) => message.type() === 'error' && errors.push(message.text()));
-  await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   await expect(page.getByTestId('prompt')).toHaveText('Guess');
   expect(errors).toEqual([]);
 });
 
 test('player can win the fixture puzzle', async ({ page }) => {
-  await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   await page.getByTestId('guess-input').fill('alpha');
   await page.getByTestId('guess-submit').click();
   await expect(page.getByTestId('feedback')).toHaveText('correct');
@@ -31,7 +41,7 @@ test('player can win the fixture puzzle', async ({ page }) => {
 });
 
 test('player can lose the fixture puzzle', async ({ page }) => {
-  await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   for (const guess of ['one', 'two', 'three', 'four', 'five', 'six']) {
     await page.getByTestId('guess-input').fill(guess);
     await page.getByTestId('guess-submit').click();
@@ -40,7 +50,7 @@ test('player can lose the fixture puzzle', async ({ page }) => {
 });
 
 test('refresh after one wrong guess preserves progress', async ({ page }) => {
-  await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   await page.getByTestId('guess-input').fill('wrong');
   await page.getByTestId('guess-submit').click();
   await expect(page.getByTestId('guess-count')).toHaveText('1');
@@ -49,19 +59,25 @@ test('refresh after one wrong guess preserves progress', async ({ page }) => {
 });
 
 test('share button produces non-empty text', async ({ page }) => {
-  await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   await page.getByTestId('share-button').click();
   await expect(page.getByTestId('share-output')).not.toHaveText('');
-  await expect(page.getByTestId('share-output')).toContainText('http://127.0.0.1:4173/games/minimal-text-game/');
+  await expect(page.getByTestId('share-output')).toContainText(
+    `http://127.0.0.1:4173${basePath}/games/minimal-text-game/`,
+  );
+  await expect(page.getByTestId('share-link')).toHaveAttribute(
+    'href',
+    `http://127.0.0.1:4173${basePath}/games/minimal-text-game/`,
+  );
 });
 
 test('invalid game route shows friendly not-found UI', async ({ page }) => {
-  await page.goto('/games/not-a-game/');
+  await page.goto(appUrl('/games/not-a-game/'));
   await expect(page.getByTestId('not-found')).toContainText('Puzzle unavailable');
 });
 
 test('missing puzzle date shows friendly puzzle-not-found UI', async ({ page }) => {
-  await page.goto('/games/minimal-text-game/?date=1999-01-01');
+  await page.goto(appUrl('/games/minimal-text-game/?date=1999-01-01'));
   await expect(page.getByTestId('not-found')).toContainText('Puzzle unavailable');
 });
 
@@ -73,21 +89,21 @@ test('static-pool load fetches one puzzle and no date index', async ({ page }) =
     if (url.includes('/content/puzzles/') && url.endsWith('.json')) puzzleRequests.push(url);
     if (url.includes('/content/date-index.json')) dateIndexRequests.push(url);
   });
-  await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   await expect(page.getByTestId('game-shell')).toBeVisible();
   expect(puzzleRequests).toHaveLength(1);
   expect(dateIndexRequests).toHaveLength(0);
 });
 
 test('two games expose different archive windows', async ({ page }) => {
-  await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   await expect(page.getByTestId('archive-date')).toHaveCount(30);
-  await page.goto('/games/second-minimal-game/?date=2026-05-22');
+  await page.goto(appUrl('/games/second-minimal-game/?date=2026-05-22'));
   await expect(page.getByTestId('archive-date')).toHaveCount(7);
 });
 
 test('built site works when served by a static file server', async ({ page }) => {
-  const response = await page.goto('/games/minimal-text-game/?date=2026-05-22');
+  const response = await page.goto(appUrl('/games/minimal-text-game/?date=2026-05-22'));
   expect(response?.ok()).toBe(true);
   await expect(page.getByTestId('game-shell')).toBeVisible();
 });

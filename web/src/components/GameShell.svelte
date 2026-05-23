@@ -6,6 +6,7 @@
   import ShareButton from './ShareButton.svelte';
   import ArchiveList from './ArchiveList.svelte';
   import { archiveDates, isDateAllowed, todayInTimezone } from '../lib/archive';
+  import { withAppBase, withRoutePrefix } from '../lib/base-path';
   import { loadPuzzle } from '../lib/game-loader';
   import { getRegisteredGame } from '../lib/game-registry';
   import { keyFor, loadState, saveState } from '../lib/local-state';
@@ -48,8 +49,8 @@
       if (!activeGame) throw new Error('game_not_found');
       GameView = activeGame.GameView;
       const [manifestResponse, indexResponse] = await Promise.all([
-        fetch(activeGame.contentManifestUrl),
-        activeGame.dateIndexUrl ? fetch(activeGame.dateIndexUrl) : Promise.resolve(null),
+        fetch(withAppBase(activeGame.contentManifestUrl)),
+        activeGame.dateIndexUrl ? fetch(withAppBase(activeGame.dateIndexUrl)) : Promise.resolve(null),
       ]);
       if (!manifestResponse.ok || (indexResponse && !indexResponse.ok)) throw new Error('content_not_found');
       contentManifest = await manifestResponse.json();
@@ -95,7 +96,8 @@
     if (!runtime || !state || !puzzle || !contentManifest) return '';
     const result = await runtime.buildShareText({ contentManifest, puzzle, state });
     if (!activeGame) return '';
-    const gameUrl = new URL(`${activeGame.routePrefix}/games/${activeGame.slug}/`, window.location.origin).href;
+    const gamePath = withAppBase(withRoutePrefix(activeGame.routePrefix, `/games/${activeGame.slug}/`));
+    const gameUrl = new URL(gamePath, window.location.origin).href;
     const shareText =
       typeof result === 'string' ? result : `${game.displayName} ${selectedDate} ${state.status}`;
     return shareText.includes(gameUrl) ? shareText : `${shareText}\n${gameUrl}`;
