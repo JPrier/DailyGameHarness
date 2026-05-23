@@ -65,10 +65,11 @@ describe('generic UI helpers', () => {
   });
 
   it('share button calls runtime share function', async () => {
-    const buildShareText = vi.fn(async () => 'share text');
+    const buildShareText = vi.fn(async () => 'share text\nhttps://example.test/games/minimal-text-game/');
     render(ShareButton, { props: { buildShareText } });
     await fireEvent.click(screen.getByTestId('share-button'));
     expect(buildShareText).toHaveBeenCalled();
     expect(screen.getByTestId('share-output')).toHaveTextContent('share text');
+    expect(screen.getByTestId('share-link')).toHaveAttribute('href', 'https://example.test/games/minimal-text-game/');
   });
 });

@@ -52,6 +52,7 @@ test('share button produces non-empty text', async ({ page }) => {
   await page.goto('/games/minimal-text-game/?date=2026-05-22');
   await page.getByTestId('share-button').click();
   await expect(page.getByTestId('share-output')).not.toHaveText('');
+  await expect(page.getByTestId('share-output')).toContainText('http://127.0.0.1:4173/games/minimal-text-game/');
 });
 
 test('invalid game route shows friendly not-found UI', async ({ page }) => {

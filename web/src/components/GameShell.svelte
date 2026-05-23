@@ -88,8 +88,10 @@
   async function buildShareText() {
     if (!runtime || !state || !puzzle || !contentManifest) return '';
     const result = await runtime.buildShareText({ contentManifest, puzzle, state });
-    if (typeof result === 'string') return result;
-    return `${game.displayName} ${selectedDate} ${state.status}`;
+    const gameUrl = new URL(`${game.routePrefix}/games/${game.slug}/`, window.location.origin).href;
+    const shareText =
+      typeof result === 'string' ? result : `${game.displayName} ${selectedDate} ${state.status}`;
+    return shareText.includes(gameUrl) ? shareText : `${shareText}\n${gameUrl}`;
   }
 
   init();
