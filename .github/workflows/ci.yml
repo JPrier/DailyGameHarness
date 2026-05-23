@@ -13,14 +13,17 @@ jobs:
       - run: cargo test --workspace
   frontend:
     runs-on: ubuntu-latest
-    defaults: { run: { working-directory: web } }
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with: { node-version: 22 }
+      - run: cargo run -p daily_game_tools -- prepare-static-build
       - run: npm ci
+        working-directory: web
       - run: npm run typecheck
+        working-directory: web
       - run: npm run test
+        working-directory: web
   static-build:
     runs-on: ubuntu-latest
     steps:
