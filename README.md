@@ -99,6 +99,8 @@ cargo run -p daily_game_tools -- check-static-output --dist web/dist
 
 The generated registry statically imports each configured Svelte view and runtime adapter. Do not manually edit `web/src/generated/game-registry.ts`.
 
+`npm run build` runs Astro directly. The built site comes from `web/src/pages` and the Svelte components, not a hand-written static output script.
+
 ## Adding Games
 
 To add a local package, add one config entry:
@@ -114,6 +116,8 @@ To add a git package, add:
 ```
 
 The package must already conform to the package, content, puzzle, runtime, and Svelte view contracts.
+
+To start a new package from a working skeleton, copy `templates/game-package/minimal-svelte-js` and rename the game IDs, slug, puzzles, runtime logic, and Svelte view.
 
 ## Local Development
 
@@ -133,6 +137,8 @@ GitHub Pages is the default deployment target. `.github/workflows/deploy-pages.y
 
 S3-compatible deployment remains an optional secondary target through `scripts/deploy-s3.sh`; it does not change the game package contract.
 
+See `docs/deployment.md` for GitHub Pages limitations and alternative static host options.
+
 ## Creating A Conforming Game Package
 
 A package should provide:
@@ -144,6 +150,8 @@ A package should provide:
 - Runtime assets under the configured runtime entry directory.
 
 The game package owns its own puzzle-specific `extension` schema and validation. The harness validates only shared fields and delegates game-specific checks to the runtime.
+
+The CLI validates JSON files against the schemas in `schemas/` before applying semantic checks. Schema errors include the file being validated and the failing JSON path.
 
 ## Tests
 

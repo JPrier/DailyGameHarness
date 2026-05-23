@@ -96,7 +96,7 @@ mod tests {
                 .as_nanos()
         );
         let json = format!(
-            "{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"routePrefix\":\"\"}},\"games\":[{{\"source\":{{\"type\":\"local\",\"path\":\"{}\"}}}}]}}",
+            "{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"name\":\"Daily Games\",\"baseUrl\":\"https://example.com\",\"routePrefix\":\"\"}},\"games\":[{{\"source\":{{\"type\":\"local\",\"path\":\"{}\"}}}}],\"staticGeneration\":{{\"routeMode\":\"single-shell\"}},\"deployment\":{{\"target\":\"github-pages\"}}}}",
             path.replace('\\', "\\\\")
         );
         std::fs::write(&p, json).expect("write harness");

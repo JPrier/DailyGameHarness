@@ -1,6 +1,7 @@
 use crate::archive::{validate_archive, ArchiveConfig};
 use crate::config::{validate_harness_config, Source};
 use crate::resolver::{format_pattern, validate_resolver, PuzzleResolverConfig};
+use crate::schema;
 use anyhow::{anyhow, bail, Context, Result};
 use chrono::NaiveDate;
 use regex::Regex;
@@ -140,10 +141,11 @@ pub fn package_roots(harness_path: &str) -> Result<Vec<PathBuf>> {
 }
 
 pub fn read_package_config(root: &Path) -> Result<GamePackageConfig> {
-    let raw = std::fs::read_to_string(root.join("daily-game.config.json"))
-        .with_context(|| format!("read package config at {}", root.display()))?;
+    let config_path = root.join("daily-game.config.json");
+    let value = schema::validate_json_file("game-package-config.schema.json", &config_path)?;
+    let raw = serde_json::to_string(&value)?;
     let parsed: GamePackageConfig = serde_json::from_str(&raw)
-        .with_context(|| format!("parse package config at {}", root.display()))?;
+        .with_context(|| format!("read package config at {}", root.display()))?;
     validate_package_config(root, &parsed)?;
     Ok(parsed)
 }
@@ -209,14 +211,18 @@ pub fn validate_content(harness_path: &str) -> Result<()> {
             .as_deref()
             .map(|path| assert_existing_file(&root, path, "date index"))
             .transpose()?;
-        let manifest_raw = std::fs::read_to_string(&manifest_path)?;
+        let manifest_value =
+            schema::validate_json_file("content-manifest.schema.json", &manifest_path)?;
+        let manifest_raw = serde_json::to_string(&manifest_value)?;
         let manifest: ContentManifest = serde_json::from_str(&manifest_raw)?;
         validate_manifest_common(&package, &manifest)?;
         validate_resolver(&manifest.puzzle_resolver)?;
         validate_archive(&manifest.archive)?;
 
         let date_index = if let Some(date_index_path) = &date_index_path {
-            let date_index_raw = std::fs::read_to_string(date_index_path)?;
+            let date_index_value =
+                schema::validate_json_file("date-index.schema.json", date_index_path)?;
+            let date_index_raw = serde_json::to_string(&date_index_value)?;
             let date_index: DateIndex = serde_json::from_str(&date_index_raw)?;
             validate_date_index_common(&package, &date_index)?;
             Some(date_index)
@@ -235,7 +241,9 @@ pub fn validate_content(harness_path: &str) -> Result<()> {
         if let Some(date_index) = &date_index {
             for entry in &date_index.dates {
                 let puzzle_path = resolve_safe_file(&root, &entry.puzzle_path, "puzzle path")?;
-                let puzzle_raw = std::fs::read_to_string(&puzzle_path)?;
+                let puzzle_value =
+                    schema::validate_json_file("puzzle-common.schema.json", &puzzle_path)?;
+                let puzzle_raw = serde_json::to_string(&puzzle_value)?;
                 let puzzle: PuzzleCommon = serde_json::from_str(&puzzle_raw)?;
                 validate_puzzle_common(&package, entry, &puzzle)?;
                 run_runtime_validation(
@@ -348,7 +356,9 @@ fn validate_static_pool_puzzles(
                     &version.start_date,
                 );
                 let puzzle_path = resolve_safe_file(root, &rel, "static-pool puzzle")?;
-                let puzzle_raw = std::fs::read_to_string(&puzzle_path)?;
+                let puzzle_value =
+                    schema::validate_json_file("puzzle-common.schema.json", &puzzle_path)?;
+                let puzzle_raw = serde_json::to_string(&puzzle_value)?;
                 let puzzle: PuzzleCommon = serde_json::from_str(&puzzle_raw)?;
                 validate_puzzle_common_loose(package, &puzzle)?;
                 run_runtime_validation(
@@ -594,7 +604,7 @@ mod tests {
                 .as_nanos()
         );
         let json = format!(
-            "{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"routePrefix\":\"\"}},\"games\":[{{\"source\":{{\"type\":\"local\",\"path\":\"{}\"}}}}]}}",
+            "{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"name\":\"Daily Games\",\"baseUrl\":\"https://example.com\",\"routePrefix\":\"\"}},\"games\":[{{\"source\":{{\"type\":\"local\",\"path\":\"{}\"}}}}],\"staticGeneration\":{{\"routeMode\":\"single-shell\"}},\"deployment\":{{\"target\":\"github-pages\"}}}}",
             path.replace('\\', "\\\\")
         );
         std::fs::write(&p, json).expect("write harness");
@@ -741,7 +751,7 @@ mod tests {
         std::fs::write(
             &p,
             format!(
-                "{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"routePrefix\":\"\"}},\"games\":[{{\"source\":{{\"type\":\"local\",\"path\":\"{path}\"}}}},{{\"source\":{{\"type\":\"local\",\"path\":\"{path}\"}}}}]}}"
+                "{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"name\":\"Daily Games\",\"baseUrl\":\"https://example.com\",\"routePrefix\":\"\"}},\"games\":[{{\"source\":{{\"type\":\"local\",\"path\":\"{path}\"}}}},{{\"source\":{{\"type\":\"local\",\"path\":\"{path}\"}}}}],\"staticGeneration\":{{\"routeMode\":\"single-shell\"}},\"deployment\":{{\"target\":\"github-pages\"}}}}"
             ),
         )
         .expect("write harness");

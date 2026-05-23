@@ -12,6 +12,7 @@
 </script>
 
 <form
+  class="guess-row"
   data-testid="guess-form"
   on:submit|preventDefault={submit}
 >

@@ -11,10 +11,12 @@
   }
 </script>
 
-<button data-testid="share-button" type="button" on:click={share}>Share</button>
-{#if text}
-  <output data-testid="share-output">{text}</output>
-  {#if link}
-    <a data-testid="share-link" href={link}>{link}</a>
+<div class="share-block">
+  <button data-testid="share-button" type="button" on:click={share}>Share</button>
+  {#if text}
+    <output data-testid="share-output">{text}</output>
+    {#if link}
+      <a data-testid="share-link" href={link}>{link}</a>
+    {/if}
   {/if}
-{/if}
+</div>

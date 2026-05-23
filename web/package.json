@@ -5,7 +5,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "build": "node scripts/build.mjs",
+    "build": "astro build",
     "test:e2e": "npm run build && playwright test"
   },
   "devDependencies": {

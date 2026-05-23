@@ -5,6 +5,7 @@ mod fetch;
 mod generate;
 mod lockfile;
 mod resolver;
+mod schema;
 mod static_check;
 mod validate;
 

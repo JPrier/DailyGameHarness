@@ -292,7 +292,7 @@ mod tests {
             .join(",");
         std::fs::write(
             &p,
-            format!("{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"routePrefix\":\"\"}},\"games\":[{games}]}}"),
+            format!("{{\"schemaVersion\":\"daily-game-harness.v1\",\"site\":{{\"name\":\"Daily Games\",\"baseUrl\":\"https://example.com\",\"routePrefix\":\"\"}},\"games\":[{games}],\"staticGeneration\":{{\"routeMode\":\"single-shell\"}},\"deployment\":{{\"target\":\"github-pages\"}}}}"),
         )
         .expect("harness");
         p
@@ -384,26 +384,17 @@ mod tests {
         let harness = harness_for_paths(&[first, second]);
         generate_static_registry(&harness).expect("generate");
         prepare_public_assets(&harness).expect("prepare assets");
-        let status = std::process::Command::new("node")
-            .current_dir(root.join("web"))
-            .args(["scripts/build.mjs"])
-            .status()
-            .expect("node build");
-        assert!(status.success());
         let reg =
             std::fs::read_to_string(root.join("web/src/generated/game-registry.ts")).expect("read");
         assert!(reg.contains("\"minimal-text-game\""));
         assert!(reg.contains("\"second-minimal-game\""));
         assert!(reg.contains("GameView_1"));
         assert!(reg.contains("createRuntime_1"));
-        let home = std::fs::read_to_string(root.join("web/dist/index.html")).expect("home");
-        assert!(home.contains("Minimal Text Game"));
-        assert!(home.contains("Second Minimal Game"));
         assert!(root
-            .join("web/dist/games/minimal-text-game/index.html")
+            .join("web/public/_games/minimal-text-game/content/manifest.json")
             .exists());
         assert!(root
-            .join("web/dist/games/second-minimal-game/index.html")
+            .join("web/public/_games/second-minimal-game/content/manifest.json")
             .exists());
     }
 }

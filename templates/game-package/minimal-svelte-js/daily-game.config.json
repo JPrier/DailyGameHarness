@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "daily-game-package.v1",
+  "contractVersion": "daily-game-runtime.v1",
+  "game": {
+    "id": "my-daily-game",
+    "slug": "my-daily-game",
+    "displayName": "My Daily Game",
+    "shortDescription": "Starter package for a static daily game.",
+    "category": "starter",
+    "status": "playable"
+  },
+  "runtime": {
+    "entry": "dist/runtime/index.js"
+  },
+  "ui": {
+    "entry": "src/GameView.svelte"
+  },
+  "content": {
+    "manifest": "content/manifest.json",
+    "puzzlesDir": "content/puzzles",
+    "assetsDir": "content/assets"
+  },
+  "build": {
+    "mode": "prebuilt"
+  },
+  "extension": {}
+}

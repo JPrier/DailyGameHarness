@@ -12,7 +12,8 @@
       "properties": {
         "name": {"type": "string", "minLength": 1},
         "baseUrl": {"type": "string", "format": "uri"},
-        "routePrefix": {"type": "string", "pattern": "^$|^/[a-zA-Z0-9/_-]*$"}
+        "routePrefix": {"type": "string", "pattern": "^$|^/[a-zA-Z0-9/_-]*$"},
+        "defaultTimezone": {"type": "string"}
       }
     },
     "games": {
@@ -32,7 +33,27 @@
         }
       }
     },
-    "staticGeneration": {"type": "object"},
-    "deployment": {"type": "object"}
+    "staticGeneration": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "outputDir": {"type": "string"},
+        "generatedDir": {"type": "string"},
+        "externalGamesDir": {"type": "string"},
+        "publicGamesDir": {"type": "string"},
+        "routeMode": {"const": "single-shell"}
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "target": {"enum": ["github-pages", "s3"]},
+        "githubPages": {"type": "object"},
+        "bucketEnv": {"type": "string"},
+        "regionEnv": {"type": "string"},
+        "cloudFrontDistributionIdEnv": {"type": "string"}
+      }
+    }
   }
 }

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "daily-game-content-manifest.v1",
+  "gameId": "my-daily-game",
+  "displayName": "My Daily Game",
+  "defaultMaxGuesses": 6,
+  "inputModes": ["text"],
+  "share": {
+    "emoji": "🎮",
+    "includeGuessCount": true,
+    "includeDate": true
+  },
+  "puzzleResolver": {
+    "mode": "static-pool",
+    "timezone": "America/New_York",
+    "startDate": "2026-01-01",
+    "poolVersions": [
+      {
+        "version": "v1",
+        "startDate": "2026-01-01",
+        "poolSize": 3,
+        "pathPattern": "content/puzzles/v1/puzzle-{index:04}.json",
+        "selector": {
+          "type": "affine-permutation",
+          "a": 2,
+          "b": 1
+        },
+        "cyclePolicy": "repeat"
+      }
+    ]
+  },
+  "archive": {
+    "mode": "rolling-window",
+    "days": 14,
+    "includeToday": true,
+    "allowFutureDates": false,
+    "directAccess": "within-archive-window"
+  },
+  "extension": {}
+}

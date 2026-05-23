@@ -7,6 +7,7 @@
   import ArchiveList from './ArchiveList.svelte';
   import { archiveDates, isDateAllowed, todayInTimezone } from '../lib/archive';
   import { loadPuzzle } from '../lib/game-loader';
+  import { getRegisteredGame } from '../lib/game-registry';
   import { keyFor, loadState, saveState } from '../lib/local-state';
   import { resolvePuzzle } from '../lib/puzzle-resolver';
   import type {
@@ -20,7 +21,8 @@
     ResolvedPuzzleRef,
   } from '../lib/types';
 
-  export let game: RegisteredGame;
+  export let game: RegisteredGame | null = null;
+  export let gameSlug = '';
   export let date: string | undefined = undefined;
 
   let loading = true;
@@ -33,7 +35,8 @@
   let runtime: GameRuntime | null = null;
   let state: GameState | null = null;
   let latestEvaluation: GuessEvaluation | null = null;
-  let GameView: any = game.GameView;
+  let activeGame: RegisteredGame | null = null;
+  let GameView: any = null;
 
   $: isComplete = state?.status === 'won' || state?.status === 'lost';
 
@@ -41,14 +44,17 @@
     loading = true;
     error = '';
     try {
+      activeGame = game ?? getRegisteredGame(gameSlug);
+      if (!activeGame) throw new Error('game_not_found');
+      GameView = activeGame.GameView;
       const [manifestResponse, indexResponse] = await Promise.all([
-        fetch(game.contentManifestUrl),
-        game.dateIndexUrl ? fetch(game.dateIndexUrl) : Promise.resolve(null),
+        fetch(activeGame.contentManifestUrl),
+        activeGame.dateIndexUrl ? fetch(activeGame.dateIndexUrl) : Promise.resolve(null),
       ]);
       if (!manifestResponse.ok || (indexResponse && !indexResponse.ok)) throw new Error('content_not_found');
       contentManifest = await manifestResponse.json();
       dateIndex = indexResponse ? await indexResponse.json() : null;
-      runtime = await game.createRuntime();
+      runtime = await activeGame.createRuntime();
       const contentValidation = await runtime.validateContent({
         packageConfig: null,
         contentManifest,
@@ -64,7 +70,7 @@
       }
       resolvedPuzzle = resolvePuzzle(contentManifest, selectedDate, dateIndex);
       if (!resolvedPuzzle) throw new Error('puzzle_unavailable');
-      puzzle = await loadPuzzle(game, resolvedPuzzle);
+      puzzle = await loadPuzzle(activeGame, resolvedPuzzle);
       const puzzleValidation = await runtime.validatePuzzle({ contentManifest, puzzle });
       if (!puzzleValidation.ok) throw new Error(puzzleValidation.errors[0]?.message ?? 'puzzle invalid');
       const initial = await runtime.createInitialState({ contentManifest, puzzle, date: selectedDate });
@@ -88,7 +94,8 @@
   async function buildShareText() {
     if (!runtime || !state || !puzzle || !contentManifest) return '';
     const result = await runtime.buildShareText({ contentManifest, puzzle, state });
-    const gameUrl = new URL(`${game.routePrefix}/games/${game.slug}/`, window.location.origin).href;
+    if (!activeGame) return '';
+    const gameUrl = new URL(`${activeGame.routePrefix}/games/${activeGame.slug}/`, window.location.origin).href;
     const shareText =
       typeof result === 'string' ? result : `${game.displayName} ${selectedDate} ${state.status}`;
     return shareText.includes(gameUrl) ? shareText : `${shareText}\n${gameUrl}`;
@@ -100,18 +107,26 @@
 {#if loading}
   <p data-testid="loading">Loading puzzle...</p>
 {:else if error}
-  <ErrorPanel message={error} />
-{:else if state && puzzle && contentManifest && resolvedPuzzle}
-  <section data-testid="game-shell">
-    <h1>{game.displayName}</h1>
+  {#if error === 'puzzle_unavailable'}
+    <section class="error-panel" data-testid="not-found" role="alert">
+      <h2>Puzzle unavailable</h2>
+      <p>Puzzle unavailable</p>
+    </section>
+  {:else}
+    <ErrorPanel message={error} />
+  {/if}
+{:else if state && puzzle && contentManifest && resolvedPuzzle && activeGame}
+  <section class="game-panel" data-testid="game-shell">
+    <p class="eyebrow">Daily puzzle</p>
+    <h1>{activeGame.displayName}</h1>
     <ArchiveList
-      gameSlug={game.slug}
-      routePrefix={game.routePrefix}
+      gameSlug={activeGame.slug}
+      routePrefix={activeGame.routePrefix}
       dates={archiveDates(contentManifest.archive, todayInTimezone(contentManifest.puzzleResolver.timezone))}
     />
     <svelte:component
       this={GameView}
-      {game}
+      game={activeGame}
       {contentManifest}
       {puzzle}
       {resolvedPuzzle}
@@ -119,7 +134,9 @@
       {latestEvaluation}
       {submitInput}
     />
-    <GuessInput disabled={isComplete} {submitInput} />
+    <div class="guess-row">
+      <GuessInput disabled={isComplete} {submitInput} />
+    </div>
     <GenericFeedback feedback={latestEvaluation?.feedback ?? []} />
     <p data-testid="guess-count">{state.guessCount}</p>
     <ResultModal {state} />

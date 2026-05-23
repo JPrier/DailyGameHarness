@@ -10,6 +10,7 @@
     "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
     "seed": {"type": "string"},
     "display": {"type": "object", "required": ["title", "initialPrompt"], "properties": {"title": {"type": "string"}, "initialPrompt": {"type": "string"}}, "additionalProperties": true},
+    "assets": {"type": "object", "additionalProperties": true},
     "extension": {"type": "object", "additionalProperties": true}
   }
 }

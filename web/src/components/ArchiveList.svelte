@@ -5,7 +5,7 @@
 </script>
 
 {#if dates.length > 0}
-  <nav data-testid="archive-list" aria-label="Puzzle archive">
+  <nav class="archive-list" data-testid="archive-list" aria-label="Puzzle archive">
     {#each dates as archiveDate}
       <a data-testid="archive-date" href={`${routePrefix}/games/${gameSlug}/?date=${archiveDate}`}>{archiveDate}</a>
     {/each}
