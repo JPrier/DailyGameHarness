@@ -14,6 +14,7 @@ target
 **/mutants.out*/
 
 # Web/generated local outputs
+.harness/
 web/node_modules/
 web/.astro/
 web/dist/

@@ -14,6 +14,13 @@
       "requestedRef": null,
       "resolvedSha": null,
       "localPath": "/workspace/DailyGameHarness/fixtures/games/second-minimal-game"
+    },
+    {
+      "sourceType": "git",
+      "repo": "https://github.com/JPrier/DailyGameCityGrid.git",
+      "requestedRef": "main",
+      "resolvedSha": "89c892457f77b2654fcc6c96c76657fd6a6510d5",
+      "localPath": ".harness/external-games/DailyGameCityGrid"
     }
   ]
 }
