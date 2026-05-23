@@ -145,8 +145,7 @@ pub fn resolve_puzzle(config: &PuzzleResolverConfig, date: &str) -> Result<Resol
             versions.sort_by_key(|version| parse_date(&version.start_date).expect("validated"));
             let Some(version) = versions
                 .into_iter()
-                .filter(|version| parse_date(&version.start_date).expect("validated") <= requested)
-                .next_back()
+                .rfind(|version| parse_date(&version.start_date).expect("validated") <= requested)
             else {
                 return Ok(ResolvedPuzzle::Unavailable);
             };
