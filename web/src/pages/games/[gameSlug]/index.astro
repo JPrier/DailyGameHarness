@@ -1,0 +1,21 @@
+---
+import { generatedGameRegistry } from '../../../generated/game-registry';
+import GameShell from '../../../components/GameShell.svelte';
+import '../../../styles/global.css';
+export function getStaticPaths() {
+  return Object.values(generatedGameRegistry).map((g) => ({ params: { gameSlug: g.slug }, props: { game: g } }));
+}
+const { game } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{game.displayName}</title>
+  </head>
+  <body>
+    <main class="site-shell">
+      <GameShell gameSlug={game.slug} client:load />
+    </main>
+  </body>
+</html>

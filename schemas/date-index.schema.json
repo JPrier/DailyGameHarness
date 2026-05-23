@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "gameId", "dates"],
+  "properties": {
+    "schemaVersion": {"const": "daily-game-date-index.v1"},
+    "gameId": {"type": "string", "minLength": 1},
+    "dates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["date", "puzzlePath"],
+        "properties": {
+          "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+          "puzzlePath": {"type": "string", "minLength": 1},
+          "assetsPrefix": {"type": "string"}
+        }
+      }
+    }
+  }
+}

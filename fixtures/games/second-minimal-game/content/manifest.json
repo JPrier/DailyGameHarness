@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "daily-game-content-manifest.v1",
+  "gameId": "second-minimal-game",
+  "displayName": "Second Minimal Game",
+  "defaultMaxGuesses": 4,
+  "inputModes": ["text"],
+  "share": {
+    "emoji": "🎮",
+    "includeGuessCount": true,
+    "includeDate": true
+  },
+  "puzzleResolver": {
+    "mode": "static-pool",
+    "timezone": "America/New_York",
+    "startDate": "2026-01-01",
+    "poolVersions": [
+      {
+        "version": "v1",
+        "startDate": "2026-01-01",
+        "poolSize": 5,
+        "pathPattern": "content/puzzles/v1/puzzle-{index:04}.json",
+        "assetPathPattern": "content/assets/v1/puzzle-{index:04}/",
+        "selector": {
+          "type": "affine-permutation",
+          "a": 2,
+          "b": 0
+        },
+        "cyclePolicy": "repeat"
+      }
+    ]
+  },
+  "archive": {
+    "mode": "rolling-window",
+    "days": 7,
+    "includeToday": true,
+    "allowFutureDates": false,
+    "directAccess": "within-archive-window"
+  },
+  "assetLoading": {
+    "mode": "lazy-by-stage"
+  },
+  "puzzleSchema": {
+    "type": "game-owned",
+    "path": "content/schemas/puzzle.schema.json"
+  },
+  "extension": {}
+}

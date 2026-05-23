@@ -13,6 +13,16 @@ target
 # Contains mutation testing data
 **/mutants.out*/
 
+# Web/generated local outputs
+web/node_modules/
+web/.astro/
+web/dist/
+web/test-results/
+web/playwright-report/
+crates/daily_game_tools/.harness/
+crates/daily_game_tools/web/
+crates/daily_game_tools/harness.lock.json
+
 # RustRover
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

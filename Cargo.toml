@@ -1,0 +1,18 @@
+[workspace]
+members = [
+  "crates/daily_game_core",
+  "crates/daily_game_wasm_support",
+  "crates/daily_game_tools"
+]
+resolver = "2"
+
+[workspace.dependencies]
+anyhow = "1"
+chrono = { version = "0.4", features = ["serde"] }
+clap = { version = "4", features = ["derive"] }
+regex = "1"
+schemars = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+walkdir = "2"

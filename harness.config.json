@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "daily-game-harness.v1",
+  "site": {"name": "Daily Games", "baseUrl": "https://example.github.io", "routePrefix": "", "defaultTimezone": "America/New_York"},
+  "games": [
+    {"source": {"type": "local", "path": "fixtures/games/minimal-text-game"}},
+    {"source": {"type": "local", "path": "fixtures/games/second-minimal-game"}}
+  ],
+  "staticGeneration": {"outputDir": "web/dist", "generatedDir": ".harness/generated", "externalGamesDir": ".harness/external-games", "publicGamesDir": "web/public/_games", "routeMode": "single-shell"},
+  "deployment": {"target": "github-pages", "githubPages": {"artifactPath": "web/dist", "environmentName": "github-pages"}}
+}

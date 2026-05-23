@@ -1,0 +1,35 @@
+---
+import { generatedGameRegistry } from '../generated/game-registry';
+import '../styles/global.css';
+const games = Object.values(generatedGameRegistry);
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Games</title>
+  </head>
+  <body>
+    <main class="site-shell">
+      <section class="hero">
+        <p class="eyebrow">Static daily puzzle harness</p>
+        <h1>Daily Games</h1>
+        <p class="lede">
+          A small arcade of fixture games proving the external package contract, static puzzle
+          resolution, and archive behavior.
+        </p>
+      </section>
+      <ul class="game-grid" data-testid="game-list">
+        {games.map((g) => (
+          <li class="game-card">
+            <a href={`/games/${g.slug}/`}>
+              <strong>{g.displayName}</strong>
+              <span>{g.category}</span>
+              <small>Play the daily shell</small>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </main>
+  </body>
+</html>

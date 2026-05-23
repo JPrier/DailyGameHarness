@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schemaVersion","gameId","puzzleId","date","status","guessCount","maxGuesses","currentStage","publicState"],
+  "properties": {
+    "schemaVersion": {"const": "daily-game-state.v1"},
+    "gameId": {"type": "string"},
+    "puzzleId": {"type": "string"},
+    "date": {"type": "string"},
+    "status": {"enum": ["in_progress","won","lost"]},
+    "guessCount": {"type": "integer", "minimum": 0},
+    "maxGuesses": {"type": "integer", "minimum": 1},
+    "currentStage": {"type": "integer", "minimum": 0},
+    "publicState": {"type": "object"}
+  }
+}

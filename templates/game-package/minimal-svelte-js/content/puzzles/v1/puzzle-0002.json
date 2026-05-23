@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "my-daily-game",
+  "puzzleId": "my-daily-game-v1-0002",
+  "date": "2026-01-03",
+  "seed": "my-daily-game:v1:0002",
+  "display": {
+    "title": "Starter Puzzle 0002",
+    "initialPrompt": "Guess the starter answer"
+  },
+  "extension": {
+    "answer": "charlie"
+  }
+}
