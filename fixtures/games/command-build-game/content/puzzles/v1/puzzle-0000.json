@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "command-build-game",
+  "puzzleId": "command-build-game-v1-0000",
+  "date": "2026-01-01",
+  "seed": "command-build-game:v1:0000",
+  "display": {
+    "title": "Command Build Puzzle",
+    "initialPrompt": "Generated guess"
+  },
+  "assets": {
+    "initial": [
+      "content/assets/v1/puzzle-0000/initial.txt"
+    ]
+  },
+  "extension": {
+    "answer": "command"
+  }
+}

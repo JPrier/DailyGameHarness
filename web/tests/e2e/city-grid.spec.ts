@@ -62,10 +62,10 @@ test('city grid consumes valid wrong guesses and advances staged feedback', asyn
   await expect(game.getByTestId('guess-count')).toHaveText('1');
   await expect(game.getByTestId('clue-stage')).toHaveText('1');
   await expect(game.getByTestId('status-banner')).toContainText('Incorrect');
-  await expect(game.getByTestId('feedback-row-distance').last()).toBeVisible();
-  await expect(game.getByTestId('feedback-row-direction').last()).toBeVisible();
-  await expect(game.getByTestId('feedback-row-sameCountry').last()).toBeVisible();
-  await expect(game.getByTestId('feedback-row-population').last()).toBeVisible();
+  await expect(game.getByTestId('latest-feedback-distance')).toBeVisible();
+  await expect(game.getByTestId('latest-feedback-direction')).toBeVisible();
+  await expect(game.getByTestId('latest-feedback-sameCountry')).toBeVisible();
+  await expect(game.getByTestId('latest-feedback-population')).toBeVisible();
   await expect(game.getByTestId('city-grid-distance-feedback')).toContainText('mi');
   await expect(game.getByTestId('city-grid-direction-feedback')).toHaveText(/N|NE|E|SE|S|SW|W|NW/);
   await expect(game.getByTestId('guess-history')).toContainText('Chicago');

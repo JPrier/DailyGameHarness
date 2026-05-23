@@ -23,7 +23,70 @@
     "ui": {"type": "object", "additionalProperties": true, "required": ["entry"], "properties": {"entry": {"type": "string", "minLength": 1}}},
     "content": {"type": "object", "additionalProperties": true, "required": ["manifest", "puzzlesDir"], "properties": {"manifest": {"type": "string"}, "puzzlesDir": {"type": "string"}, "assetsDir": {"type": "string"}, "dateIndex": {"type": "string"}}},
     "staticGeneration": {"type": "object", "required": ["dateDiscovery"], "properties": {"dateDiscovery": {"type": "object", "required": ["mode", "path"], "properties": {"mode": {"const": "date-index"}, "path": {"type": "string"}}}}, "additionalProperties": true},
-    "build": {"type": "object", "additionalProperties": true},
+    "build": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": {
+            "mode": {"const": "prebuilt"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "outputs"],
+          "properties": {
+            "mode": {"const": "command"},
+            "command": {"type": "string", "minLength": 1},
+            "commands": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "run"],
+                "properties": {
+                  "name": {"type": "string", "minLength": 1},
+                  "run": {"type": "string", "minLength": 1},
+                  "timeoutSeconds": {"type": "integer", "minimum": 1}
+                }
+              }
+            },
+            "outputs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "environment": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "node": {"type": "string", "minLength": 1},
+                "systemTools": {
+                  "type": "array",
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "network": {"enum": ["disabled-by-default", "allowed", "required"]},
+                "cacheDirs": {
+                  "type": "array",
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "maxBuildSeconds": {"type": "integer", "minimum": 1}
+              }
+            }
+          },
+          "not": {
+            "required": ["command", "commands"]
+          },
+          "anyOf": [
+            {"required": ["command"]},
+            {"required": ["commands"]}
+          ]
+        }
+      ]
+    },
     "extension": {"type": "object", "additionalProperties": true}
   }
 }

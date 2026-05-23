@@ -6,14 +6,14 @@
       "repo": null,
       "requestedRef": null,
       "resolvedSha": null,
-      "localPath": "\\\\?\\D:\\Development\\Websites\\dailygames\\DailyGameHarness\\fixtures\\games\\minimal-text-game"
+      "localPath": "/workspace/DailyGameHarness/fixtures/games/minimal-text-game"
     },
     {
       "sourceType": "local",
       "repo": null,
       "requestedRef": null,
       "resolvedSha": null,
-      "localPath": "\\\\?\\D:\\Development\\Websites\\dailygames\\DailyGameHarness\\fixtures\\games\\second-minimal-game"
+      "localPath": "/workspace/DailyGameHarness/fixtures/games/second-minimal-game"
     },
     {
       "sourceType": "git",
@@ -23,10 +23,17 @@
       "localPath": ".harness/external-games/DailyGameFlagFade"
     },
     {
+      "sourceType": "local",
+      "repo": null,
+      "requestedRef": null,
+      "resolvedSha": null,
+      "localPath": "/workspace/DailyGameHarness/fixtures/games/command-build-game"
+    },
+    {
       "sourceType": "git",
       "repo": "https://github.com/JPrier/DailyGameCityGrid.git",
       "requestedRef": "main",
-      "resolvedSha": "89c892457f77b2654fcc6c96c76657fd6a6510d5",
+      "resolvedSha": "7b2c4473e801ccb30879002580cc7e76bf0aa591",
       "localPath": ".harness/external-games/DailyGameCityGrid"
     }
   ]

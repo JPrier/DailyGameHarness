@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "daily-game-package.v1",
+  "contractVersion": "daily-game-runtime.v1",
+  "game": {
+    "id": "command-build-game",
+    "slug": "command-build-game",
+    "displayName": "Command Build Game",
+    "shortDescription": "Fixture proving command-mode package generation.",
+    "category": "fixture",
+    "status": "playable"
+  },
+  "runtime": {
+    "entry": "dist/runtime/index.js"
+  },
+  "ui": {
+    "entry": "src/GameView.svelte"
+  },
+  "content": {
+    "manifest": "content/manifest.json",
+    "puzzlesDir": "content/puzzles",
+    "assetsDir": "content/assets"
+  },
+  "build": {
+    "mode": "command",
+    "commands": [
+      {
+        "name": "build-fixture",
+        "run": "node tools/build-package.mjs",
+        "timeoutSeconds": 30
+      }
+    ],
+    "outputs": [
+      "dist/runtime/index.js",
+      "src/GameView.svelte",
+      "content/manifest.json",
+      "content/puzzles",
+      "content/assets"
+    ],
+    "environment": {
+      "node": ">=22",
+      "systemTools": [],
+      "network": "disabled-by-default",
+      "cacheDirs": [".cache"],
+      "maxBuildSeconds": 30
+    }
+  },
+  "extension": {}
+}

@@ -8,8 +8,10 @@ use regex::Regex;
 use serde::Deserialize;
 use serde_json::Value;
 use std::collections::HashSet;
+use std::io::Read;
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::process::{Command, Stdio};
+use std::time::{Duration, Instant};
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
@@ -67,10 +69,31 @@ pub struct DateDiscovery {
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Build {
-    pub mode: Option<String>,
-    pub commands: Option<Vec<String>>,
+    pub mode: String,
+    pub command: Option<String>,
+    pub commands: Option<Vec<BuildCommand>>,
+    pub outputs: Option<Vec<String>>,
+    pub environment: Option<BuildEnvironment>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct BuildCommand {
+    pub name: String,
+    pub run: String,
+    pub timeout_seconds: Option<u64>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct BuildEnvironment {
+    pub node: Option<String>,
+    pub system_tools: Option<Vec<String>>,
+    pub network: Option<String>,
+    pub cache_dirs: Option<Vec<String>>,
+    pub max_build_seconds: Option<u64>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -175,20 +198,12 @@ pub fn build_or_verify_games(harness_path: &str) -> Result<()> {
         let mode = parsed
             .build
             .as_ref()
-            .and_then(|build| build.mode.as_deref())
+            .map(|build| build.mode.as_str())
             .unwrap_or("prebuilt");
-        if mode == "build-from-source" {
-            for command in parsed
-                .build
-                .as_ref()
-                .and_then(|build| build.commands.as_ref())
-                .into_iter()
-                .flatten()
-            {
-                run_package_command(&root, command)?;
-            }
-        } else if mode != "prebuilt" {
-            bail!("unsupported build mode: {mode}");
+        match mode {
+            "prebuilt" => {}
+            "command" => run_command_build(&root, &parsed)?,
+            other => bail!("unsupported build mode: {other}"),
         }
         assert_existing_file(&root, &parsed.runtime.entry, "runtime entry")?;
         assert_existing_file(&root, &parsed.ui.entry, "ui entry")?;
@@ -316,10 +331,105 @@ fn validate_package_config(root: &Path, parsed: &GamePackageConfig) -> Result<()
             bail!("date discovery path must match content.dateIndex")
         }
     }
+    validate_build_config(root, parsed)?;
     if !parsed.extension.is_object() {
         bail!("extension must be object")
     }
     Ok(())
+}
+
+fn validate_build_config(root: &Path, parsed: &GamePackageConfig) -> Result<()> {
+    let Some(build) = &parsed.build else {
+        return Ok(());
+    };
+    match build.mode.as_str() {
+        "prebuilt" => {
+            if build.command.is_some() || build.commands.is_some() {
+                bail!("prebuilt mode must not declare build commands");
+            }
+        }
+        "command" => {
+            if build.command.is_some() == build.commands.is_some() {
+                bail!("command mode must declare exactly one of command or commands");
+            }
+            let outputs = build
+                .outputs
+                .as_ref()
+                .filter(|outputs| !outputs.is_empty())
+                .ok_or_else(|| anyhow!("command mode must declare non-empty outputs"))?;
+            for output in outputs {
+                assert_path_within_root(root, output, "build output")?;
+            }
+            for command in build_commands(build)? {
+                if command.name.trim().is_empty() {
+                    bail!("build command name must be non-empty");
+                }
+                if command.run.trim().is_empty() {
+                    bail!("build command run string must be non-empty");
+                }
+                if command.timeout_seconds == Some(0) {
+                    bail!("build command timeoutSeconds must be positive");
+                }
+            }
+            if let Some(environment) = &build.environment {
+                if let Some(node) = &environment.node {
+                    if node.trim().is_empty() {
+                        bail!("environment.node must be non-empty");
+                    }
+                }
+                if let Some(system_tools) = &environment.system_tools {
+                    if system_tools.iter().any(|tool| tool.trim().is_empty()) {
+                        bail!("environment.systemTools must contain non-empty names");
+                    }
+                }
+                if let Some(network) = &environment.network {
+                    if !matches!(
+                        network.as_str(),
+                        "disabled-by-default" | "allowed" | "required"
+                    ) {
+                        bail!("unsupported build network policy: {network}");
+                    }
+                }
+                if let Some(cache_dirs) = &environment.cache_dirs {
+                    for cache_dir in cache_dirs {
+                        assert_path_within_root(root, cache_dir, "build cache dir")?;
+                    }
+                }
+                if environment.max_build_seconds == Some(0) {
+                    bail!("environment.maxBuildSeconds must be positive");
+                }
+            }
+        }
+        other => bail!("unsupported build mode: {other}"),
+    }
+    Ok(())
+}
+
+fn build_commands(build: &Build) -> Result<Vec<BuildCommandRef<'_>>> {
+    if let Some(command) = &build.command {
+        return Ok(vec![BuildCommandRef {
+            name: "command",
+            run: command,
+            timeout_seconds: None,
+        }]);
+    }
+    Ok(build
+        .commands
+        .as_deref()
+        .unwrap_or_default()
+        .iter()
+        .map(|command| BuildCommandRef {
+            name: &command.name,
+            run: &command.run,
+            timeout_seconds: command.timeout_seconds,
+        })
+        .collect())
+}
+
+struct BuildCommandRef<'a> {
+    name: &'a str,
+    run: &'a str,
+    timeout_seconds: Option<u64>,
 }
 
 fn validate_manifest_common(package: &GamePackageConfig, manifest: &ContentManifest) -> Result<()> {
@@ -489,20 +599,157 @@ fn assert_existing_file(root: &Path, rel: &str, label: &str) -> Result<PathBuf> 
         .with_context(|| format!("{label} missing or invalid: {}", root.join(rel).display()))
 }
 
-fn run_package_command(root: &Path, command: &str) -> Result<()> {
-    let status = if cfg!(target_os = "windows") {
-        Command::new("cmd")
-            .current_dir(root)
-            .args(["/C", command])
-            .status()?
+fn run_command_build(root: &Path, package: &GamePackageConfig) -> Result<()> {
+    let build = package
+        .build
+        .as_ref()
+        .ok_or_else(|| anyhow!("missing build config"))?;
+    let network = build
+        .environment
+        .as_ref()
+        .and_then(|environment| environment.network.as_deref())
+        .unwrap_or("disabled-by-default");
+    println!(
+        "package {} build mode command; network policy: {network}",
+        package.game.id
+    );
+    for command in build_commands(build)? {
+        let timeout = command
+            .timeout_seconds
+            .or_else(|| {
+                build
+                    .environment
+                    .as_ref()
+                    .and_then(|environment| environment.max_build_seconds)
+            })
+            .unwrap_or(1200);
+        run_package_command(root, package, &command, timeout)?;
+    }
+    for output in build.outputs.as_deref().unwrap_or_default() {
+        assert_declared_output(root, output).with_context(|| {
+            format!(
+                "package {} missing declared output: {output}",
+                package.game.id
+            )
+        })?;
+    }
+    Ok(())
+}
+
+fn run_package_command(
+    root: &Path,
+    package: &GamePackageConfig,
+    build_command: &BuildCommandRef<'_>,
+    timeout_seconds: u64,
+) -> Result<()> {
+    let mut command = if cfg!(target_os = "windows") {
+        let mut command = Command::new("cmd");
+        command.args(["/C", build_command.run]);
+        command
     } else {
-        Command::new("sh")
-            .current_dir(root)
-            .args(["-c", command])
-            .status()?
+        let mut command = Command::new("sh");
+        command.args(["-c", build_command.run]);
+        command
     };
+    let mut child = command
+        .current_dir(root)
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .with_context(|| format!("spawn package build command {}", build_command.name))?;
+    let started = Instant::now();
+    let timeout = Duration::from_secs(timeout_seconds);
+    let status = loop {
+        if let Some(status) = child.try_wait()? {
+            break status;
+        }
+        if started.elapsed() > timeout {
+            let _ = child.kill();
+            let stdout = read_pipe(child.stdout.take());
+            let stderr = read_pipe(child.stderr.take());
+            bail!(
+                "{}",
+                build_failure_context(
+                    package,
+                    root,
+                    build_command,
+                    &format!("timed out after {timeout_seconds}s"),
+                    &stdout,
+                    &stderr,
+                )
+            );
+        }
+        std::thread::sleep(Duration::from_millis(50));
+    };
+    let stdout = read_pipe(child.stdout.take());
+    let stderr = read_pipe(child.stderr.take());
     if !status.success() {
-        bail!("package build command failed: {command}")
+        bail!(
+            "{}",
+            build_failure_context(
+                package,
+                root,
+                build_command,
+                &format!(
+                    "exit code {}",
+                    status
+                        .code()
+                        .map_or_else(|| "unknown".into(), |code| code.to_string())
+                ),
+                &stdout,
+                &stderr,
+            )
+        );
+    }
+    Ok(())
+}
+
+fn read_pipe(pipe: Option<impl Read>) -> String {
+    let Some(mut pipe) = pipe else {
+        return String::new();
+    };
+    let mut output = String::new();
+    let _ = pipe.read_to_string(&mut output);
+    output
+}
+
+fn build_failure_context(
+    package: &GamePackageConfig,
+    root: &Path,
+    command: &BuildCommandRef<'_>,
+    reason: &str,
+    stdout: &str,
+    stderr: &str,
+) -> String {
+    format!(
+        "package build failed\npackage id: {}\nsource path: {}\nbuild mode: command\ncommand name: {}\ncommand string: {}\nfailure: {}\nstdout tail:\n{}\nstderr tail:\n{}",
+        package.game.id,
+        root.display(),
+        command.name,
+        command.run,
+        reason,
+        tail_lines(stdout, 40),
+        tail_lines(stderr, 40)
+    )
+}
+
+fn tail_lines(value: &str, max_lines: usize) -> String {
+    let lines = value.lines().collect::<Vec<_>>();
+    let start = lines.len().saturating_sub(max_lines);
+    lines[start..].join("\n")
+}
+
+fn assert_declared_output(root: &Path, rel: &str) -> Result<()> {
+    assert_path_within_root(root, rel, "build output")?;
+    let path = root.join(rel);
+    let meta = std::fs::symlink_metadata(&path)
+        .with_context(|| format!("declared build output does not exist: {}", path.display()))?;
+    if meta.file_type().is_symlink() {
+        bail!("declared build output is a symlink: {}", path.display());
+    }
+    let canon = path.canonicalize()?;
+    if !canon.starts_with(root.canonicalize()?) {
+        bail!("declared build output escapes package root");
     }
     Ok(())
 }
@@ -617,6 +864,13 @@ mod tests {
         )
     }
 
+    fn with_build(body: &str, build: &str) -> String {
+        body.replace(
+            r#""extension":{}"#,
+            &format!(r#""build":{build},"extension":{{}}"#),
+        )
+    }
+
     fn write_pkg(dir: &Path, body: &str) {
         std::fs::create_dir_all("/tmp").expect("tmp");
         std::fs::create_dir_all(dir.join("dist/runtime")).expect("mkdir runtime");
@@ -636,6 +890,38 @@ mod tests {
             r#"{"schemaVersion":"daily-game-date-index.v1","gameId":"g","dates":[]}"#,
         )
         .expect("index");
+    }
+
+    fn write_command_pkg(dir: &Path, script: &str, outputs: &[&str]) -> String {
+        std::fs::create_dir_all(dir.join("tools")).expect("tools");
+        std::fs::create_dir_all(dir.join("src")).expect("src");
+        std::fs::write(dir.join("src/GameView.svelte"), "").expect("ui");
+        std::fs::write(dir.join("tools/build.mjs"), script).expect("script");
+        let outputs_json = outputs
+            .iter()
+            .map(|output| format!(r#""{output}""#))
+            .collect::<Vec<_>>()
+            .join(",");
+        let body = format!(
+            r#"{{"schemaVersion":"daily-game-package.v1","contractVersion":"daily-game-runtime.v1","game":{{"id":"command-test","slug":"command-test","displayName":"Command Test"}},"runtime":{{"entry":"dist/runtime/index.js"}},"ui":{{"entry":"src/GameView.svelte"}},"content":{{"manifest":"content/manifest.json","puzzlesDir":"content/puzzles","assetsDir":"content/assets"}},"build":{{"mode":"command","commands":[{{"name":"build","run":"node tools/build.mjs","timeoutSeconds":1}}],"outputs":[{outputs_json}]}},"extension":{{}}}}"#
+        );
+        std::fs::write(dir.join("daily-game.config.json"), &body).expect("pkg");
+        body
+    }
+
+    fn valid_command_script() -> &'static str {
+        r#"
+import fs from 'node:fs';
+import path from 'node:path';
+const write = (rel, value) => {
+  fs.mkdirSync(path.dirname(rel), { recursive: true });
+  fs.writeFileSync(rel, value);
+};
+write('dist/runtime/index.js', `export async function createRuntime(){return{contractVersion:'daily-game-runtime.v1',async validateContent(){return{ok:true,warnings:[]}},async validatePuzzle(){return{ok:true,warnings:[]}},async createInitialState({puzzle,date}){return{schemaVersion:'daily-game-state.v1',gameId:puzzle.gameId,puzzleId:puzzle.puzzleId,date,status:'in_progress',guessCount:0,maxGuesses:1,currentStage:0,publicState:{}}},async submitGuess({state}){return{state,evaluation:{outcome:'invalid',consumedGuess:false,feedback:[]}}},async buildShareText(){return 'share'}}}`);
+write('content/manifest.json', JSON.stringify({schemaVersion:'daily-game-content-manifest.v1',gameId:'command-test',inputModes:['text'],puzzleResolver:{mode:'static-pool',timezone:'America/New_York',startDate:'2026-01-01',poolVersions:[{version:'v1',startDate:'2026-01-01',poolSize:1,pathPattern:'content/puzzles/{version}/puzzle-{index:04}.json',selector:{type:'affine-permutation',a:1,b:0},cyclePolicy:'repeat'}]},archive:{mode:'rolling-window',days:30,includeToday:true,allowFutureDates:false,directAccess:'within-archive-window'},extension:{}}, null, 2));
+write('content/puzzles/v1/puzzle-0000.json', JSON.stringify({schemaVersion:'daily-game-puzzle.v1',gameId:'command-test',puzzleId:'command-test-v1-0000',date:'2026-01-01',seed:'command-test',display:{title:'Command Test',initialPrompt:'Guess'},extension:{}}, null, 2));
+write('content/assets/asset.txt', 'asset');
+"#
     }
 
     #[test]
@@ -731,6 +1017,119 @@ mod tests {
     }
 
     #[test]
+    fn accepts_prebuilt_build_mode() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-prebuilt-{}", std::process::id()));
+        write_pkg(
+            &tmp,
+            &with_build(&valid_pkg_body("g", "good-slug"), r#"{"mode":"prebuilt"}"#),
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        assert!(validate_games(&h).is_ok());
+    }
+
+    #[test]
+    fn accepts_command_build_mode_with_commands() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-command-{}", std::process::id()));
+        write_pkg(
+            &tmp,
+            &with_build(
+                &valid_pkg_body("g", "good-slug"),
+                r#"{"mode":"command","commands":[{"name":"build","run":"node tools/build.js"}],"outputs":["dist/runtime/index.js","content/manifest.json"]}"#,
+            ),
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        assert!(validate_games(&h).is_ok());
+    }
+
+    #[test]
+    fn accepts_command_build_mode_with_single_command() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-single-command-{}", std::process::id()));
+        write_pkg(
+            &tmp,
+            &with_build(
+                &valid_pkg_body("g", "good-slug"),
+                r#"{"mode":"command","command":"node tools/build.js","outputs":["dist/runtime/index.js"]}"#,
+            ),
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        assert!(validate_games(&h).is_ok());
+    }
+
+    #[test]
+    fn rejects_command_mode_with_both_command_forms() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-both-commands-{}", std::process::id()));
+        write_pkg(
+            &tmp,
+            &with_build(
+                &valid_pkg_body("g", "good-slug"),
+                r#"{"mode":"command","command":"echo one","commands":[{"name":"two","run":"echo two"}],"outputs":["dist/runtime/index.js"]}"#,
+            ),
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        assert!(validate_games(&h).is_err());
+    }
+
+    #[test]
+    fn rejects_command_mode_without_outputs() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-no-outputs-{}", std::process::id()));
+        write_pkg(
+            &tmp,
+            &with_build(
+                &valid_pkg_body("g", "good-slug"),
+                r#"{"mode":"command","command":"echo one","outputs":[]}"#,
+            ),
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        assert!(validate_games(&h).is_err());
+    }
+
+    #[test]
+    fn rejects_command_mode_with_absolute_or_parent_outputs() {
+        for (name, output) in [("absolute", "/tmp/out"), ("parent", "../out")] {
+            let tmp = PathBuf::from(format!("/tmp/pkg-output-{name}-{}", std::process::id()));
+            write_pkg(
+                &tmp,
+                &with_build(
+                    &valid_pkg_body("g", "good-slug"),
+                    &format!(r#"{{"mode":"command","command":"echo one","outputs":["{output}"]}}"#),
+                ),
+            );
+            let h = write_harness_for(&tmp.display().to_string());
+            assert!(validate_games(&h).is_err());
+        }
+    }
+
+    #[test]
+    fn rejects_prebuilt_mode_with_command() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-prebuilt-command-{}", std::process::id()));
+        write_pkg(
+            &tmp,
+            &with_build(
+                &valid_pkg_body("g", "good-slug"),
+                r#"{"mode":"prebuilt","command":"echo no"}"#,
+            ),
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        assert!(validate_games(&h).is_err());
+    }
+
+    #[test]
+    fn rejects_unknown_build_mode_and_nonpositive_timeout() {
+        for (name, build) in [
+            ("mode", r#"{"mode":"other"}"#),
+            (
+                "timeout",
+                r#"{"mode":"command","commands":[{"name":"build","run":"echo one","timeoutSeconds":0}],"outputs":["dist/runtime/index.js"]}"#,
+            ),
+        ] {
+            let tmp = PathBuf::from(format!("/tmp/pkg-bad-build-{name}-{}", std::process::id()));
+            write_pkg(&tmp, &with_build(&valid_pkg_body("g", "good-slug"), build));
+            let h = write_harness_for(&tmp.display().to_string());
+            assert!(validate_games(&h).is_err());
+        }
+    }
+
+    #[test]
     fn allows_unknown_fields_inside_extension() {
         let tmp = PathBuf::from(format!("/tmp/pkg-ext-{}", std::process::id()));
         let body = valid_pkg_body("g3", "ext-slug").replace(
@@ -756,5 +1155,69 @@ mod tests {
         )
         .expect("write harness");
         assert!(validate_games(&p).is_err());
+    }
+
+    #[test]
+    fn command_build_generates_outputs_before_validation() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-command-build-{}", std::process::id()));
+        write_command_pkg(
+            &tmp,
+            valid_command_script(),
+            &[
+                "dist/runtime/index.js",
+                "content/manifest.json",
+                "content/puzzles",
+            ],
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        assert!(build_or_verify_games(&h).is_ok());
+        validate_content(&h).expect("generated content should validate");
+        assert!(tmp.join("dist/runtime/index.js").exists());
+        assert!(tmp.join("content/puzzles/v1/puzzle-0000.json").exists());
+    }
+
+    #[test]
+    fn command_build_fails_for_missing_output() {
+        let tmp = PathBuf::from(format!(
+            "/tmp/pkg-command-missing-output-{}",
+            std::process::id()
+        ));
+        write_command_pkg(
+            &tmp,
+            valid_command_script(),
+            &["dist/runtime/index.js", "missing/output.txt"],
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        let err = build_or_verify_games(&h).expect_err("missing output should fail");
+        assert!(format!("{err:?}").contains("missing declared output"));
+    }
+
+    #[test]
+    fn command_build_fails_for_nonzero_exit_with_output_context() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-command-nonzero-{}", std::process::id()));
+        write_command_pkg(
+            &tmp,
+            "console.log('stdout marker'); console.error('stderr marker'); process.exit(7);",
+            &["dist/runtime/index.js"],
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        let err = build_or_verify_games(&h).expect_err("nonzero should fail");
+        let text = format!("{err:?}");
+        assert!(text.contains("exit code 7"));
+        assert!(text.contains("stdout marker"));
+        assert!(text.contains("stderr marker"));
+    }
+
+    #[test]
+    fn command_build_fails_on_timeout() {
+        let tmp = PathBuf::from(format!("/tmp/pkg-command-timeout-{}", std::process::id()));
+        write_command_pkg(
+            &tmp,
+            "setTimeout(() => console.log('too late'), 3000);",
+            &["dist/runtime/index.js"],
+        );
+        let h = write_harness_for(&tmp.display().to_string());
+        let err = build_or_verify_games(&h).expect_err("timeout should fail");
+        assert!(format!("{err:?}").contains("timed out"));
     }
 }

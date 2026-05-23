@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "daily-game-content-manifest.v1",
+  "gameId": "command-build-game",
+  "displayName": "Command Build Game",
+  "inputModes": [
+    "text"
+  ],
+  "defaultMaxGuesses": 3,
+  "puzzleResolver": {
+    "mode": "static-pool",
+    "timezone": "America/New_York",
+    "startDate": "2026-01-01",
+    "poolVersions": [
+      {
+        "version": "v1",
+        "startDate": "2026-01-01",
+        "poolSize": 1,
+        "pathPattern": "content/puzzles/{version}/puzzle-{index:04}.json",
+        "selector": {
+          "type": "affine-permutation",
+          "a": 1,
+          "b": 0
+        },
+        "cyclePolicy": "repeat"
+      }
+    ]
+  },
+  "archive": {
+    "mode": "rolling-window",
+    "days": 30,
+    "includeToday": true,
+    "allowFutureDates": false,
+    "directAccess": "within-archive-window"
+  },
+  "extension": {}
+}

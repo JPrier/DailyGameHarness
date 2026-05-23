@@ -5,6 +5,7 @@
     {"source": {"type": "local", "path": "fixtures/games/minimal-text-game"}},
     {"source": {"type": "local", "path": "fixtures/games/second-minimal-game"}},
     {"source": {"type": "git", "repo": "https://github.com/JPrier/DailyGameFlagFade.git", "ref": "main"}},
+    {"source": {"type": "local", "path": "fixtures/games/command-build-game"}},
     {"source": {"type": "git", "repo": "https://github.com/JPrier/DailyGameCityGrid.git", "ref": "main"}}
   ],
   "staticGeneration": {"outputDir": "web/dist", "generatedDir": ".harness/generated", "externalGamesDir": ".harness/external-games", "publicGamesDir": "web/public/_games", "routeMode": "single-shell"},

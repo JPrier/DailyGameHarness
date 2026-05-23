@@ -1,0 +1,8 @@
+{
+  "name": "command-build-game-fixture",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:package": "node tools/build-package.mjs"
+  }
+}
