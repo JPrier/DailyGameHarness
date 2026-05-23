@@ -7,6 +7,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,5 +22,5 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - run: aws s3 sync web/dist s3://${{ secrets.S3_BUCKET }} --delete --cache-control max-age=31536000,public --exclude "*.html" --exclude "*.json"
       - run: aws s3 sync web/dist s3://${{ secrets.S3_BUCKET }} --delete --cache-control max-age=60,no-cache --exclude "*" --include "*.html" --include "*.json"
-      - if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID != '' }}
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+      - if: ${{ env.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+        run: aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
