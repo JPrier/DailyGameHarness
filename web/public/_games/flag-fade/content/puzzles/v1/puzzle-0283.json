@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0283",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0283",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:indonesia",
+      "canonicalName": "Indonesia",
+      "aliases": [
+        "ID",
+        "IDN",
+        "Indonesian flag"
+      ],
+      "iso2": "ID",
+      "iso3": "IDN",
+      "continent": "Asia",
+      "clues": {
+        "dominantColors": [
+          "red",
+          "white"
+        ],
+        "hasEmblem": false,
+        "stripeOrientation": "horizontal",
+        "aspectRatio": "2:3",
+        "continent": "Asia",
+        "designFeatures": [
+          "horizontal bicolor"
+        ],
+        "similarityGroups": [
+          "red-white"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/id/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/id/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/id/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/id/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/id/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/id/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "red",
+        "white"
+      ],
+      "hasEmblem": false,
+      "stripeOrientation": "horizontal",
+      "aspectRatio": "2:3",
+      "continent": "Asia",
+      "designFeatures": [
+        "horizontal bicolor"
+      ],
+      "similarityGroups": [
+        "red-white"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:canada",
+        "similarTo": [
+          "country:indonesia"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:united-states",
+        "similarTo": [
+          "country:indonesia"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}

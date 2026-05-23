@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0225",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0225",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:brazil",
+      "canonicalName": "Brazil",
+      "aliases": [
+        "Brasil",
+        "BR",
+        "BRA",
+        "Brazilian flag"
+      ],
+      "iso2": "BR",
+      "iso3": "BRA",
+      "continent": "South America",
+      "clues": {
+        "dominantColors": [
+          "green",
+          "yellow",
+          "blue",
+          "white"
+        ],
+        "hasEmblem": true,
+        "stripeOrientation": "none",
+        "aspectRatio": "7:10",
+        "continent": "South America",
+        "designFeatures": [
+          "diamond",
+          "central disc"
+        ],
+        "similarityGroups": [
+          "central-emblem"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/br/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/br/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/br/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/br/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/br/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/br/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "green",
+        "yellow",
+        "blue",
+        "white"
+      ],
+      "hasEmblem": true,
+      "stripeOrientation": "none",
+      "aspectRatio": "7:10",
+      "continent": "South America",
+      "designFeatures": [
+        "diamond",
+        "central disc"
+      ],
+      "similarityGroups": [
+        "central-emblem"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:south-korea",
+        "similarTo": [
+          "country:brazil"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0541",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0541",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:canada",
+      "canonicalName": "Canada",
+      "aliases": [
+        "CA",
+        "CAN",
+        "Canadian flag"
+      ],
+      "iso2": "CA",
+      "iso3": "CAN",
+      "continent": "North America",
+      "clues": {
+        "dominantColors": [
+          "red",
+          "white"
+        ],
+        "hasEmblem": true,
+        "stripeOrientation": "vertical",
+        "aspectRatio": "1:2",
+        "continent": "North America",
+        "designFeatures": [
+          "vertical bands",
+          "leaf"
+        ],
+        "similarityGroups": [
+          "red-white"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "red",
+        "white"
+      ],
+      "hasEmblem": true,
+      "stripeOrientation": "vertical",
+      "aspectRatio": "1:2",
+      "continent": "North America",
+      "designFeatures": [
+        "vertical bands",
+        "leaf"
+      ],
+      "similarityGroups": [
+        "red-white"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:indonesia",
+        "similarTo": [
+          "country:canada"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:united-states",
+        "similarTo": [
+          "country:canada"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}

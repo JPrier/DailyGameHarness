@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0246",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0246",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:palau",
+      "canonicalName": "Palau",
+      "aliases": [
+        "PW",
+        "PLW",
+        "Palauan flag"
+      ],
+      "iso2": "PW",
+      "iso3": "PLW",
+      "continent": "Oceania",
+      "clues": {
+        "dominantColors": [
+          "blue",
+          "yellow"
+        ],
+        "hasEmblem": true,
+        "stripeOrientation": "none",
+        "aspectRatio": "5:8",
+        "continent": "Oceania",
+        "designFeatures": [
+          "central disc"
+        ],
+        "similarityGroups": [
+          "central-disc"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/pw/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/pw/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/pw/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/pw/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/pw/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/pw/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "blue",
+        "yellow"
+      ],
+      "hasEmblem": true,
+      "stripeOrientation": "none",
+      "aspectRatio": "5:8",
+      "continent": "Oceania",
+      "designFeatures": [
+        "central disc"
+      ],
+      "similarityGroups": [
+        "central-disc"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:japan",
+        "similarTo": [
+          "country:palau"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:bangladesh",
+        "similarTo": [
+          "country:palau"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Obscured flag clue stage 1">
+  <rect width="300" height="200" fill="#f3f5f6"/>
+  <rect x="0" y="0" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="37.5" y="0" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="75" y="0" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="112.5" y="0" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="150" y="0" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="187.5" y="0" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="225" y="0" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="262.5" y="0" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="0" y="40" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="37.5" y="40" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="75" y="40" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="112.5" y="40" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="150" y="40" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="187.5" y="40" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="225" y="40" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="262.5" y="40" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="0" y="80" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="37.5" y="80" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="75" y="80" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="112.5" y="80" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="150" y="80" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="187.5" y="80" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="225" y="80" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="262.5" y="80" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="0" y="120" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="37.5" y="120" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="75" y="120" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="112.5" y="120" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="150" y="120" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="187.5" y="120" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="225" y="120" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="262.5" y="120" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="0" y="160" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="37.5" y="160" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="75" y="160" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="112.5" y="160" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="150" y="160" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <rect x="187.5" y="160" width="38" height="41" fill="#1f5da8" opacity="0.55"/>
+  <rect x="225" y="160" width="38" height="41" fill="#ffffff" opacity="0.67"/>
+  <rect x="262.5" y="160" width="38" height="41" fill="#c73535" opacity="0.79"/>
+  <path d="M1 1 H299 V199 H1 Z" fill="none" stroke="#263238" stroke-width="2" opacity="0.16"/>
+</svg>

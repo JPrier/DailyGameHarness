@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0354",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0354",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:south-korea",
+      "canonicalName": "South Korea",
+      "aliases": [
+        "Republic of Korea",
+        "Korea",
+        "KR",
+        "KOR",
+        "ROK"
+      ],
+      "iso2": "KR",
+      "iso3": "KOR",
+      "continent": "Asia",
+      "clues": {
+        "dominantColors": [
+          "white",
+          "red",
+          "blue",
+          "black"
+        ],
+        "hasEmblem": true,
+        "stripeOrientation": "none",
+        "aspectRatio": "2:3",
+        "continent": "Asia",
+        "designFeatures": [
+          "central emblem",
+          "corner marks"
+        ],
+        "similarityGroups": [
+          "central-emblem"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "white",
+        "red",
+        "blue",
+        "black"
+      ],
+      "hasEmblem": true,
+      "stripeOrientation": "none",
+      "aspectRatio": "2:3",
+      "continent": "Asia",
+      "designFeatures": [
+        "central emblem",
+        "corner marks"
+      ],
+      "similarityGroups": [
+        "central-emblem"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:brazil",
+        "similarTo": [
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}

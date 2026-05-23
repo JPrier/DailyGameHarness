@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0202",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0202",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:bangladesh",
+      "canonicalName": "Bangladesh",
+      "aliases": [
+        "BD",
+        "BGD",
+        "Bangladeshi flag"
+      ],
+      "iso2": "BD",
+      "iso3": "BGD",
+      "continent": "Asia",
+      "clues": {
+        "dominantColors": [
+          "green",
+          "red"
+        ],
+        "hasEmblem": true,
+        "stripeOrientation": "none",
+        "aspectRatio": "3:5",
+        "continent": "Asia",
+        "designFeatures": [
+          "central disc"
+        ],
+        "similarityGroups": [
+          "central-disc"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/bd/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/bd/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/bd/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/bd/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/bd/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/bd/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "green",
+        "red"
+      ],
+      "hasEmblem": true,
+      "stripeOrientation": "none",
+      "aspectRatio": "3:5",
+      "continent": "Asia",
+      "designFeatures": [
+        "central disc"
+      ],
+      "similarityGroups": [
+        "central-disc"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:japan",
+        "similarTo": [
+          "country:bangladesh"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:palau",
+        "similarTo": [
+          "country:bangladesh"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}

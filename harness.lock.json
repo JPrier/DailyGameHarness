@@ -6,14 +6,21 @@
       "repo": null,
       "requestedRef": null,
       "resolvedSha": null,
-      "localPath": "/workspace/DailyGameHarness/fixtures/games/minimal-text-game"
+      "localPath": "\\\\?\\D:\\Development\\Websites\\dailygames\\DailyGameHarness\\fixtures\\games\\minimal-text-game"
     },
     {
       "sourceType": "local",
       "repo": null,
       "requestedRef": null,
       "resolvedSha": null,
-      "localPath": "/workspace/DailyGameHarness/fixtures/games/second-minimal-game"
+      "localPath": "\\\\?\\D:\\Development\\Websites\\dailygames\\DailyGameHarness\\fixtures\\games\\second-minimal-game"
+    },
+    {
+      "sourceType": "git",
+      "repo": "https://github.com/JPrier/DailyGameFlagFade.git",
+      "requestedRef": "main",
+      "resolvedSha": "c6ec6432473f6fd89edf1d552adca55a20c3b63f",
+      "localPath": ".harness/external-games/DailyGameFlagFade"
     },
     {
       "sourceType": "git",

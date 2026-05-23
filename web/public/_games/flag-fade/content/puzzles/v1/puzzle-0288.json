@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0288",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0288",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:germany",
+      "canonicalName": "Germany",
+      "aliases": [
+        "Deutschland",
+        "DE",
+        "DEU",
+        "German flag"
+      ],
+      "iso2": "DE",
+      "iso3": "DEU",
+      "continent": "Europe",
+      "clues": {
+        "dominantColors": [
+          "black",
+          "red",
+          "yellow"
+        ],
+        "hasEmblem": false,
+        "stripeOrientation": "horizontal",
+        "aspectRatio": "3:5",
+        "continent": "Europe",
+        "designFeatures": [
+          "horizontal tricolor"
+        ],
+        "similarityGroups": [
+          "tricolor"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/de/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/de/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/de/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/de/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/de/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/de/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "black",
+        "red",
+        "yellow"
+      ],
+      "hasEmblem": false,
+      "stripeOrientation": "horizontal",
+      "aspectRatio": "3:5",
+      "continent": "Europe",
+      "designFeatures": [
+        "horizontal tricolor"
+      ],
+      "similarityGroups": [
+        "tricolor"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:france",
+        "similarTo": [
+          "country:germany"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}

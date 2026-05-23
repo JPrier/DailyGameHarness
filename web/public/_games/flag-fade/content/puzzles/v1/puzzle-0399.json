@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "daily-game-puzzle.v1",
+  "gameId": "flag-fade",
+  "puzzleId": "flag-fade-v1-0399",
+  "date": "2026-01-01",
+  "seed": "flag-fade-v1-0399",
+  "display": {
+    "title": "Flag Fade",
+    "initialPrompt": "Guess the country from the progressively clearer flag."
+  },
+  "extension": {
+    "answer": {
+      "entityId": "country:united-states",
+      "canonicalName": "United States",
+      "aliases": [
+        "United States of America",
+        "USA",
+        "US",
+        "America",
+        "U.S.",
+        "U.S.A."
+      ],
+      "iso2": "US",
+      "iso3": "USA",
+      "continent": "North America",
+      "clues": {
+        "dominantColors": [
+          "red",
+          "white",
+          "blue"
+        ],
+        "hasEmblem": true,
+        "stripeOrientation": "horizontal",
+        "aspectRatio": "10:19",
+        "continent": "North America",
+        "designFeatures": [
+          "horizontal stripes",
+          "canton",
+          "stars"
+        ],
+        "similarityGroups": [
+          "red-white-blue",
+          "red-white",
+          "canton"
+        ]
+      }
+    },
+    "candidateSetId": "countries-v1",
+    "assetStages": [
+      {
+        "stage": 0,
+        "assetPath": "content/assets/v1/flag-fade/us/stage-0.svg",
+        "reveals": [
+          "palette"
+        ]
+      },
+      {
+        "stage": 1,
+        "assetPath": "content/assets/v1/flag-fade/us/stage-1.svg",
+        "reveals": [
+          "pixelated"
+        ]
+      },
+      {
+        "stage": 2,
+        "assetPath": "content/assets/v1/flag-fade/us/stage-2.svg",
+        "reveals": [
+          "blurred"
+        ]
+      },
+      {
+        "stage": 3,
+        "assetPath": "content/assets/v1/flag-fade/us/stage-3.svg",
+        "reveals": [
+          "major-shapes",
+          "emblem"
+        ]
+      },
+      {
+        "stage": 4,
+        "assetPath": "content/assets/v1/flag-fade/us/stage-4.svg",
+        "reveals": [
+          "near-full"
+        ]
+      },
+      {
+        "stage": 5,
+        "assetPath": "content/assets/v1/flag-fade/us/stage-5.svg",
+        "reveals": [
+          "full-flag"
+        ]
+      }
+    ],
+    "clues": {
+      "dominantColors": [
+        "red",
+        "white",
+        "blue"
+      ],
+      "hasEmblem": true,
+      "stripeOrientation": "horizontal",
+      "aspectRatio": "10:19",
+      "continent": "North America",
+      "designFeatures": [
+        "horizontal stripes",
+        "canton",
+        "stars"
+      ],
+      "similarityGroups": [
+        "red-white-blue",
+        "red-white",
+        "canton"
+      ]
+    },
+    "similarFlags": [
+      {
+        "entityId": "country:canada",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:indonesia",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
+      }
+    ]
+  }
+}
