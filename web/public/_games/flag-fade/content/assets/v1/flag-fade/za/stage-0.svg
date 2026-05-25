@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Obscured flag clue stage 0">
   <rect width="300" height="200" fill="#f3f5f6"/>
+  <defs><filter id="swatchShadow" x="-18%" y="-18%" width="136%" height="136%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#263238" flood-opacity="0.24"/></filter></defs>
   <rect x="18" y="18" width="264" height="164" rx="16" fill="#ffffff" stroke="#d7dde0" stroke-width="2"/>
-  <rect x="10.00" y="81.67" width="36.67" height="36.67" rx="8" fill="#007a4d"/>
-  <rect x="58.67" y="81.67" width="36.67" height="36.67" rx="8" fill="#ffb81c"/>
-  <rect x="107.33" y="81.67" width="36.67" height="36.67" rx="8" fill="#000000"/>
-  <rect x="156.00" y="81.67" width="36.67" height="36.67" rx="8" fill="#ffffff"/>
-  <rect x="204.67" y="81.67" width="36.67" height="36.67" rx="8" fill="#de3831"/>
-  <rect x="253.33" y="81.67" width="36.67" height="36.67" rx="8" fill="#002395"/>
+  <rect class="palette-swatch" x="38.00" y="85.50" width="29.00" height="29.00" rx="8" fill="#007a4d" stroke="#263238" stroke-width="1.5" stroke-opacity="0.18" filter="url(#swatchShadow)"/>
+  <rect class="palette-swatch" x="77.00" y="85.50" width="29.00" height="29.00" rx="8" fill="#ffb81c" stroke="#263238" stroke-width="1.5" stroke-opacity="0.18" filter="url(#swatchShadow)"/>
+  <rect class="palette-swatch" x="116.00" y="85.50" width="29.00" height="29.00" rx="8" fill="#000000" stroke="#263238" stroke-width="1.5" stroke-opacity="0.18" filter="url(#swatchShadow)"/>
+  <rect class="palette-swatch" x="155.00" y="85.50" width="29.00" height="29.00" rx="8" fill="#ffffff" stroke="#263238" stroke-width="1.5" stroke-opacity="0.34" filter="url(#swatchShadow)"/>
+  <rect class="palette-swatch" x="194.00" y="85.50" width="29.00" height="29.00" rx="8" fill="#de3831" stroke="#263238" stroke-width="1.5" stroke-opacity="0.18" filter="url(#swatchShadow)"/>
+  <rect class="palette-swatch" x="233.00" y="85.50" width="29.00" height="29.00" rx="8" fill="#002395" stroke="#263238" stroke-width="1.5" stroke-opacity="0.18" filter="url(#swatchShadow)"/>
   <path d="M1 1 H299 V199 H1 Z" fill="none" stroke="#263238" stroke-width="2" opacity="0.16"/>
 </svg>
