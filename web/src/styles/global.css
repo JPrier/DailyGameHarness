@@ -158,6 +158,25 @@ h1 {
   gap: 0.6rem;
 }
 
+.result-modal {
+  border: 1px solid rgba(23, 33, 27, 0.14);
+  border-left: 0.45rem solid var(--leaf);
+  border-radius: 1rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 0.75rem 2rem rgba(23, 33, 27, 0.08);
+}
+
+.result-modal h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.result-modal--lost {
+  border-left-color: var(--accent-strong);
+}
+
 .share-block {
   display: grid;
   gap: 0.5rem;

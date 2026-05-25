@@ -40,6 +40,7 @@
   let GameView: any = null;
 
   $: isComplete = state?.status === 'won' || state?.status === 'lost';
+  $: viewOwnsControls = activeGame ? ['city-grid', 'flag-fade'].includes(activeGame.slug) : false;
 
   async function init() {
     loading = true;
@@ -126,6 +127,7 @@
       routePrefix={activeGame.routePrefix}
       dates={archiveDates(contentManifest.archive, todayInTimezone(contentManifest.puzzleResolver.timezone))}
     />
+    <ResultModal {state} />
     <svelte:component
       this={GameView}
       game={activeGame}
@@ -136,12 +138,13 @@
       {latestEvaluation}
       {submitInput}
     />
-    <div class="guess-row">
-      <GuessInput disabled={isComplete} {submitInput} />
-    </div>
-    <GenericFeedback feedback={latestEvaluation?.feedback ?? []} />
-    <p data-testid="guess-count">{state.guessCount}</p>
-    <ResultModal {state} />
+    {#if !viewOwnsControls}
+      <div class="guess-row">
+        <GuessInput disabled={isComplete} {submitInput} />
+      </div>
+      <GenericFeedback feedback={latestEvaluation?.feedback ?? []} />
+      <p data-testid="guess-count">{state.guessCount}</p>
+    {/if}
     <ShareButton {buildShareText} />
   </section>
 {/if}

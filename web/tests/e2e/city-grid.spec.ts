@@ -27,9 +27,12 @@ test('city grid route renders the public game contract without leaking the answe
   await expect(game.getByTestId('puzzle-title')).toContainText('City Grid');
   await expect(game.getByTestId('initial-prompt')).toContainText('Identify the city');
   await expect(game.getByTestId('clue-stage')).toHaveText('0');
+  await expect(game.getByTestId('clue-stage')).toBeHidden();
   await expect(game.getByTestId('city-grid-map')).toBeVisible();
   await expect(game.getByTestId('city-grid-map-stage')).toContainText('Stage 0');
   await expect(game.getByTestId('guess-count')).toContainText('0 / 6');
+  await expect(page.getByTestId('guess-input')).toHaveCount(1);
+  await expect(page.getByTestId('guess-count')).toHaveCount(1);
   await expect(game.getByTestId('answer-reveal')).toHaveCount(0);
 
   const assetSrc = await game.getByTestId('city-grid-stage-asset').getAttribute('src');
