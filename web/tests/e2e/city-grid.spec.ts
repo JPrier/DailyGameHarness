@@ -3,9 +3,9 @@ import { test, expect, type Locator, type Page } from '@playwright/test';
 const basePath = process.env.E2E_BASE_PATH ?? '';
 const appUrl = (path: string) => `${basePath}${path}`;
 const fixtureDate = '2026-05-22';
-const fixtureAnswer = 'Singapore';
-const fixtureAlias = 'Singapore, SG';
-const wrongGuesses = ['Shanghai', 'Beijing', 'Shenzhen', 'Guangzhou', 'Kinshasa', 'Istanbul'];
+const fixtureAnswer = 'Helsinki';
+const fixtureAlias = 'Helsinki, FI';
+const wrongGuesses = ['Paris', 'London', 'Tokyo', 'Rome', 'Singapore', 'Berlin'];
 
 async function openCityGrid(page: Page) {
   await page.goto(appUrl(`/games/city-grid/?date=${fixtureDate}`));
