@@ -10,31 +10,31 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:germany",
-      "canonicalName": "Germany",
+      "entityId": "country:nigeria",
+      "canonicalName": "Nigeria",
       "aliases": [
-        "Deutschland",
-        "DE",
-        "DEU",
-        "German flag"
+        "NG",
+        "NGA",
+        "Nigerian flag"
       ],
-      "iso2": "DE",
-      "iso3": "DEU",
-      "continent": "Europe",
+      "iso2": "NG",
+      "iso3": "NGA",
+      "continent": "Africa",
       "clues": {
         "dominantColors": [
-          "black",
-          "red",
-          "yellow"
+          "green",
+          "white"
         ],
         "hasEmblem": false,
-        "stripeOrientation": "horizontal",
-        "aspectRatio": "3:5",
-        "continent": "Europe",
+        "stripeOrientation": "vertical",
+        "aspectRatio": "1:2",
+        "continent": "Africa",
         "designFeatures": [
-          "horizontal tricolor"
+          "vertical triband"
         ],
         "similarityGroups": [
+          "green-white",
+          "vertical-triband",
           "tricolor"
         ]
       }
@@ -43,28 +43,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/ng/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/ng/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/ng/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/ng/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -72,14 +72,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/ng/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/ng/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -87,18 +87,19 @@
     ],
     "clues": {
       "dominantColors": [
-        "black",
-        "red",
-        "yellow"
+        "green",
+        "white"
       ],
       "hasEmblem": false,
-      "stripeOrientation": "horizontal",
-      "aspectRatio": "3:5",
-      "continent": "Europe",
+      "stripeOrientation": "vertical",
+      "aspectRatio": "1:2",
+      "continent": "Africa",
       "designFeatures": [
-        "horizontal tricolor"
+        "vertical triband"
       ],
       "similarityGroups": [
+        "green-white",
+        "vertical-triband",
         "tricolor"
       ]
     },
@@ -106,7 +107,28 @@
       {
         "entityId": "country:france",
         "similarTo": [
-          "country:germany"
+          "country:nigeria"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:germany",
+        "similarTo": [
+          "country:nigeria"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:italy",
+        "similarTo": [
+          "country:nigeria"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:nigeria"
         ],
         "reason": "shared flag design family"
       }

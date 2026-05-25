@@ -109,6 +109,27 @@
           "country:germany"
         ],
         "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:italy",
+        "similarTo": [
+          "country:germany"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:germany"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:nigeria",
+        "similarTo": [
+          "country:germany"
+        ],
+        "reason": "shared flag design family"
       }
     ]
   }

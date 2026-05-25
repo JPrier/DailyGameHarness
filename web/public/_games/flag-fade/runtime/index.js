@@ -4,187 +4,45 @@ const CANDIDATE_SET = 'countries-v1';
 const MAX_GUESSES = 6;
 
 const CANDIDATES = [
-  {
-    entityId: 'country:japan',
-    canonicalName: 'Japan',
-    aliases: ['Nippon', 'Nihon', 'JP', 'JPN', 'Japanese flag'],
-    iso2: 'JP',
-    iso3: 'JPN',
-    continent: 'Asia',
-    slug: 'jp',
-    clues: {
-      dominantColors: ['white', 'red'],
-      hasEmblem: true,
-      stripeOrientation: 'none',
-      aspectRatio: '2:3',
-      continent: 'Asia',
-      designFeatures: ['central disc'],
-      similarityGroups: ['central-disc'],
-    },
-  },
-  {
-    entityId: 'country:canada',
-    canonicalName: 'Canada',
-    aliases: ['CA', 'CAN', 'Canadian flag'],
-    iso2: 'CA',
-    iso3: 'CAN',
-    continent: 'North America',
-    slug: 'ca',
-    clues: {
-      dominantColors: ['red', 'white'],
-      hasEmblem: true,
-      stripeOrientation: 'vertical',
-      aspectRatio: '1:2',
-      continent: 'North America',
-      designFeatures: ['vertical bands', 'leaf'],
-      similarityGroups: ['red-white'],
-    },
-  },
-  {
-    entityId: 'country:bangladesh',
-    canonicalName: 'Bangladesh',
-    aliases: ['BD', 'BGD', 'Bangladeshi flag'],
-    iso2: 'BD',
-    iso3: 'BGD',
-    continent: 'Asia',
-    slug: 'bd',
-    clues: {
-      dominantColors: ['green', 'red'],
-      hasEmblem: true,
-      stripeOrientation: 'none',
-      aspectRatio: '3:5',
-      continent: 'Asia',
-      designFeatures: ['central disc'],
-      similarityGroups: ['central-disc'],
-    },
-  },
-  {
-    entityId: 'country:indonesia',
-    canonicalName: 'Indonesia',
-    aliases: ['ID', 'IDN', 'Indonesian flag'],
-    iso2: 'ID',
-    iso3: 'IDN',
-    continent: 'Asia',
-    slug: 'id',
-    clues: {
-      dominantColors: ['red', 'white'],
-      hasEmblem: false,
-      stripeOrientation: 'horizontal',
-      aspectRatio: '2:3',
-      continent: 'Asia',
-      designFeatures: ['horizontal bicolor'],
-      similarityGroups: ['red-white'],
-    },
-  },
-  {
-    entityId: 'country:south-korea',
-    canonicalName: 'South Korea',
-    aliases: ['Republic of Korea', 'Korea', 'KR', 'KOR', 'ROK'],
-    iso2: 'KR',
-    iso3: 'KOR',
-    continent: 'Asia',
-    slug: 'kr',
-    clues: {
-      dominantColors: ['white', 'red', 'blue', 'black'],
-      hasEmblem: true,
-      stripeOrientation: 'none',
-      aspectRatio: '2:3',
-      continent: 'Asia',
-      designFeatures: ['central emblem', 'corner marks'],
-      similarityGroups: ['central-emblem'],
-    },
-  },
-  {
-    entityId: 'country:brazil',
-    canonicalName: 'Brazil',
-    aliases: ['Brasil', 'BR', 'BRA', 'Brazilian flag'],
-    iso2: 'BR',
-    iso3: 'BRA',
-    continent: 'South America',
-    slug: 'br',
-    clues: {
-      dominantColors: ['green', 'yellow', 'blue', 'white'],
-      hasEmblem: true,
-      stripeOrientation: 'none',
-      aspectRatio: '7:10',
-      continent: 'South America',
-      designFeatures: ['diamond', 'central disc'],
-      similarityGroups: ['central-emblem'],
-    },
-  },
-  {
-    entityId: 'country:palau',
-    canonicalName: 'Palau',
-    aliases: ['PW', 'PLW', 'Palauan flag'],
-    iso2: 'PW',
-    iso3: 'PLW',
-    continent: 'Oceania',
-    slug: 'pw',
-    clues: {
-      dominantColors: ['blue', 'yellow'],
-      hasEmblem: true,
-      stripeOrientation: 'none',
-      aspectRatio: '5:8',
-      continent: 'Oceania',
-      designFeatures: ['central disc'],
-      similarityGroups: ['central-disc'],
-    },
-  },
-  {
-    entityId: 'country:france',
-    canonicalName: 'France',
-    aliases: ['FR', 'FRA', 'French Republic', 'French flag'],
-    iso2: 'FR',
-    iso3: 'FRA',
-    continent: 'Europe',
-    slug: 'fr',
-    clues: {
-      dominantColors: ['blue', 'white', 'red'],
-      hasEmblem: false,
-      stripeOrientation: 'vertical',
-      aspectRatio: '2:3',
-      continent: 'Europe',
-      designFeatures: ['vertical tricolor'],
-      similarityGroups: ['tricolor'],
-    },
-  },
-  {
-    entityId: 'country:germany',
-    canonicalName: 'Germany',
-    aliases: ['Deutschland', 'DE', 'DEU', 'German flag'],
-    iso2: 'DE',
-    iso3: 'DEU',
-    continent: 'Europe',
-    slug: 'de',
-    clues: {
-      dominantColors: ['black', 'red', 'yellow'],
-      hasEmblem: false,
-      stripeOrientation: 'horizontal',
-      aspectRatio: '3:5',
-      continent: 'Europe',
-      designFeatures: ['horizontal tricolor'],
-      similarityGroups: ['tricolor'],
-    },
-  },
-  {
-    entityId: 'country:united-states',
-    canonicalName: 'United States',
-    aliases: ['United States of America', 'USA', 'US', 'America', 'U.S.', 'U.S.A.'],
-    iso2: 'US',
-    iso3: 'USA',
-    continent: 'North America',
-    slug: 'us',
-    clues: {
-      dominantColors: ['red', 'white', 'blue'],
-      hasEmblem: true,
-      stripeOrientation: 'horizontal',
-      aspectRatio: '10:19',
-      continent: 'North America',
-      designFeatures: ['horizontal stripes', 'canton', 'stars'],
-      similarityGroups: ['red-white-blue', 'red-white', 'canton'],
-    },
-  },
+  country('jp', 'country:japan', 'Japan', ['Nippon', 'Nihon', 'JP', 'JPN', 'Japanese flag'], 'JP', 'JPN', 'Asia', ['white', 'red'], true, 'none', '2:3', ['central disc'], ['central-disc']),
+  country('ca', 'country:canada', 'Canada', ['CA', 'CAN', 'Canadian flag'], 'CA', 'CAN', 'North America', ['red', 'white'], true, 'vertical', '1:2', ['vertical bands', 'leaf'], ['red-white']),
+  country('bd', 'country:bangladesh', 'Bangladesh', ['BD', 'BGD', 'Bangladeshi flag'], 'BD', 'BGD', 'Asia', ['green', 'red'], true, 'none', '3:5', ['central disc'], ['central-disc']),
+  country('id', 'country:indonesia', 'Indonesia', ['ID', 'IDN', 'Indonesian flag'], 'ID', 'IDN', 'Asia', ['red', 'white'], false, 'horizontal', '2:3', ['horizontal bicolor'], ['red-white']),
+  country('kr', 'country:south-korea', 'South Korea', ['Republic of Korea', 'Korea', 'KR', 'KOR', 'ROK'], 'KR', 'KOR', 'Asia', ['white', 'red', 'blue', 'black'], true, 'none', '2:3', ['central emblem', 'corner marks'], ['central-emblem']),
+  country('br', 'country:brazil', 'Brazil', ['Brasil', 'BR', 'BRA', 'Brazilian flag'], 'BR', 'BRA', 'South America', ['green', 'yellow', 'blue', 'white'], true, 'none', '7:10', ['diamond', 'central disc'], ['central-emblem']),
+  country('pw', 'country:palau', 'Palau', ['PW', 'PLW', 'Palauan flag'], 'PW', 'PLW', 'Oceania', ['blue', 'yellow'], true, 'none', '5:8', ['central disc'], ['central-disc', 'blue-yellow']),
+  country('fr', 'country:france', 'France', ['FR', 'FRA', 'French Republic', 'French flag'], 'FR', 'FRA', 'Europe', ['blue', 'white', 'red'], false, 'vertical', '2:3', ['vertical tricolor'], ['tricolor']),
+  country('de', 'country:germany', 'Germany', ['Deutschland', 'DE', 'DEU', 'German flag'], 'DE', 'DEU', 'Europe', ['black', 'red', 'yellow'], false, 'horizontal', '3:5', ['horizontal tricolor'], ['tricolor']),
+  country('us', 'country:united-states', 'United States', ['United States of America', 'USA', 'US', 'America', 'U.S.', 'U.S.A.'], 'US', 'USA', 'North America', ['red', 'white', 'blue'], true, 'horizontal', '10:19', ['horizontal stripes', 'canton', 'stars'], ['red-white-blue', 'red-white', 'canton']),
+  country('gb', 'country:united-kingdom', 'United Kingdom', ['UK', 'GB', 'GBR', 'Great Britain', 'Britain', 'Union Jack'], 'GB', 'GBR', 'Europe', ['blue', 'white', 'red'], false, 'cross', '1:2', ['crosses', 'diagonal cross'], ['red-white-blue', 'cross', 'canton']),
+  country('it', 'country:italy', 'Italy', ['Italia', 'IT', 'ITA', 'Italian flag'], 'IT', 'ITA', 'Europe', ['green', 'white', 'red'], false, 'vertical', '2:3', ['vertical tricolor'], ['tricolor']),
+  country('es', 'country:spain', 'Spain', ['Espana', 'España', 'ES', 'ESP', 'Spanish flag'], 'ES', 'ESP', 'Europe', ['red', 'yellow'], true, 'horizontal', '2:3', ['horizontal triband', 'coat of arms'], ['red-yellow', 'horizontal-triband']),
+  country('mx', 'country:mexico', 'Mexico', ['México', 'MX', 'MEX', 'Mexican flag'], 'MX', 'MEX', 'North America', ['green', 'white', 'red'], true, 'vertical', '4:7', ['vertical tricolor', 'central emblem'], ['tricolor', 'central-emblem']),
+  country('in', 'country:india', 'India', ['Bharat', 'IN', 'IND', 'Indian flag'], 'IN', 'IND', 'Asia', ['orange', 'white', 'green', 'blue'], true, 'horizontal', '2:3', ['horizontal tricolor', 'central wheel'], ['horizontal-tricolor', 'central-emblem']),
+  country('cn', 'country:china', 'China', ['People\'s Republic of China', 'PRC', 'CN', 'CHN', 'Chinese flag'], 'CN', 'CHN', 'Asia', ['red', 'yellow'], true, 'none', '2:3', ['stars', 'canton'], ['red-yellow', 'stars']),
+  country('au', 'country:australia', 'Australia', ['AU', 'AUS', 'Australian flag'], 'AU', 'AUS', 'Oceania', ['blue', 'white', 'red'], true, 'canton', '1:2', ['canton', 'stars'], ['red-white-blue', 'canton', 'stars']),
+  country('za', 'country:south-africa', 'South Africa', ['RSA', 'ZA', 'ZAF', 'South African flag'], 'ZA', 'ZAF', 'Africa', ['green', 'yellow', 'black', 'white', 'red', 'blue'], false, 'none', '2:3', ['y-shape', 'multicolor'], ['multicolor', 'red-white-blue']),
+  country('ng', 'country:nigeria', 'Nigeria', ['NG', 'NGA', 'Nigerian flag'], 'NG', 'NGA', 'Africa', ['green', 'white'], false, 'vertical', '1:2', ['vertical triband'], ['green-white', 'vertical-triband', 'tricolor']),
+  country('se', 'country:sweden', 'Sweden', ['Sverige', 'SE', 'SWE', 'Swedish flag'], 'SE', 'SWE', 'Europe', ['blue', 'yellow'], false, 'cross', '5:8', ['nordic cross'], ['blue-yellow', 'cross', 'nordic-cross']),
+  country('no', 'country:norway', 'Norway', ['Norge', 'NO', 'NOR', 'Norwegian flag'], 'NO', 'NOR', 'Europe', ['red', 'white', 'blue'], false, 'cross', '8:11', ['nordic cross'], ['red-white-blue', 'cross', 'nordic-cross']),
+  country('ch', 'country:switzerland', 'Switzerland', ['Swiss Confederation', 'CH', 'CHE', 'Swiss flag'], 'CH', 'CHE', 'Europe', ['red', 'white'], false, 'cross', '1:1', ['centered cross'], ['red-white', 'cross']),
+  country('tr', 'country:turkey', 'Turkey', ['Türkiye', 'Turkiye', 'TR', 'TUR', 'Turkish flag'], 'TR', 'TUR', 'Asia', ['red', 'white'], true, 'none', '2:3', ['crescent', 'star'], ['red-white', 'stars']),
+  country('ar', 'country:argentina', 'Argentina', ['AR', 'ARG', 'Argentine flag'], 'AR', 'ARG', 'South America', ['blue', 'white', 'yellow'], true, 'horizontal', '5:8', ['horizontal triband', 'central sun'], ['horizontal-triband', 'central-emblem']),
+  country('ke', 'country:kenya', 'Kenya', ['KE', 'KEN', 'Kenyan flag'], 'KE', 'KEN', 'Africa', ['black', 'red', 'green', 'white'], true, 'horizontal', '2:3', ['horizontal tricolor', 'central shield'], ['horizontal-tricolor', 'central-emblem']),
 ];
+
+function country(slug, entityId, canonicalName, aliases, iso2, iso3, continent, dominantColors, hasEmblem, stripeOrientation, aspectRatio, designFeatures, similarityGroups) {
+  return {
+    entityId,
+    canonicalName,
+    aliases,
+    iso2,
+    iso3,
+    continent,
+    slug,
+    clues: { dominantColors, hasEmblem, stripeOrientation, aspectRatio, continent, designFeatures, similarityGroups },
+  };
+}
 
 const NORMALIZED_CANDIDATES = new Map();
 for (const candidate of CANDIDATES) {
@@ -359,11 +217,11 @@ async function buildShareText({ state }) {
 function feedbackFor(guess, answer, extension) {
   const answerClues = answer.clues ?? extension.clues ?? {};
   const guessClues = guess.clues ?? {};
-  const sharedColors = overlap(guessClues.dominantColors, answerClues.dominantColors);
+  const exactColors = sameSet(guessClues.dominantColors, answerClues.dominantColors);
   const similar = areSimilar(guess, answer, extension.similarFlags);
   return [
     { key: 'continent', label: 'Same continent', kind: 'boolean', value: guess.continent === answer.continent, severity: guess.continent === answer.continent ? 'good' : 'bad' },
-    { key: 'dominantColors', label: 'Shared colors', kind: 'set-overlap', value: sharedColors, severity: sharedColors.length > 0 ? 'good' : 'bad' },
+    { key: 'dominantColors', label: 'Exact colors', kind: 'set-exact', value: exactColors, severity: exactColors ? 'good' : 'bad' },
     { key: 'emblem', label: 'Emblem match', kind: 'boolean-match', value: guessClues.hasEmblem === answerClues.hasEmblem, severity: guessClues.hasEmblem === answerClues.hasEmblem ? 'good' : 'bad' },
     { key: 'stripeOrientation', label: 'Stripe layout', kind: 'enum-match', value: guessClues.stripeOrientation === answerClues.stripeOrientation, severity: guessClues.stripeOrientation === answerClues.stripeOrientation ? 'good' : 'bad' },
     { key: 'aspectRatio', label: 'Aspect ratio', kind: 'enum-match', value: guessClues.aspectRatio === answerClues.aspectRatio, severity: guessClues.aspectRatio === answerClues.aspectRatio ? 'good' : 'bad' },
@@ -394,6 +252,16 @@ function areSimilar(guess, answer, configuredSimilarFlags = []) {
 function overlap(left = [], right = []) {
   const rightSet = new Set(right);
   return left.filter((value) => rightSet.has(value));
+}
+
+function sameSet(left = [], right = []) {
+  const leftSet = new Set(left);
+  const rightSet = new Set(right);
+  if (leftSet.size !== rightSet.size) return false;
+  for (const value of leftSet) {
+    if (!rightSet.has(value)) return false;
+  }
+  return true;
 }
 
 function normalizeGuess(value) {

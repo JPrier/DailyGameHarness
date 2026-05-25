@@ -113,6 +113,20 @@
           "country:indonesia"
         ],
         "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:indonesia"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:turkey",
+        "similarTo": [
+          "country:indonesia"
+        ],
+        "reason": "shared flag design family"
       }
     ]
   }

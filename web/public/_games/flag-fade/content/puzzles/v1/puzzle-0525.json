@@ -10,34 +10,32 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:brazil",
-      "canonicalName": "Brazil",
+      "entityId": "country:japan",
+      "canonicalName": "Japan",
       "aliases": [
-        "Brasil",
-        "BR",
-        "BRA",
-        "Brazilian flag"
+        "Nippon",
+        "Nihon",
+        "JP",
+        "JPN",
+        "Japanese flag"
       ],
-      "iso2": "BR",
-      "iso3": "BRA",
-      "continent": "South America",
+      "iso2": "JP",
+      "iso3": "JPN",
+      "continent": "Asia",
       "clues": {
         "dominantColors": [
-          "green",
-          "yellow",
-          "blue",
-          "white"
+          "white",
+          "red"
         ],
         "hasEmblem": true,
         "stripeOrientation": "none",
-        "aspectRatio": "7:10",
-        "continent": "South America",
+        "aspectRatio": "2:3",
+        "continent": "Asia",
         "designFeatures": [
-          "diamond",
           "central disc"
         ],
         "similarityGroups": [
-          "central-emblem"
+          "central-disc"
         ]
       }
     },
@@ -45,28 +43,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/jp/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/jp/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/jp/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/jp/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -74,14 +72,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/jp/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/jp/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -89,28 +87,32 @@
     ],
     "clues": {
       "dominantColors": [
-        "green",
-        "yellow",
-        "blue",
-        "white"
+        "white",
+        "red"
       ],
       "hasEmblem": true,
       "stripeOrientation": "none",
-      "aspectRatio": "7:10",
-      "continent": "South America",
+      "aspectRatio": "2:3",
+      "continent": "Asia",
       "designFeatures": [
-        "diamond",
         "central disc"
       ],
       "similarityGroups": [
-        "central-emblem"
+        "central-disc"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:south-korea",
+        "entityId": "country:bangladesh",
         "similarTo": [
-          "country:brazil"
+          "country:japan"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:palau",
+        "similarTo": [
+          "country:japan"
         ],
         "reason": "shared flag design family"
       }

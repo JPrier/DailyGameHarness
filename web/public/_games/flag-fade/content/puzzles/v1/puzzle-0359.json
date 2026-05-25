@@ -126,6 +126,48 @@
           "country:united-states"
         ],
         "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:united-kingdom",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:australia",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:south-africa",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:norway",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:turkey",
+        "similarTo": [
+          "country:united-states"
+        ],
+        "reason": "shared flag design family"
       }
     ]
   }

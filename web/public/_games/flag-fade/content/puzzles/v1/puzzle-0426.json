@@ -10,30 +10,31 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:palau",
-      "canonicalName": "Palau",
+      "entityId": "country:canada",
+      "canonicalName": "Canada",
       "aliases": [
-        "PW",
-        "PLW",
-        "Palauan flag"
+        "CA",
+        "CAN",
+        "Canadian flag"
       ],
-      "iso2": "PW",
-      "iso3": "PLW",
-      "continent": "Oceania",
+      "iso2": "CA",
+      "iso3": "CAN",
+      "continent": "North America",
       "clues": {
         "dominantColors": [
-          "blue",
-          "yellow"
+          "red",
+          "white"
         ],
         "hasEmblem": true,
-        "stripeOrientation": "none",
-        "aspectRatio": "5:8",
-        "continent": "Oceania",
+        "stripeOrientation": "vertical",
+        "aspectRatio": "1:2",
+        "continent": "North America",
         "designFeatures": [
-          "central disc"
+          "vertical bands",
+          "leaf"
         ],
         "similarityGroups": [
-          "central-disc"
+          "red-white"
         ]
       }
     },
@@ -41,28 +42,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/pw/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/pw/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/pw/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/pw/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -70,14 +71,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/pw/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/pw/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/ca/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -85,32 +86,47 @@
     ],
     "clues": {
       "dominantColors": [
-        "blue",
-        "yellow"
+        "red",
+        "white"
       ],
       "hasEmblem": true,
-      "stripeOrientation": "none",
-      "aspectRatio": "5:8",
-      "continent": "Oceania",
+      "stripeOrientation": "vertical",
+      "aspectRatio": "1:2",
+      "continent": "North America",
       "designFeatures": [
-        "central disc"
+        "vertical bands",
+        "leaf"
       ],
       "similarityGroups": [
-        "central-disc"
+        "red-white"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:japan",
+        "entityId": "country:indonesia",
         "similarTo": [
-          "country:palau"
+          "country:canada"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:bangladesh",
+        "entityId": "country:united-states",
         "similarTo": [
-          "country:palau"
+          "country:canada"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:canada"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:turkey",
+        "similarTo": [
+          "country:canada"
         ],
         "reason": "shared flag design family"
       }

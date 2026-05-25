@@ -10,32 +10,34 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:japan",
-      "canonicalName": "Japan",
+      "entityId": "country:china",
+      "canonicalName": "China",
       "aliases": [
-        "Nippon",
-        "Nihon",
-        "JP",
-        "JPN",
-        "Japanese flag"
+        "People's Republic of China",
+        "PRC",
+        "CN",
+        "CHN",
+        "Chinese flag"
       ],
-      "iso2": "JP",
-      "iso3": "JPN",
+      "iso2": "CN",
+      "iso3": "CHN",
       "continent": "Asia",
       "clues": {
         "dominantColors": [
-          "white",
-          "red"
+          "red",
+          "yellow"
         ],
         "hasEmblem": true,
         "stripeOrientation": "none",
         "aspectRatio": "2:3",
         "continent": "Asia",
         "designFeatures": [
-          "central disc"
+          "stars",
+          "canton"
         ],
         "similarityGroups": [
-          "central-disc"
+          "red-yellow",
+          "stars"
         ]
       }
     },
@@ -43,28 +45,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/cn/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/cn/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/cn/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/cn/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -72,14 +74,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/cn/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/cn/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -87,32 +89,41 @@
     ],
     "clues": {
       "dominantColors": [
-        "white",
-        "red"
+        "red",
+        "yellow"
       ],
       "hasEmblem": true,
       "stripeOrientation": "none",
       "aspectRatio": "2:3",
       "continent": "Asia",
       "designFeatures": [
-        "central disc"
+        "stars",
+        "canton"
       ],
       "similarityGroups": [
-        "central-disc"
+        "red-yellow",
+        "stars"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:bangladesh",
+        "entityId": "country:spain",
         "similarTo": [
-          "country:japan"
+          "country:china"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:palau",
+        "entityId": "country:australia",
         "similarTo": [
-          "country:japan"
+          "country:china"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:turkey",
+        "similarTo": [
+          "country:china"
         ],
         "reason": "shared flag design family"
       }

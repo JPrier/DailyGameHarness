@@ -10,31 +10,32 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:canada",
-      "canonicalName": "Canada",
+      "entityId": "country:italy",
+      "canonicalName": "Italy",
       "aliases": [
-        "CA",
-        "CAN",
-        "Canadian flag"
+        "Italia",
+        "IT",
+        "ITA",
+        "Italian flag"
       ],
-      "iso2": "CA",
-      "iso3": "CAN",
-      "continent": "North America",
+      "iso2": "IT",
+      "iso3": "ITA",
+      "continent": "Europe",
       "clues": {
         "dominantColors": [
-          "red",
-          "white"
+          "green",
+          "white",
+          "red"
         ],
-        "hasEmblem": true,
+        "hasEmblem": false,
         "stripeOrientation": "vertical",
-        "aspectRatio": "1:2",
-        "continent": "North America",
+        "aspectRatio": "2:3",
+        "continent": "Europe",
         "designFeatures": [
-          "vertical bands",
-          "leaf"
+          "vertical tricolor"
         ],
         "similarityGroups": [
-          "red-white"
+          "tricolor"
         ]
       }
     },
@@ -42,28 +43,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/it/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/it/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/it/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/it/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -71,14 +72,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/it/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/it/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -86,33 +87,47 @@
     ],
     "clues": {
       "dominantColors": [
-        "red",
-        "white"
+        "green",
+        "white",
+        "red"
       ],
-      "hasEmblem": true,
+      "hasEmblem": false,
       "stripeOrientation": "vertical",
-      "aspectRatio": "1:2",
-      "continent": "North America",
+      "aspectRatio": "2:3",
+      "continent": "Europe",
       "designFeatures": [
-        "vertical bands",
-        "leaf"
+        "vertical tricolor"
       ],
       "similarityGroups": [
-        "red-white"
+        "tricolor"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:indonesia",
+        "entityId": "country:france",
         "similarTo": [
-          "country:canada"
+          "country:italy"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:united-states",
+        "entityId": "country:germany",
         "similarTo": [
-          "country:canada"
+          "country:italy"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:italy"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:nigeria",
+        "similarTo": [
+          "country:italy"
         ],
         "reason": "shared flag design family"
       }

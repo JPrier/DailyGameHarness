@@ -67,11 +67,11 @@ test('flag fade wrong country returns color, continent, design, and layout feedb
   await expect(game.getByTestId('status-banner')).toContainText('Incorrect');
   await expect(game.getByTestId('guess-history')).toContainText('Canada');
   await expect(game.getByTestId('feedback-row-continent').last()).toBeVisible();
-  await expect(game.getByTestId('feedback-row-dominantColors').last()).toContainText(/red|white/);
+  await expect(game.getByTestId('feedback-row-dominantColors').last()).toContainText('yes');
   await expect(game.getByTestId('feedback-row-emblem').last()).toBeVisible();
   await expect(game.getByTestId('feedback-row-stripeOrientation').last()).toBeVisible();
   await expect(game.getByTestId('feedback-row-aspectRatio').last()).toBeVisible();
-  await expect(game.getByTestId('flag-color-feedback')).toContainText(/red|white/);
+  await expect(game.getByTestId('flag-color-feedback')).toContainText('yes');
   await expect(game.getByTestId('flag-continent-feedback')).toContainText(/yes|no/);
   await expect(game.getByTestId('flag-design-feedback')).toContainText(/yes|no/);
 });

@@ -109,6 +109,27 @@
           "country:france"
         ],
         "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:italy",
+        "similarTo": [
+          "country:france"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:france"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:nigeria",
+        "similarTo": [
+          "country:france"
+        ],
+        "reason": "shared flag design family"
       }
     ]
   }

@@ -10,30 +10,32 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:indonesia",
-      "canonicalName": "Indonesia",
+      "entityId": "country:germany",
+      "canonicalName": "Germany",
       "aliases": [
-        "ID",
-        "IDN",
-        "Indonesian flag"
+        "Deutschland",
+        "DE",
+        "DEU",
+        "German flag"
       ],
-      "iso2": "ID",
-      "iso3": "IDN",
-      "continent": "Asia",
+      "iso2": "DE",
+      "iso3": "DEU",
+      "continent": "Europe",
       "clues": {
         "dominantColors": [
+          "black",
           "red",
-          "white"
+          "yellow"
         ],
         "hasEmblem": false,
         "stripeOrientation": "horizontal",
-        "aspectRatio": "2:3",
-        "continent": "Asia",
+        "aspectRatio": "3:5",
+        "continent": "Europe",
         "designFeatures": [
-          "horizontal bicolor"
+          "horizontal tricolor"
         ],
         "similarityGroups": [
-          "red-white"
+          "tricolor"
         ]
       }
     },
@@ -41,28 +43,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/id/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/de/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/id/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/de/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/id/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/de/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/id/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/de/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -70,14 +72,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/id/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/de/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/id/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/de/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -85,32 +87,47 @@
     ],
     "clues": {
       "dominantColors": [
+        "black",
         "red",
-        "white"
+        "yellow"
       ],
       "hasEmblem": false,
       "stripeOrientation": "horizontal",
-      "aspectRatio": "2:3",
-      "continent": "Asia",
+      "aspectRatio": "3:5",
+      "continent": "Europe",
       "designFeatures": [
-        "horizontal bicolor"
+        "horizontal tricolor"
       ],
       "similarityGroups": [
-        "red-white"
+        "tricolor"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:canada",
+        "entityId": "country:france",
         "similarTo": [
-          "country:indonesia"
+          "country:germany"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:united-states",
+        "entityId": "country:italy",
         "similarTo": [
-          "country:indonesia"
+          "country:germany"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:germany"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:nigeria",
+        "similarTo": [
+          "country:germany"
         ],
         "reason": "shared flag design family"
       }

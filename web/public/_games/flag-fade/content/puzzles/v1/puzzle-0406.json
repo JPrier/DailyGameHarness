@@ -33,7 +33,8 @@
           "central disc"
         ],
         "similarityGroups": [
-          "central-disc"
+          "central-disc",
+          "blue-yellow"
         ]
       }
     },
@@ -96,7 +97,8 @@
         "central disc"
       ],
       "similarityGroups": [
-        "central-disc"
+        "central-disc",
+        "blue-yellow"
       ]
     },
     "similarFlags": [
@@ -109,6 +111,13 @@
       },
       {
         "entityId": "country:bangladesh",
+        "similarTo": [
+          "country:palau"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:sweden",
         "similarTo": [
           "country:palau"
         ],

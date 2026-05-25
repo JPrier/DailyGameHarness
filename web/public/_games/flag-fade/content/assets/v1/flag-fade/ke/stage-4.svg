@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Obscured flag clue stage 4">
+  <rect width="300" height="200" fill="#f3f5f6"/>
+  <g opacity="0.9"><rect width="300" height="200" fill="#006600"/><rect width="300" height="62" fill="#000000"/><rect y="69" width="300" height="62" fill="#bb0000"/><rect y="62" width="300" height="7" fill="#ffffff"/><rect y="131" width="300" height="7" fill="#ffffff"/><ellipse cx="150" cy="100" rx="24" ry="44" fill="#bb0000" stroke="#ffffff" stroke-width="6"/><path d="M150 58 V142" stroke="#000000" stroke-width="5"/></g><rect width="300" height="200" fill="#ffffff" opacity="0.08"/>
+  <path d="M1 1 H299 V199 H1 Z" fill="none" stroke="#263238" stroke-width="2" opacity="0.16"/>
+</svg>

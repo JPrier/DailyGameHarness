@@ -10,38 +10,35 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:united-states",
-      "canonicalName": "United States",
+      "entityId": "country:south-korea",
+      "canonicalName": "South Korea",
       "aliases": [
-        "United States of America",
-        "USA",
-        "US",
-        "America",
-        "U.S.",
-        "U.S.A."
+        "Republic of Korea",
+        "Korea",
+        "KR",
+        "KOR",
+        "ROK"
       ],
-      "iso2": "US",
-      "iso3": "USA",
-      "continent": "North America",
+      "iso2": "KR",
+      "iso3": "KOR",
+      "continent": "Asia",
       "clues": {
         "dominantColors": [
-          "red",
           "white",
-          "blue"
+          "red",
+          "blue",
+          "black"
         ],
         "hasEmblem": true,
-        "stripeOrientation": "horizontal",
-        "aspectRatio": "10:19",
-        "continent": "North America",
+        "stripeOrientation": "none",
+        "aspectRatio": "2:3",
+        "continent": "Asia",
         "designFeatures": [
-          "horizontal stripes",
-          "canton",
-          "stars"
+          "central emblem",
+          "corner marks"
         ],
         "similarityGroups": [
-          "red-white-blue",
-          "red-white",
-          "canton"
+          "central-emblem"
         ]
       }
     },
@@ -49,28 +46,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/us/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/us/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/us/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/us/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -78,14 +75,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/us/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/us/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/kr/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -93,37 +90,56 @@
     ],
     "clues": {
       "dominantColors": [
-        "red",
         "white",
-        "blue"
+        "red",
+        "blue",
+        "black"
       ],
       "hasEmblem": true,
-      "stripeOrientation": "horizontal",
-      "aspectRatio": "10:19",
-      "continent": "North America",
+      "stripeOrientation": "none",
+      "aspectRatio": "2:3",
+      "continent": "Asia",
       "designFeatures": [
-        "horizontal stripes",
-        "canton",
-        "stars"
+        "central emblem",
+        "corner marks"
       ],
       "similarityGroups": [
-        "red-white-blue",
-        "red-white",
-        "canton"
+        "central-emblem"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:canada",
+        "entityId": "country:brazil",
         "similarTo": [
-          "country:united-states"
+          "country:south-korea"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:indonesia",
+        "entityId": "country:mexico",
         "similarTo": [
-          "country:united-states"
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:india",
+        "similarTo": [
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:argentina",
+        "similarTo": [
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:kenya",
+        "similarTo": [
+          "country:south-korea"
         ],
         "reason": "shared flag design family"
       }

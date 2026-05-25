@@ -10,34 +10,33 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:south-korea",
-      "canonicalName": "South Korea",
+      "entityId": "country:kenya",
+      "canonicalName": "Kenya",
       "aliases": [
-        "Republic of Korea",
-        "Korea",
-        "KR",
-        "KOR",
-        "ROK"
+        "KE",
+        "KEN",
+        "Kenyan flag"
       ],
-      "iso2": "KR",
-      "iso3": "KOR",
-      "continent": "Asia",
+      "iso2": "KE",
+      "iso3": "KEN",
+      "continent": "Africa",
       "clues": {
         "dominantColors": [
-          "white",
+          "black",
           "red",
-          "blue",
-          "black"
+          "green",
+          "white"
         ],
         "hasEmblem": true,
-        "stripeOrientation": "none",
+        "stripeOrientation": "horizontal",
         "aspectRatio": "2:3",
-        "continent": "Asia",
+        "continent": "Africa",
         "designFeatures": [
-          "central emblem",
-          "corner marks"
+          "horizontal tricolor",
+          "central shield"
         ],
         "similarityGroups": [
+          "horizontal-tricolor",
           "central-emblem"
         ]
       }
@@ -46,28 +45,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/ke/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/ke/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/ke/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/ke/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -75,14 +74,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/ke/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/ke/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -90,28 +89,57 @@
     ],
     "clues": {
       "dominantColors": [
-        "white",
+        "black",
         "red",
-        "blue",
-        "black"
+        "green",
+        "white"
       ],
       "hasEmblem": true,
-      "stripeOrientation": "none",
+      "stripeOrientation": "horizontal",
       "aspectRatio": "2:3",
-      "continent": "Asia",
+      "continent": "Africa",
       "designFeatures": [
-        "central emblem",
-        "corner marks"
+        "horizontal tricolor",
+        "central shield"
       ],
       "similarityGroups": [
+        "horizontal-tricolor",
         "central-emblem"
       ]
     },
     "similarFlags": [
       {
+        "entityId": "country:south-korea",
+        "similarTo": [
+          "country:kenya"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
         "entityId": "country:brazil",
         "similarTo": [
-          "country:south-korea"
+          "country:kenya"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:kenya"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:india",
+        "similarTo": [
+          "country:kenya"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:argentina",
+        "similarTo": [
+          "country:kenya"
         ],
         "reason": "shared flag design family"
       }

@@ -10,31 +10,32 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:canada",
-      "canonicalName": "Canada",
+      "entityId": "country:switzerland",
+      "canonicalName": "Switzerland",
       "aliases": [
-        "CA",
-        "CAN",
-        "Canadian flag"
+        "Swiss Confederation",
+        "CH",
+        "CHE",
+        "Swiss flag"
       ],
-      "iso2": "CA",
-      "iso3": "CAN",
-      "continent": "North America",
+      "iso2": "CH",
+      "iso3": "CHE",
+      "continent": "Europe",
       "clues": {
         "dominantColors": [
           "red",
           "white"
         ],
-        "hasEmblem": true,
-        "stripeOrientation": "vertical",
-        "aspectRatio": "1:2",
-        "continent": "North America",
+        "hasEmblem": false,
+        "stripeOrientation": "cross",
+        "aspectRatio": "1:1",
+        "continent": "Europe",
         "designFeatures": [
-          "vertical bands",
-          "leaf"
+          "centered cross"
         ],
         "similarityGroups": [
-          "red-white"
+          "red-white",
+          "cross"
         ]
       }
     },
@@ -42,28 +43,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/ch/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/ch/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/ch/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/ch/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -71,14 +72,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/ch/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/ch/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -89,30 +90,65 @@
         "red",
         "white"
       ],
-      "hasEmblem": true,
-      "stripeOrientation": "vertical",
-      "aspectRatio": "1:2",
-      "continent": "North America",
+      "hasEmblem": false,
+      "stripeOrientation": "cross",
+      "aspectRatio": "1:1",
+      "continent": "Europe",
       "designFeatures": [
-        "vertical bands",
-        "leaf"
+        "centered cross"
       ],
       "similarityGroups": [
-        "red-white"
+        "red-white",
+        "cross"
       ]
     },
     "similarFlags": [
       {
+        "entityId": "country:canada",
+        "similarTo": [
+          "country:switzerland"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
         "entityId": "country:indonesia",
         "similarTo": [
-          "country:canada"
+          "country:switzerland"
         ],
         "reason": "shared flag design family"
       },
       {
         "entityId": "country:united-states",
         "similarTo": [
-          "country:canada"
+          "country:switzerland"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:united-kingdom",
+        "similarTo": [
+          "country:switzerland"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:sweden",
+        "similarTo": [
+          "country:switzerland"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:norway",
+        "similarTo": [
+          "country:switzerland"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:turkey",
+        "similarTo": [
+          "country:switzerland"
         ],
         "reason": "shared flag design family"
       }

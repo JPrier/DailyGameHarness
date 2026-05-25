@@ -10,32 +10,37 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:france",
-      "canonicalName": "France",
+      "entityId": "country:south-africa",
+      "canonicalName": "South Africa",
       "aliases": [
-        "FR",
-        "FRA",
-        "French Republic",
-        "French flag"
+        "RSA",
+        "ZA",
+        "ZAF",
+        "South African flag"
       ],
-      "iso2": "FR",
-      "iso3": "FRA",
-      "continent": "Europe",
+      "iso2": "ZA",
+      "iso3": "ZAF",
+      "continent": "Africa",
       "clues": {
         "dominantColors": [
-          "blue",
+          "green",
+          "yellow",
+          "black",
           "white",
-          "red"
+          "red",
+          "blue"
         ],
         "hasEmblem": false,
-        "stripeOrientation": "vertical",
+        "stripeOrientation": "none",
         "aspectRatio": "2:3",
-        "continent": "Europe",
+        "continent": "Africa",
         "designFeatures": [
-          "vertical tricolor"
+          "y-shape",
+          "multicolor"
         ],
         "similarityGroups": [
-          "tricolor"
+          "multicolor",
+          "red-white-blue"
         ]
       }
     },
@@ -43,28 +48,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -72,14 +77,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -87,26 +92,52 @@
     ],
     "clues": {
       "dominantColors": [
-        "blue",
+        "green",
+        "yellow",
+        "black",
         "white",
-        "red"
+        "red",
+        "blue"
       ],
       "hasEmblem": false,
-      "stripeOrientation": "vertical",
+      "stripeOrientation": "none",
       "aspectRatio": "2:3",
-      "continent": "Europe",
+      "continent": "Africa",
       "designFeatures": [
-        "vertical tricolor"
+        "y-shape",
+        "multicolor"
       ],
       "similarityGroups": [
-        "tricolor"
+        "multicolor",
+        "red-white-blue"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:germany",
+        "entityId": "country:united-states",
         "similarTo": [
-          "country:france"
+          "country:south-africa"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:united-kingdom",
+        "similarTo": [
+          "country:south-africa"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:australia",
+        "similarTo": [
+          "country:south-africa"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:norway",
+        "similarTo": [
+          "country:south-africa"
         ],
         "reason": "shared flag design family"
       }

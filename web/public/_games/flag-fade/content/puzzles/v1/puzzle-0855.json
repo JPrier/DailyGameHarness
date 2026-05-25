@@ -113,6 +113,34 @@
           "country:brazil"
         ],
         "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:brazil"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:india",
+        "similarTo": [
+          "country:brazil"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:argentina",
+        "similarTo": [
+          "country:brazil"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:kenya",
+        "similarTo": [
+          "country:brazil"
+        ],
+        "reason": "shared flag design family"
       }
     ]
   }

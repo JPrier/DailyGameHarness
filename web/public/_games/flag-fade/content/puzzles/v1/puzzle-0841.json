@@ -10,31 +10,34 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:canada",
-      "canonicalName": "Canada",
+      "entityId": "country:australia",
+      "canonicalName": "Australia",
       "aliases": [
-        "CA",
-        "CAN",
-        "Canadian flag"
+        "AU",
+        "AUS",
+        "Australian flag"
       ],
-      "iso2": "CA",
-      "iso3": "CAN",
-      "continent": "North America",
+      "iso2": "AU",
+      "iso3": "AUS",
+      "continent": "Oceania",
       "clues": {
         "dominantColors": [
-          "red",
-          "white"
+          "blue",
+          "white",
+          "red"
         ],
         "hasEmblem": true,
-        "stripeOrientation": "vertical",
+        "stripeOrientation": "canton",
         "aspectRatio": "1:2",
-        "continent": "North America",
+        "continent": "Oceania",
         "designFeatures": [
-          "vertical bands",
-          "leaf"
+          "canton",
+          "stars"
         ],
         "similarityGroups": [
-          "red-white"
+          "red-white-blue",
+          "canton",
+          "stars"
         ]
       }
     },
@@ -42,28 +45,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/au/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/au/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/au/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/au/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -71,14 +74,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/au/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/ca/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/au/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -86,33 +89,64 @@
     ],
     "clues": {
       "dominantColors": [
-        "red",
-        "white"
+        "blue",
+        "white",
+        "red"
       ],
       "hasEmblem": true,
-      "stripeOrientation": "vertical",
+      "stripeOrientation": "canton",
       "aspectRatio": "1:2",
-      "continent": "North America",
+      "continent": "Oceania",
       "designFeatures": [
-        "vertical bands",
-        "leaf"
+        "canton",
+        "stars"
       ],
       "similarityGroups": [
-        "red-white"
+        "red-white-blue",
+        "canton",
+        "stars"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:indonesia",
+        "entityId": "country:united-states",
         "similarTo": [
-          "country:canada"
+          "country:australia"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:united-states",
+        "entityId": "country:united-kingdom",
         "similarTo": [
-          "country:canada"
+          "country:australia"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:china",
+        "similarTo": [
+          "country:australia"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:south-africa",
+        "similarTo": [
+          "country:australia"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:norway",
+        "similarTo": [
+          "country:australia"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:turkey",
+        "similarTo": [
+          "country:australia"
         ],
         "reason": "shared flag design family"
       }

@@ -10,34 +10,34 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:south-korea",
-      "canonicalName": "South Korea",
+      "entityId": "country:india",
+      "canonicalName": "India",
       "aliases": [
-        "Republic of Korea",
-        "Korea",
-        "KR",
-        "KOR",
-        "ROK"
+        "Bharat",
+        "IN",
+        "IND",
+        "Indian flag"
       ],
-      "iso2": "KR",
-      "iso3": "KOR",
+      "iso2": "IN",
+      "iso3": "IND",
       "continent": "Asia",
       "clues": {
         "dominantColors": [
+          "orange",
           "white",
-          "red",
-          "blue",
-          "black"
+          "green",
+          "blue"
         ],
         "hasEmblem": true,
-        "stripeOrientation": "none",
+        "stripeOrientation": "horizontal",
         "aspectRatio": "2:3",
         "continent": "Asia",
         "designFeatures": [
-          "central emblem",
-          "corner marks"
+          "horizontal tricolor",
+          "central wheel"
         ],
         "similarityGroups": [
+          "horizontal-tricolor",
           "central-emblem"
         ]
       }
@@ -46,28 +46,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/in/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/in/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/in/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/in/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -75,14 +75,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/in/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/kr/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/in/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -90,28 +90,57 @@
     ],
     "clues": {
       "dominantColors": [
+        "orange",
         "white",
-        "red",
-        "blue",
-        "black"
+        "green",
+        "blue"
       ],
       "hasEmblem": true,
-      "stripeOrientation": "none",
+      "stripeOrientation": "horizontal",
       "aspectRatio": "2:3",
       "continent": "Asia",
       "designFeatures": [
-        "central emblem",
-        "corner marks"
+        "horizontal tricolor",
+        "central wheel"
       ],
       "similarityGroups": [
+        "horizontal-tricolor",
         "central-emblem"
       ]
     },
     "similarFlags": [
       {
+        "entityId": "country:south-korea",
+        "similarTo": [
+          "country:india"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
         "entityId": "country:brazil",
         "similarTo": [
-          "country:south-korea"
+          "country:india"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:india"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:argentina",
+        "similarTo": [
+          "country:india"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:kenya",
+        "similarTo": [
+          "country:india"
         ],
         "reason": "shared flag design family"
       }

@@ -115,6 +115,20 @@
           "country:canada"
         ],
         "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:canada"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:turkey",
+        "similarTo": [
+          "country:canada"
+        ],
+        "reason": "shared flag design family"
       }
     ]
   }

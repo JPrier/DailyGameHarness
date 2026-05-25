@@ -10,32 +10,33 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:germany",
-      "canonicalName": "Germany",
+      "entityId": "country:argentina",
+      "canonicalName": "Argentina",
       "aliases": [
-        "Deutschland",
-        "DE",
-        "DEU",
-        "German flag"
+        "AR",
+        "ARG",
+        "Argentine flag"
       ],
-      "iso2": "DE",
-      "iso3": "DEU",
-      "continent": "Europe",
+      "iso2": "AR",
+      "iso3": "ARG",
+      "continent": "South America",
       "clues": {
         "dominantColors": [
-          "black",
-          "red",
+          "blue",
+          "white",
           "yellow"
         ],
-        "hasEmblem": false,
+        "hasEmblem": true,
         "stripeOrientation": "horizontal",
-        "aspectRatio": "3:5",
-        "continent": "Europe",
+        "aspectRatio": "5:8",
+        "continent": "South America",
         "designFeatures": [
-          "horizontal tricolor"
+          "horizontal triband",
+          "central sun"
         ],
         "similarityGroups": [
-          "tricolor"
+          "horizontal-triband",
+          "central-emblem"
         ]
       }
     },
@@ -43,28 +44,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/ar/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/ar/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/ar/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/ar/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -72,14 +73,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/ar/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/de/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/ar/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -87,26 +88,63 @@
     ],
     "clues": {
       "dominantColors": [
-        "black",
-        "red",
+        "blue",
+        "white",
         "yellow"
       ],
-      "hasEmblem": false,
+      "hasEmblem": true,
       "stripeOrientation": "horizontal",
-      "aspectRatio": "3:5",
-      "continent": "Europe",
+      "aspectRatio": "5:8",
+      "continent": "South America",
       "designFeatures": [
-        "horizontal tricolor"
+        "horizontal triband",
+        "central sun"
       ],
       "similarityGroups": [
-        "tricolor"
+        "horizontal-triband",
+        "central-emblem"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:france",
+        "entityId": "country:south-korea",
         "similarTo": [
-          "country:germany"
+          "country:argentina"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:brazil",
+        "similarTo": [
+          "country:argentina"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:spain",
+        "similarTo": [
+          "country:argentina"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:argentina"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:india",
+        "similarTo": [
+          "country:argentina"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:kenya",
+        "similarTo": [
+          "country:argentina"
         ],
         "reason": "shared flag design family"
       }

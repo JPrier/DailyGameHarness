@@ -10,34 +10,34 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:brazil",
-      "canonicalName": "Brazil",
+      "entityId": "country:norway",
+      "canonicalName": "Norway",
       "aliases": [
-        "Brasil",
-        "BR",
-        "BRA",
-        "Brazilian flag"
+        "Norge",
+        "NO",
+        "NOR",
+        "Norwegian flag"
       ],
-      "iso2": "BR",
-      "iso3": "BRA",
-      "continent": "South America",
+      "iso2": "NO",
+      "iso3": "NOR",
+      "continent": "Europe",
       "clues": {
         "dominantColors": [
-          "green",
-          "yellow",
-          "blue",
-          "white"
+          "red",
+          "white",
+          "blue"
         ],
-        "hasEmblem": true,
-        "stripeOrientation": "none",
-        "aspectRatio": "7:10",
-        "continent": "South America",
+        "hasEmblem": false,
+        "stripeOrientation": "cross",
+        "aspectRatio": "8:11",
+        "continent": "Europe",
         "designFeatures": [
-          "diamond",
-          "central disc"
+          "nordic cross"
         ],
         "similarityGroups": [
-          "central-emblem"
+          "red-white-blue",
+          "cross",
+          "nordic-cross"
         ]
       }
     },
@@ -45,28 +45,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/no/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/no/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/no/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/no/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -74,14 +74,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/no/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/no/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -89,28 +89,63 @@
     ],
     "clues": {
       "dominantColors": [
-        "green",
-        "yellow",
-        "blue",
-        "white"
+        "red",
+        "white",
+        "blue"
       ],
-      "hasEmblem": true,
-      "stripeOrientation": "none",
-      "aspectRatio": "7:10",
-      "continent": "South America",
+      "hasEmblem": false,
+      "stripeOrientation": "cross",
+      "aspectRatio": "8:11",
+      "continent": "Europe",
       "designFeatures": [
-        "diamond",
-        "central disc"
+        "nordic cross"
       ],
       "similarityGroups": [
-        "central-emblem"
+        "red-white-blue",
+        "cross",
+        "nordic-cross"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:south-korea",
+        "entityId": "country:united-states",
         "similarTo": [
-          "country:brazil"
+          "country:norway"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:united-kingdom",
+        "similarTo": [
+          "country:norway"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:australia",
+        "similarTo": [
+          "country:norway"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:south-africa",
+        "similarTo": [
+          "country:norway"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:sweden",
+        "similarTo": [
+          "country:norway"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:norway"
         ],
         "reason": "shared flag design family"
       }

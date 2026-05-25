@@ -10,32 +10,37 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:japan",
-      "canonicalName": "Japan",
+      "entityId": "country:united-kingdom",
+      "canonicalName": "United Kingdom",
       "aliases": [
-        "Nippon",
-        "Nihon",
-        "JP",
-        "JPN",
-        "Japanese flag"
+        "UK",
+        "GB",
+        "GBR",
+        "Great Britain",
+        "Britain",
+        "Union Jack"
       ],
-      "iso2": "JP",
-      "iso3": "JPN",
-      "continent": "Asia",
+      "iso2": "GB",
+      "iso3": "GBR",
+      "continent": "Europe",
       "clues": {
         "dominantColors": [
+          "blue",
           "white",
           "red"
         ],
-        "hasEmblem": true,
-        "stripeOrientation": "none",
-        "aspectRatio": "2:3",
-        "continent": "Asia",
+        "hasEmblem": false,
+        "stripeOrientation": "cross",
+        "aspectRatio": "1:2",
+        "continent": "Europe",
         "designFeatures": [
-          "central disc"
+          "crosses",
+          "diagonal cross"
         ],
         "similarityGroups": [
-          "central-disc"
+          "red-white-blue",
+          "cross",
+          "canton"
         ]
       }
     },
@@ -43,28 +48,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -72,14 +77,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/jp/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -87,32 +92,64 @@
     ],
     "clues": {
       "dominantColors": [
+        "blue",
         "white",
         "red"
       ],
-      "hasEmblem": true,
-      "stripeOrientation": "none",
-      "aspectRatio": "2:3",
-      "continent": "Asia",
+      "hasEmblem": false,
+      "stripeOrientation": "cross",
+      "aspectRatio": "1:2",
+      "continent": "Europe",
       "designFeatures": [
-        "central disc"
+        "crosses",
+        "diagonal cross"
       ],
       "similarityGroups": [
-        "central-disc"
+        "red-white-blue",
+        "cross",
+        "canton"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:bangladesh",
+        "entityId": "country:united-states",
         "similarTo": [
-          "country:japan"
+          "country:united-kingdom"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:palau",
+        "entityId": "country:australia",
         "similarTo": [
-          "country:japan"
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:south-africa",
+        "similarTo": [
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:sweden",
+        "similarTo": [
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:norway",
+        "similarTo": [
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:united-kingdom"
         ],
         "reason": "shared flag design family"
       }

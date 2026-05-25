@@ -114,6 +114,34 @@
           "country:south-korea"
         ],
         "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:india",
+        "similarTo": [
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:argentina",
+        "similarTo": [
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:kenya",
+        "similarTo": [
+          "country:south-korea"
+        ],
+        "reason": "shared flag design family"
       }
     ]
   }

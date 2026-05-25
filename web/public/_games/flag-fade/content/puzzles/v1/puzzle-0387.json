@@ -10,32 +10,34 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:france",
-      "canonicalName": "France",
+      "entityId": "country:spain",
+      "canonicalName": "Spain",
       "aliases": [
-        "FR",
-        "FRA",
-        "French Republic",
-        "French flag"
+        "Espana",
+        "España",
+        "ES",
+        "ESP",
+        "Spanish flag"
       ],
-      "iso2": "FR",
-      "iso3": "FRA",
+      "iso2": "ES",
+      "iso3": "ESP",
       "continent": "Europe",
       "clues": {
         "dominantColors": [
-          "blue",
-          "white",
-          "red"
+          "red",
+          "yellow"
         ],
-        "hasEmblem": false,
-        "stripeOrientation": "vertical",
+        "hasEmblem": true,
+        "stripeOrientation": "horizontal",
         "aspectRatio": "2:3",
         "continent": "Europe",
         "designFeatures": [
-          "vertical tricolor"
+          "horizontal triband",
+          "coat of arms"
         ],
         "similarityGroups": [
-          "tricolor"
+          "red-yellow",
+          "horizontal-triband"
         ]
       }
     },
@@ -43,28 +45,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/es/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/es/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/es/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/es/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -72,14 +74,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/es/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/fr/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/es/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -87,26 +89,34 @@
     ],
     "clues": {
       "dominantColors": [
-        "blue",
-        "white",
-        "red"
+        "red",
+        "yellow"
       ],
-      "hasEmblem": false,
-      "stripeOrientation": "vertical",
+      "hasEmblem": true,
+      "stripeOrientation": "horizontal",
       "aspectRatio": "2:3",
       "continent": "Europe",
       "designFeatures": [
-        "vertical tricolor"
+        "horizontal triband",
+        "coat of arms"
       ],
       "similarityGroups": [
-        "tricolor"
+        "red-yellow",
+        "horizontal-triband"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:germany",
+        "entityId": "country:china",
         "similarTo": [
-          "country:france"
+          "country:spain"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:argentina",
+        "similarTo": [
+          "country:spain"
         ],
         "reason": "shared flag design family"
       }

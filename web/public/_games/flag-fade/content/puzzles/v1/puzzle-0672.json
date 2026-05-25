@@ -10,30 +10,34 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:bangladesh",
-      "canonicalName": "Bangladesh",
+      "entityId": "country:turkey",
+      "canonicalName": "Turkey",
       "aliases": [
-        "BD",
-        "BGD",
-        "Bangladeshi flag"
+        "Türkiye",
+        "Turkiye",
+        "TR",
+        "TUR",
+        "Turkish flag"
       ],
-      "iso2": "BD",
-      "iso3": "BGD",
+      "iso2": "TR",
+      "iso3": "TUR",
       "continent": "Asia",
       "clues": {
         "dominantColors": [
-          "green",
-          "red"
+          "red",
+          "white"
         ],
         "hasEmblem": true,
         "stripeOrientation": "none",
-        "aspectRatio": "3:5",
+        "aspectRatio": "2:3",
         "continent": "Asia",
         "designFeatures": [
-          "central disc"
+          "crescent",
+          "star"
         ],
         "similarityGroups": [
-          "central-disc"
+          "red-white",
+          "stars"
         ]
       }
     },
@@ -41,28 +45,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/tr/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/tr/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/tr/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/tr/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -70,14 +74,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/tr/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/tr/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -85,32 +89,62 @@
     ],
     "clues": {
       "dominantColors": [
-        "green",
-        "red"
+        "red",
+        "white"
       ],
       "hasEmblem": true,
       "stripeOrientation": "none",
-      "aspectRatio": "3:5",
+      "aspectRatio": "2:3",
       "continent": "Asia",
       "designFeatures": [
-        "central disc"
+        "crescent",
+        "star"
       ],
       "similarityGroups": [
-        "central-disc"
+        "red-white",
+        "stars"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:japan",
+        "entityId": "country:canada",
         "similarTo": [
-          "country:bangladesh"
+          "country:turkey"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:palau",
+        "entityId": "country:indonesia",
         "similarTo": [
-          "country:bangladesh"
+          "country:turkey"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:united-states",
+        "similarTo": [
+          "country:turkey"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:china",
+        "similarTo": [
+          "country:turkey"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:australia",
+        "similarTo": [
+          "country:turkey"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:turkey"
         ],
         "reason": "shared flag design family"
       }

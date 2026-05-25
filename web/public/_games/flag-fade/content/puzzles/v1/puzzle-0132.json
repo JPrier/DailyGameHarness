@@ -10,30 +10,32 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:bangladesh",
-      "canonicalName": "Bangladesh",
+      "entityId": "country:france",
+      "canonicalName": "France",
       "aliases": [
-        "BD",
-        "BGD",
-        "Bangladeshi flag"
+        "FR",
+        "FRA",
+        "French Republic",
+        "French flag"
       ],
-      "iso2": "BD",
-      "iso3": "BGD",
-      "continent": "Asia",
+      "iso2": "FR",
+      "iso3": "FRA",
+      "continent": "Europe",
       "clues": {
         "dominantColors": [
-          "green",
+          "blue",
+          "white",
           "red"
         ],
-        "hasEmblem": true,
-        "stripeOrientation": "none",
-        "aspectRatio": "3:5",
-        "continent": "Asia",
+        "hasEmblem": false,
+        "stripeOrientation": "vertical",
+        "aspectRatio": "2:3",
+        "continent": "Europe",
         "designFeatures": [
-          "central disc"
+          "vertical tricolor"
         ],
         "similarityGroups": [
-          "central-disc"
+          "tricolor"
         ]
       }
     },
@@ -41,28 +43,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/fr/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/fr/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/fr/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/fr/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -70,14 +72,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/fr/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/fr/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -85,32 +87,47 @@
     ],
     "clues": {
       "dominantColors": [
-        "green",
+        "blue",
+        "white",
         "red"
       ],
-      "hasEmblem": true,
-      "stripeOrientation": "none",
-      "aspectRatio": "3:5",
-      "continent": "Asia",
+      "hasEmblem": false,
+      "stripeOrientation": "vertical",
+      "aspectRatio": "2:3",
+      "continent": "Europe",
       "designFeatures": [
-        "central disc"
+        "vertical tricolor"
       ],
       "similarityGroups": [
-        "central-disc"
+        "tricolor"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:japan",
+        "entityId": "country:germany",
         "similarTo": [
-          "country:bangladesh"
+          "country:france"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:palau",
+        "entityId": "country:italy",
         "similarTo": [
-          "country:bangladesh"
+          "country:france"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:mexico",
+        "similarTo": [
+          "country:france"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:nigeria",
+        "similarTo": [
+          "country:france"
         ],
         "reason": "shared flag design family"
       }

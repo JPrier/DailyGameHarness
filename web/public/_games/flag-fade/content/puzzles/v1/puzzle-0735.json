@@ -10,34 +10,37 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:brazil",
-      "canonicalName": "Brazil",
+      "entityId": "country:united-kingdom",
+      "canonicalName": "United Kingdom",
       "aliases": [
-        "Brasil",
-        "BR",
-        "BRA",
-        "Brazilian flag"
+        "UK",
+        "GB",
+        "GBR",
+        "Great Britain",
+        "Britain",
+        "Union Jack"
       ],
-      "iso2": "BR",
-      "iso3": "BRA",
-      "continent": "South America",
+      "iso2": "GB",
+      "iso3": "GBR",
+      "continent": "Europe",
       "clues": {
         "dominantColors": [
-          "green",
-          "yellow",
           "blue",
-          "white"
+          "white",
+          "red"
         ],
-        "hasEmblem": true,
-        "stripeOrientation": "none",
-        "aspectRatio": "7:10",
-        "continent": "South America",
+        "hasEmblem": false,
+        "stripeOrientation": "cross",
+        "aspectRatio": "1:2",
+        "continent": "Europe",
         "designFeatures": [
-          "diamond",
-          "central disc"
+          "crosses",
+          "diagonal cross"
         ],
         "similarityGroups": [
-          "central-emblem"
+          "red-white-blue",
+          "cross",
+          "canton"
         ]
       }
     },
@@ -45,28 +48,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -74,14 +77,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/br/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/gb/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -89,28 +92,64 @@
     ],
     "clues": {
       "dominantColors": [
-        "green",
-        "yellow",
         "blue",
-        "white"
+        "white",
+        "red"
       ],
-      "hasEmblem": true,
-      "stripeOrientation": "none",
-      "aspectRatio": "7:10",
-      "continent": "South America",
+      "hasEmblem": false,
+      "stripeOrientation": "cross",
+      "aspectRatio": "1:2",
+      "continent": "Europe",
       "designFeatures": [
-        "diamond",
-        "central disc"
+        "crosses",
+        "diagonal cross"
       ],
       "similarityGroups": [
-        "central-emblem"
+        "red-white-blue",
+        "cross",
+        "canton"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:south-korea",
+        "entityId": "country:united-states",
         "similarTo": [
-          "country:brazil"
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:australia",
+        "similarTo": [
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:south-africa",
+        "similarTo": [
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:sweden",
+        "similarTo": [
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:norway",
+        "similarTo": [
+          "country:united-kingdom"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:switzerland",
+        "similarTo": [
+          "country:united-kingdom"
         ],
         "reason": "shared flag design family"
       }

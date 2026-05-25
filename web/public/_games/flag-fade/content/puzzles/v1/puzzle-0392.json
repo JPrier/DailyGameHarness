@@ -10,30 +10,37 @@
   },
   "extension": {
     "answer": {
-      "entityId": "country:bangladesh",
-      "canonicalName": "Bangladesh",
+      "entityId": "country:south-africa",
+      "canonicalName": "South Africa",
       "aliases": [
-        "BD",
-        "BGD",
-        "Bangladeshi flag"
+        "RSA",
+        "ZA",
+        "ZAF",
+        "South African flag"
       ],
-      "iso2": "BD",
-      "iso3": "BGD",
-      "continent": "Asia",
+      "iso2": "ZA",
+      "iso3": "ZAF",
+      "continent": "Africa",
       "clues": {
         "dominantColors": [
           "green",
-          "red"
+          "yellow",
+          "black",
+          "white",
+          "red",
+          "blue"
         ],
-        "hasEmblem": true,
+        "hasEmblem": false,
         "stripeOrientation": "none",
-        "aspectRatio": "3:5",
-        "continent": "Asia",
+        "aspectRatio": "2:3",
+        "continent": "Africa",
         "designFeatures": [
-          "central disc"
+          "y-shape",
+          "multicolor"
         ],
         "similarityGroups": [
-          "central-disc"
+          "multicolor",
+          "red-white-blue"
         ]
       }
     },
@@ -41,28 +48,28 @@
     "assetStages": [
       {
         "stage": 0,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-0.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-0.svg",
         "reveals": [
           "palette"
         ]
       },
       {
         "stage": 1,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-1.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-1.svg",
         "reveals": [
           "pixelated"
         ]
       },
       {
         "stage": 2,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-2.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-2.svg",
         "reveals": [
           "blurred"
         ]
       },
       {
         "stage": 3,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-3.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-3.svg",
         "reveals": [
           "major-shapes",
           "emblem"
@@ -70,14 +77,14 @@
       },
       {
         "stage": 4,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-4.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-4.svg",
         "reveals": [
           "near-full"
         ]
       },
       {
         "stage": 5,
-        "assetPath": "content/assets/v1/flag-fade/bd/stage-5.svg",
+        "assetPath": "content/assets/v1/flag-fade/za/stage-5.svg",
         "reveals": [
           "full-flag"
         ]
@@ -86,31 +93,51 @@
     "clues": {
       "dominantColors": [
         "green",
-        "red"
+        "yellow",
+        "black",
+        "white",
+        "red",
+        "blue"
       ],
-      "hasEmblem": true,
+      "hasEmblem": false,
       "stripeOrientation": "none",
-      "aspectRatio": "3:5",
-      "continent": "Asia",
+      "aspectRatio": "2:3",
+      "continent": "Africa",
       "designFeatures": [
-        "central disc"
+        "y-shape",
+        "multicolor"
       ],
       "similarityGroups": [
-        "central-disc"
+        "multicolor",
+        "red-white-blue"
       ]
     },
     "similarFlags": [
       {
-        "entityId": "country:japan",
+        "entityId": "country:united-states",
         "similarTo": [
-          "country:bangladesh"
+          "country:south-africa"
         ],
         "reason": "shared flag design family"
       },
       {
-        "entityId": "country:palau",
+        "entityId": "country:united-kingdom",
         "similarTo": [
-          "country:bangladesh"
+          "country:south-africa"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:australia",
+        "similarTo": [
+          "country:south-africa"
+        ],
+        "reason": "shared flag design family"
+      },
+      {
+        "entityId": "country:norway",
+        "similarTo": [
+          "country:south-africa"
         ],
         "reason": "shared flag design family"
       }
