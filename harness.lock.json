@@ -33,7 +33,7 @@
       "sourceType": "git",
       "repo": "https://github.com/JPrier/DailyGameCityGrid.git",
       "requestedRef": "main",
-      "resolvedSha": "65842b51a33af965961ffe74566b166d1066c842",
+      "resolvedSha": "ca56866506d8d68154450f9a0bc95a79b39de735",
       "localPath": ".harness/external-games/DailyGameCityGrid"
     }
   ]
