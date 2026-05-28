@@ -892,7 +892,12 @@ mod tests {
         .expect("index");
     }
 
-    fn write_command_pkg(dir: &Path, script: &str, outputs: &[&str]) -> String {
+    fn write_command_pkg(
+        dir: &Path,
+        script: &str,
+        outputs: &[&str],
+        timeout_seconds: u64,
+    ) -> String {
         std::fs::create_dir_all(dir.join("tools")).expect("tools");
         std::fs::create_dir_all(dir.join("src")).expect("src");
         std::fs::write(dir.join("src/GameView.svelte"), "").expect("ui");
@@ -903,7 +908,7 @@ mod tests {
             .collect::<Vec<_>>()
             .join(",");
         let body = format!(
-            r#"{{"schemaVersion":"daily-game-package.v1","contractVersion":"daily-game-runtime.v1","game":{{"id":"command-test","slug":"command-test","displayName":"Command Test"}},"runtime":{{"entry":"dist/runtime/index.js"}},"ui":{{"entry":"src/GameView.svelte"}},"content":{{"manifest":"content/manifest.json","puzzlesDir":"content/puzzles","assetsDir":"content/assets"}},"build":{{"mode":"command","commands":[{{"name":"build","run":"node tools/build.mjs","timeoutSeconds":1}}],"outputs":[{outputs_json}]}},"extension":{{}}}}"#
+            r#"{{"schemaVersion":"daily-game-package.v1","contractVersion":"daily-game-runtime.v1","game":{{"id":"command-test","slug":"command-test","displayName":"Command Test"}},"runtime":{{"entry":"dist/runtime/index.js"}},"ui":{{"entry":"src/GameView.svelte"}},"content":{{"manifest":"content/manifest.json","puzzlesDir":"content/puzzles","assetsDir":"content/assets"}},"build":{{"mode":"command","commands":[{{"name":"build","run":"node tools/build.mjs","timeoutSeconds":{timeout_seconds}}}],"outputs":[{outputs_json}]}},"extension":{{}}}}"#
         );
         std::fs::write(dir.join("daily-game.config.json"), &body).expect("pkg");
         body
@@ -1168,6 +1173,7 @@ write('content/assets/asset.txt', 'asset');
                 "content/manifest.json",
                 "content/puzzles",
             ],
+            10,
         );
         let h = write_harness_for(&tmp.display().to_string());
         assert!(build_or_verify_games(&h).is_ok());
@@ -1186,6 +1192,7 @@ write('content/assets/asset.txt', 'asset');
             &tmp,
             valid_command_script(),
             &["dist/runtime/index.js", "missing/output.txt"],
+            10,
         );
         let h = write_harness_for(&tmp.display().to_string());
         let err = build_or_verify_games(&h).expect_err("missing output should fail");
@@ -1199,6 +1206,7 @@ write('content/assets/asset.txt', 'asset');
             &tmp,
             "console.log('stdout marker'); console.error('stderr marker'); process.exit(7);",
             &["dist/runtime/index.js"],
+            10,
         );
         let h = write_harness_for(&tmp.display().to_string());
         let err = build_or_verify_games(&h).expect_err("nonzero should fail");
@@ -1215,6 +1223,7 @@ write('content/assets/asset.txt', 'asset');
             &tmp,
             "setTimeout(() => console.log('too late'), 3000);",
             &["dist/runtime/index.js"],
+            1,
         );
         let h = write_harness_for(&tmp.display().to_string());
         let err = build_or_verify_games(&h).expect_err("timeout should fail");
